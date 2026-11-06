@@ -62,6 +62,10 @@ details[open] summary { margin-bottom: 12px; }
   .item img { width: 72px; height: 56px; }
   .item .acts { grid-column: 1 / -1; justify-content: flex-start; }
 }
+.vip-check { display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-radius: 12px; background: #FFF8E1; border: 1.5px solid #E2C35A; cursor: pointer; }
+.vip-check input { width: auto; accent-color: #B8901E; }
+.vip-check b { color: #8A6A00; }
+.pill.vip { background: #1A1711; color: #E2C35A; }
 </style>
 </head>
 <body>
@@ -81,7 +85,7 @@ details[open] summary { margin-bottom: 12px; }
   function $(s, r) { return (r || document).querySelector(s); }
   if (!FC.conectado()) { app.innerHTML = '<div class="panel"><div class="box"><h1>Panel sin conectar</h1><p>Falta poner los datos de Supabase en el archivo comun.js.</p></div></div>'; return; }
   var sb = supabase.createClient(FC.CONFIG.url, FC.CONFIG.key);
-  var user = null, props = [], editing = null, photos = [], pendingDelete = null, tab = "props", lugares = [];
+  var user = null, props = [], editing = null, photos = [], pendingDelete = null, tab = "props", lugares = [], autos = [];
   var CIUDADES = ["Habana Vieja", "Centro Habana", "Vedado", "Miramar", "Playa", "Varadero", "Viñales", "Trinidad", "Cienfuegos", "Santa Clara", "Camagüey", "Santiago de Cuba", "Holguín", "Baracoa", "Cayo Coco", "Cayo Santa María"];
 
   /* ---------- Entrar ---------- */
@@ -128,16 +132,18 @@ details[open] summary { margin-bottom: 12px; }
   }
   function tabs() {
     return '<div class="chips" role="tablist" style="margin-bottom:4px"><button type="button" class="chip" data-act="tab" data-tab="props" aria-pressed="' + (tab === "props") + '">Casas y apartamentos</button>' +
+      '<button type="button" class="chip" data-act="tab" data-tab="autos" aria-pressed="' + (tab === "autos") + '">Renta de autos</button>' +
       '<button type="button" class="chip" data-act="tab" data-tab="lugares" aria-pressed="' + (tab === "lugares") + '">★ Nuestros lugares Forever</button></div>';
   }
   function showList(note) {
     if (tab === "lugares") { loadLugares(note); return; }
+    if (tab === "autos") { loadAutos(note); return; }
     editing = null;
     var items = props.map(function (p) {
       var del = pendingDelete === p.id ? '<div class="confirm" style="grid-column:1/-1">¿Borrar "' + esc(p.titulo_es) + '" para siempre? <button class="btn small" data-act="del-yes" data-id="' + p.id + '">Sí, borrar</button><button class="btn small" data-act="del-no">No</button></div>' : '';
       return '<div class="item"><img src="' + esc(FC.foto(p)) + '" alt="">' +
         '<div><h3>' + esc(p.titulo_es) + '</h3><p class="meta">' + esc(p.tipo) + ' · ' + esc(p.ciudad) + ' · $' + p.precio + ' por noche · ' + (p.fotos || []).length + ' fotos</p>' +
-        '<span class="pill ' + (p.publicado ? 'on">Publicada' : 'off">Oculta') + '</span></div>' +
+        '<span class="pill ' + (p.publicado ? 'on">Publicada' : 'off">Oculta') + '</span>' + (p.vip ? ' <span class="pill vip">★ VIP</span>' : '') + '</div>' +
         '<div class="acts"><a class="btn small" href="casa.html?id=' + p.id + '" target="_blank">Ver</a><button class="btn small" data-act="edit" data-id="' + p.id + '">Editar</button>' +
         '<button class="btn small" data-act="toggle" data-id="' + p.id + '">' + (p.publicado ? 'Ocultar' : 'Publicar') + '</button>' +
         '<button class="btn small" data-act="del" data-id="' + p.id + '">Borrar</button></div>' + del + '</div>';
@@ -202,6 +208,7 @@ details[open] summary { margin-bottom: 12px; }
       '<div><p style="font-weight:600;margin-bottom:4px">Fotos</p><p class="help" style="margin-bottom:10px">La primera foto es la portada. Usa las flechas para cambiar el orden.</p>' +
         '<div class="photos" id="phs"></div>' +
         '<label class="drop" id="drop" for="fFotos" style="margin-top:10px;display:block;cursor:pointer">Toca aquí para elegir fotos, o arrástralas aquí<input id="fFotos" type="file" accept="image/*" multiple hidden></label></div>' +
+'<label class="vip-check"><input id="fVip" type="checkbox"' + (p.vip ? ' checked' : '') + '> <span><b>★ VIP</b> — aparece en las páginas de Servicio VIP</span></label>' +
       '<label style="display:flex;align-items:center;gap:10px;font-weight:600"><input id="fPub" type="checkbox" style="width:auto"' + (p.publicado ? ' checked' : '') + '> Publicada (se ve en la página)</label>' +
       '<div class="save-bar"><button class="btn primary" type="submit" id="saveBtn">Guardar</button><button class="btn" type="button" data-act="back">Cancelar</button><span class="help" id="saveMsg" role="status"></span></div>' +
       '</form></div></div>';
@@ -270,7 +277,7 @@ details[open] summary { margin-bottom: 12px; }
         titulo_fr: $("#fTitFr").value.trim() || null, desc_fr: $("#fDescFr").value.trim() || null,
         precio: +$("#fPrecio").value || 0, personas: +$("#fPers").value || 1, habitaciones: +$("#fHab").value || 0, banos: +$("#fBan").value || 0,
         comodidades: Array.prototype.map.call(document.querySelectorAll('input[name="amen"]:checked'), function (c) { return c.value; }),
-        fotos: urls.filter(Boolean), publicado: $("#fPub").checked
+        fotos: urls.filter(Boolean), publicado: $("#fPub").checked, vip: $("#fVip").checked
       };
       var q = editing === "new" ? sb.from("propiedades").insert(row) : sb.from("propiedades").update(row).eq("id", editing);
       return q.then(function (r) { if (r.error) throw r.error; loadList('Guardado: "' + row.titulo_es + '". Ya ' + (row.publicado ? 'se ve en la página.' : 'está guardada (oculta).')); });
@@ -294,7 +301,7 @@ details[open] summary { margin-bottom: 12px; }
       var del = pendingDelete === p.id ? '<div class="confirm" style="grid-column:1/-1">¿Borrar "' + esc(p.nombre) + '" para siempre? <button class="btn small" data-act="ldel-yes" data-id="' + p.id + '">Sí, borrar</button><button class="btn small" data-act="ldel-no">No</button></div>' : '';
       return '<div class="item"><img src="' + esc(p.foto || FC.FALLBACK) + '" alt="">' +
         '<div><h3>' + esc(p.nombre) + '</h3><p class="meta">' + esc(CATS[p.categoria] || p.categoria) + ' · ' + esc(p.ciudad) + '</p>' +
-        '<span class="pill ' + (p.publicado ? 'on">Publicado' : 'off">Oculto') + '</span></div>' +
+        '<span class="pill ' + (p.publicado ? 'on">Publicado' : 'off">Oculto') + '</span>' + (p.vip ? ' <span class="pill vip">★ VIP</span>' : '') + '</div>' +
         '<div class="acts"><button class="btn small" data-act="ledit" data-id="' + p.id + '">Editar</button>' +
         '<button class="btn small" data-act="ltoggle" data-id="' + p.id + '">' + (p.publicado ? 'Ocultar' : 'Publicar') + '</button>' +
         '<button class="btn small" data-act="ldel" data-id="' + p.id + '">Borrar</button></div>' + del + '</div>';
@@ -322,6 +329,7 @@ details[open] summary { margin-bottom: 12px; }
         '<label for="lDescFr">Descripción en francés<textarea id="lDescFr">' + esc(p.desc_fr || "") + '</textarea></label><label for="lTipFr">Consejo en francés<input id="lTipFr" value="' + esc(p.tip_fr || "") + '"></label></div></details>' +
       '<div><p style="font-weight:600;margin-bottom:8px">Foto</p><div class="photos" id="lph"></div>' +
         '<label class="drop" for="lFoto" style="margin-top:10px;display:block;cursor:pointer">Toca aquí para elegir una foto<input id="lFoto" type="file" accept="image/*" hidden></label></div>' +
+'<label class="vip-check"><input id="lVip" type="checkbox"' + (p.vip ? ' checked' : '') + '> <span><b>★ VIP</b> — aparece en las páginas de Servicio VIP</span></label>' +
       '<label style="display:flex;align-items:center;gap:10px;font-weight:600"><input id="lPub" type="checkbox" style="width:auto"' + (p.publicado ? ' checked' : '') + '> Publicado (se ve en la página)</label>' +
       '<div class="save-bar"><button class="btn primary" type="submit" id="lSave">Guardar</button><button class="btn" type="button" data-act="lback">Cancelar</button><span class="help" id="lMsg" role="status"></span></div>' +
       '</form></div></div>';
@@ -343,9 +351,79 @@ details[open] summary { margin-bottom: 12px; }
         desc_es: $("#lDesc").value.trim() || null, tip_es: $("#lTip").value.trim() || null,
         desc_en: $("#lDescEn").value.trim() || null, tip_en: $("#lTipEn").value.trim() || null,
         desc_fr: $("#lDescFr").value.trim() || null, tip_fr: $("#lTipFr").value.trim() || null,
-        foto: url, publicado: $("#lPub").checked };
+        foto: url, publicado: $("#lPub").checked, vip: $("#lVip").checked };
       var q = lugEditing === "new" ? sb.from("lugares").insert(row) : sb.from("lugares").update(row).eq("id", lugEditing);
       return q.then(function (r) { if (r.error) throw r.error; loadLugares('Guardado: "' + row.nombre + '".'); });
+    }).catch(function (err) { btn.disabled = false; msg.textContent = "No se pudo guardar: " + (err.message || err) + ". Inténtalo otra vez."; });
+  }
+
+  /* ---------- Renta de autos ---------- */
+  var TRANS = { manual: "Manual", auto: "Automático", driver: "Con chofer" };
+  var autoFoto = null, autoEditing = null;
+  function loadAutos(note) {
+    sb.from("autos").select("*").order("orden").order("precio").then(function (r) {
+      if (r.error) { app.innerHTML = '<div class="panel">' + tabs() + '<p class="msg bad">Error al cargar: ' + esc(r.error.message) + '</p></div>'; return; }
+      autos = r.data || []; showAutos(note);
+    });
+  }
+  function showAutos(note) {
+    autoEditing = null;
+    var items = autos.map(function (a) {
+      var del = pendingDelete === a.id ? '<div class="confirm" style="grid-column:1/-1">¿Borrar "' + esc(a.nombre_es) + '" para siempre? <button class="btn small" data-act="adel-yes" data-id="' + a.id + '">Sí, borrar</button><button class="btn small" data-act="adel-no">No</button></div>' : '';
+      return '<div class="item"><img src="' + esc(a.foto || FC.FALLBACK) + '" alt="">' +
+        '<div><h3>' + esc(a.nombre_es) + '</h3><p class="meta">' + esc(a.modelo || "") + ' · ' + esc(TRANS[a.transmision] || a.transmision) + ' · $' + a.precio + ' por día</p>' +
+        '<span class="pill ' + (a.publicado ? 'on">Publicado' : 'off">Oculto') + '</span>' + (a.vip ? ' <span class="pill vip">★ VIP</span>' : '') + '</div>' +
+        '<div class="acts"><button class="btn small" data-act="aedit" data-id="' + a.id + '">Editar</button>' +
+        '<button class="btn small" data-act="atoggle" data-id="' + a.id + '">' + (a.publicado ? 'Ocultar' : 'Publicar') + '</button>' +
+        '<button class="btn small" data-act="adel" data-id="' + a.id + '">Borrar</button></div>' + del + '</div>';
+    }).join("");
+    app.innerHTML = '<div class="panel">' + tabs() + (note ? '<p class="msg">' + esc(note) + '</p>' : '') +
+      '<div class="box"><div class="row-head"><h1>Renta de autos</h1><div class="inline"><a class="btn small" href="index.html#autos" target="_blank">Ver página</a><button class="btn primary" data-act="anew">+ Agregar auto</button></div></div>' +
+      '<p class="help" style="font-size:1rem">Los autos que se ofrecen en "Renta de autos". Marca <b>★ VIP</b> los que deben aparecer en las páginas de Servicio VIP.</p>' +
+      (autos.length ? '<div class="list">' + items + '</div>' : '<p class="help" style="font-size:1rem">Todavía no hay autos. Mientras tanto la página muestra la lista de ejemplo; en cuanto publiques el primero, la de ejemplo desaparece.</p>') +
+      '</div></div>';
+  }
+  function showAutoForm(a) {
+    autoEditing = a ? a.id : "new";
+    a = a || { nombre_es: "", nombre_en: "", nombre_fr: "", modelo: "", personas: 4, puertas: 4, maletas: 2, transmision: "auto", precio: "", foto: null, publicado: true, vip: false };
+    autoFoto = a.foto ? { url: a.foto } : null;
+    app.innerHTML = '<div class="panel"><div class="box"><div class="row-head"><h1>' + (autoEditing === "new" ? "Agregar auto" : "Editar auto") + '</h1><button class="btn small" data-act="aback">← Volver</button></div>' +
+      '<form class="form" id="af">' +
+      '<label for="aNombre">Nombre o categoría<input id="aNombre" required value="' + esc(a.nombre_es) + '" placeholder="Ej. Mercedes-Benz Clase E con chofer"></label>' +
+      '<label for="aModelo">Modelo (opcional)<input id="aModelo" value="' + esc(a.modelo || "") + '" placeholder="Ej. Mercedes-Benz E300 o similar"></label>' +
+      '<details' + (a.nombre_en || a.nombre_fr ? ' open' : '') + '><summary>Inglés y francés (opcional)</summary><div class="form"><p class="help">Si lo dejas vacío, se muestra el nombre en español.</p>' +
+        '<label for="aNomEn">Nombre en inglés<input id="aNomEn" value="' + esc(a.nombre_en || "") + '"></label><label for="aNomFr">Nombre en francés<input id="aNomFr" value="' + esc(a.nombre_fr || "") + '"></label></div></details>' +
+      '<div class="g4"><label for="aPrecio">Precio por día (USD)<input id="aPrecio" type="number" min="0" required value="' + esc(a.precio) + '"></label>' +
+      '<label for="aPers">Personas<input id="aPers" type="number" min="1" required value="' + esc(a.personas) + '"></label>' +
+      '<label for="aPuertas">Puertas<input id="aPuertas" type="number" min="2" required value="' + esc(a.puertas) + '"></label>' +
+      '<label for="aMaletas">Maletas<input id="aMaletas" type="number" min="0" required value="' + esc(a.maletas) + '"></label></div>' +
+      '<label for="aTrans">Tipo<select id="aTrans"><option value="auto">Automático</option><option value="manual">Manual</option><option value="driver">Con chofer</option></select></label>' +
+      '<div><p style="font-weight:600;margin-bottom:8px">Foto</p><div class="photos" id="aph"></div>' +
+        '<label class="drop" for="aFoto" style="margin-top:10px;display:block;cursor:pointer">Toca aquí para elegir una foto<input id="aFoto" type="file" accept="image/*" hidden></label></div>' +
+      '<label class="vip-check"><input id="aVip" type="checkbox"' + (a.vip ? ' checked' : '') + '> <span><b>★ VIP</b> — aparece en las páginas de Servicio VIP</span></label>' +
+      '<label style="display:flex;align-items:center;gap:10px;font-weight:600"><input id="aPub" type="checkbox" style="width:auto"' + (a.publicado ? ' checked' : '') + '> Publicado (se ve en la página)</label>' +
+      '<div class="save-bar"><button class="btn primary" type="submit" id="aSave">Guardar</button><button class="btn" type="button" data-act="aback">Cancelar</button><span class="help" id="aMsg" role="status"></span></div>' +
+      '</form></div></div>';
+    $("#aTrans").value = a.transmision;
+    drawAutoFoto();
+    $("#aFoto").addEventListener("change", function (e) { var f = e.target.files[0]; if (f) { autoFoto = { file: f, preview: URL.createObjectURL(f) }; drawAutoFoto(); } e.target.value = ""; });
+    $("#af").addEventListener("submit", saveAuto);
+    window.scrollTo(0, 0);
+  }
+  function drawAutoFoto() {
+    $("#aph").innerHTML = autoFoto ? '<div class="ph"><img src="' + esc(autoFoto.preview || autoFoto.url) + '" alt=""><div class="tools"><span></span><button type="button" data-act="aph-del" aria-label="Quitar foto">✕</button><span></span></div></div>' : '';
+  }
+  function saveAuto(e) {
+    e.preventDefault();
+    var btn = $("#aSave"), msg = $("#aMsg"); btn.disabled = true; msg.textContent = autoFoto && autoFoto.file ? "Subiendo foto…" : "Guardando…";
+    var up = autoFoto && autoFoto.file ? upload(autoFoto, 0, "autos/" + Date.now()) : Promise.resolve(autoFoto ? autoFoto.url : null);
+    up.then(function (url) {
+      var row = { nombre_es: $("#aNombre").value.trim(), modelo: $("#aModelo").value.trim() || null,
+        nombre_en: $("#aNomEn").value.trim() || null, nombre_fr: $("#aNomFr").value.trim() || null,
+        precio: +$("#aPrecio").value || 0, personas: +$("#aPers").value || 1, puertas: +$("#aPuertas").value || 4, maletas: +$("#aMaletas").value || 0,
+        transmision: $("#aTrans").value, foto: url, publicado: $("#aPub").checked, vip: $("#aVip").checked };
+      var q = autoEditing === "new" ? sb.from("autos").insert(row) : sb.from("autos").update(row).eq("id", autoEditing);
+      return q.then(function (r) { if (r.error) throw r.error; loadAutos('Guardado: "' + row.nombre_es + '".'); });
     }).catch(function (err) { btn.disabled = false; msg.textContent = "No se pudo guardar: " + (err.message || err) + ". Inténtalo otra vez."; });
   }
 
@@ -356,6 +434,15 @@ details[open] summary { margin-bottom: 12px; }
     var p = props.filter(function (x) { return x.id === id; })[0];
     var lp = lugares.filter(function (x) { return x.id === id; })[0];
     if (act === "tab") { tab = b.getAttribute("data-tab"); pendingDelete = null; showList(); return; }
+    var ap = autos.filter(function (x) { return x.id === id; })[0];
+    if (act === "anew") return showAutoForm(null);
+    if (act === "aedit") return showAutoForm(ap);
+    if (act === "aback") { pendingDelete = null; return showAutos(); }
+    if (act === "atoggle") return sb.from("autos").update({ publicado: !ap.publicado }).eq("id", id).then(function () { loadAutos(ap.publicado ? "Auto oculto." : "Auto publicado."); });
+    if (act === "adel") { pendingDelete = id; return showAutos(); }
+    if (act === "adel-no") { pendingDelete = null; return showAutos(); }
+    if (act === "adel-yes") { pendingDelete = null; return sb.from("autos").delete().eq("id", id).then(function (r) { loadAutos(r.error ? "No se pudo borrar: " + r.error.message : "Auto borrado."); }); }
+    if (act === "aph-del") { autoFoto = null; return drawAutoFoto(); }
     if (act === "lnew") return showLugarForm(null);
     if (act === "ledit") return showLugarForm(lp);
     if (act === "lback") { pendingDelete = null; return showLugares(); }

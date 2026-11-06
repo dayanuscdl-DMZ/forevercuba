@@ -94,7 +94,7 @@
       eyebrow: "Elegidos por el equipo ForeverCuba", h1: "Nuestros lugares Forever",
       lead: "Los sitios donde comemos, brindamos y bailamos cuando estamos en Cuba. Los visitamos nosotros mismos y te los recomendamos.",
       sample: "Lista de ejemplo: muy pronto el equipo publicará aquí sus lugares favoritos.", all: "Todos", city: "Ciudad", all_cities: "Todas",
-      tip: "Nuestro consejo:", map: "Ver en el mapa", ask: "Preguntar por WhatsApp", none: "No hay lugares con ese filtro todavía.",
+      tip: "Nuestro consejo:", vip_none: "Pronto tendremos lugares VIP aquí. Escríbenos y tu asesor te recomienda los mejores.", map: "Ver en el mapa", ask: "Preguntar por WhatsApp", none: "No hay lugares con ese filtro todavía.",
       m_ask: "Hola ForeverCuba, quiero información sobre {p} ({c})." },
     en: { nav_rent: "Houses & apartments", nav_cars: "Car rental", nav_tours: "Tours", nav_pack: "Packages", nav_fly: "Flights", nav_prov: "Provinces", nav_vip: "VIP service",
       fbar4: "Free GPS download", fbar3: "Cuba eVisa", fbar2: "Tips before you travel", fbar: "Our Forever places", fbar_sub: "Restaurants, bars and spots picked by our team",
@@ -102,7 +102,7 @@
       eyebrow: "Picked by the ForeverCuba team", h1: "Our Forever places",
       lead: "The places where we eat, toast and dance when we're in Cuba. We've been there ourselves and we recommend them.",
       sample: "Sample list: our team will publish their favorite places here very soon.", all: "All", city: "City", all_cities: "All",
-      tip: "Our tip:", map: "Show on map", ask: "Ask on WhatsApp", none: "No places match this filter yet.",
+      tip: "Our tip:", vip_none: "VIP places are coming soon here. Message us and your advisor will recommend the best.", map: "Show on map", ask: "Ask on WhatsApp", none: "No places match this filter yet.",
       m_ask: "Hi ForeverCuba, I'd like information about {p} ({c})." },
     fr: { nav_rent: "Maisons et appartements", nav_cars: "Location de voitures", nav_tours: "Excursions", nav_pack: "Forfaits", nav_fly: "Vols", nav_prov: "Provinces", nav_vip: "Service VIP",
       fbar4: "GPS gratuit", fbar3: "eVisa Cuba", fbar2: "Conseils avant de partir", fbar: "Nos lieux Forever", fbar_sub: "Restaurants, bars et coins choisis par notre équipe",
@@ -110,18 +110,18 @@
       eyebrow: "Choisis par l'équipe ForeverCuba", h1: "Nos lieux Forever",
       lead: "Les endroits où nous mangeons, trinquons et dansons quand nous sommes à Cuba. Nous les avons testés et nous vous les recommandons.",
       sample: "Liste d'exemple : notre équipe publiera très bientôt ici ses lieux préférés.", all: "Tous", city: "Ville", all_cities: "Toutes",
-      tip: "Notre conseil :", map: "Voir sur la carte", ask: "Demander sur WhatsApp", none: "Aucun lieu ne correspond encore à ce filtre.",
+      tip: "Notre conseil :", vip_none: "Des lieux VIP arrivent bientôt ici. Écrivez-nous et votre conseiller vous recommandera les meilleurs.", map: "Voir sur la carte", ask: "Demander sur WhatsApp", none: "Aucun lieu ne correspond encore à ce filtre.",
       m_ask: "Bonjour ForeverCuba, je souhaite des informations sur {p} ({c})." }
   };
   function L3(es, en, fr) { return { es: es, en: en, fr: fr }; }
   var EJEMPLOS = [
-    { id: "x1", nombre: "La Guarida", categoria: "restaurante", ciudad: "La Habana",
+    { id: "x1", vip: true, nombre: "La Guarida", categoria: "restaurante", ciudad: "La Habana",
       d: L3("Uno de los paladares más famosos de Cuba, en una mansión antigua de Centro Habana con una escalera inolvidable.", "One of Cuba's most famous paladares, in an old Centro Habana mansion with an unforgettable staircase.", "L'un des paladares les plus célèbres de Cuba, dans une ancienne demeure de Centro Habana à l'escalier inoubliable."),
       t: L3("Reserva con tiempo y sube a la terraza antes de cenar.", "Book ahead and go up to the rooftop before dinner.", "Réservez à l'avance et montez sur la terrasse avant le dîner.") },
     { id: "x2", nombre: "El Cocinero", categoria: "restaurante", ciudad: "La Habana",
       d: L3("Restaurante en una antigua fábrica del Vedado, con terraza en lo alto junto a una chimenea de ladrillo.", "A restaurant in an old Vedado factory, with a rooftop terrace next to a brick chimney.", "Restaurant dans une ancienne usine du Vedado, avec une terrasse en hauteur près d'une cheminée en brique."),
       t: L3("Combínalo con una noche en la Fábrica de Arte, que está al lado.", "Pair it with a night at the Fábrica de Arte next door.", "À combiner avec une soirée à la Fábrica de Arte, juste à côté.") },
-    { id: "x3", nombre: "El Floridita", categoria: "bar", ciudad: "La Habana",
+    { id: "x3", vip: true, nombre: "El Floridita", categoria: "bar", ciudad: "La Habana",
       d: L3("La cuna del daiquirí y uno de los bares favoritos de Ernest Hemingway, en la calle Obispo.", "The birthplace of the daiquiri and one of Ernest Hemingway's favorite bars, on Obispo Street.", "Le berceau du daïquiri et l'un des bars préférés d'Ernest Hemingway, rue Obispo."),
       t: L3("Ve temprano en la tarde para encontrar sitio en la barra.", "Go early in the afternoon to get a spot at the bar.", "Allez-y en début d'après-midi pour avoir une place au comptoir.") },
     { id: "x4", nombre: "La Bodeguita del Medio", categoria: "bar", ciudad: "La Habana",
@@ -130,7 +130,7 @@
     { id: "x5", nombre: "O'Reilly 304", categoria: "bar", ciudad: "La Habana",
       d: L3("Pequeño y animado, conocido por sus gin tonics gigantes y su comida creativa.", "Small and lively, known for its giant gin and tonics and creative food.", "Petit et animé, connu pour ses gin tonics géants et sa cuisine créative."),
       t: L3("Ideal para empezar la noche en La Habana Vieja.", "Perfect to start the night in Old Havana.", "Parfait pour commencer la soirée dans la Vieille Havane.") },
-    { id: "x6", nombre: "Jardín del Hotel Nacional", categoria: "bar", ciudad: "La Habana",
+    { id: "x6", vip: true, nombre: "Jardín del Hotel Nacional", categoria: "bar", ciudad: "La Habana",
       d: L3("Los jardines del histórico Hotel Nacional, con vista al Malecón y al mar.", "The gardens of the historic Hotel Nacional, overlooking the Malecón and the sea.", "Les jardins de l'historique Hôtel Nacional, avec vue sur le Malecón et la mer."),
       t: L3("Ven al atardecer y pide un cóctel en los sillones del jardín.", "Come at sunset and order a cocktail in the garden armchairs.", "Venez au coucher du soleil et commandez un cocktail dans les fauteuils du jardin.") },
     { id: "x7", nombre: "Café El Escorial", categoria: "cafe", ciudad: "La Habana",
@@ -139,7 +139,7 @@
     { id: "x8", nombre: "Fábrica de Arte Cubano", categoria: "musica", ciudad: "La Habana",
       d: L3("Galería, conciertos, cine y baile en una antigua fábrica del Vedado. El lugar más moderno de La Habana.", "Gallery, concerts, cinema and dancing in an old Vedado factory. Havana's trendiest spot.", "Galerie, concerts, cinéma et danse dans une ancienne usine du Vedado. Le lieu le plus branché de La Havane."),
       t: L3("Abre solo algunos días de la semana: pregúntanos antes de ir.", "It only opens some days of the week: ask us before you go.", "Ouvert seulement certains jours de la semaine : demandez-nous avant d'y aller.") },
-    { id: "x9", nombre: "Tropicana", categoria: "musica", ciudad: "La Habana",
+    { id: "x9", vip: true, nombre: "Tropicana", categoria: "musica", ciudad: "La Habana",
       d: L3("El cabaret más famoso de Cuba, con espectáculo al aire libre bajo los árboles desde 1939.", "Cuba's most famous cabaret, with an open-air show under the trees since 1939.", "Le cabaret le plus célèbre de Cuba, avec un spectacle en plein air sous les arbres depuis 1939."),
       t: L3("Te ayudamos a reservar con traslado incluido.", "We can help you book with transfer included.", "Nous pouvons vous aider à réserver avec le transfert inclus.") },
     { id: "x10", nombre: "Casa de la Música de Trinidad", categoria: "musica", ciudad: "Trinidad",
@@ -154,7 +154,7 @@
     { id: "x13", nombre: "Terraza del Palacio de Valle", categoria: "bar", ciudad: "Cienfuegos",
       d: L3("Un palacio de estilo morisco en Punta Gorda, con terraza en lo alto frente a la bahía.", "A Moorish-style palace in Punta Gorda with a rooftop terrace facing the bay.", "Un palais de style mauresque à Punta Gorda, avec une terrasse en hauteur face à la baie."),
       t: L3("Sube al atardecer: la vista de la bahía es increíble.", "Go up at sunset: the view of the bay is amazing.", "Montez au coucher du soleil : la vue sur la baie est superbe.") },
-    { id: "x14", nombre: "Mansión Xanadú", categoria: "experiencia", ciudad: "Varadero",
+    { id: "x14", vip: true, nombre: "Mansión Xanadú", categoria: "experiencia", ciudad: "Varadero",
       d: L3("La antigua mansión de la familia Du Pont, con un bar en el último piso y vista a la playa.", "The former Du Pont family mansion, with a top-floor bar overlooking the beach.", "L'ancienne demeure de la famille Du Pont, avec un bar au dernier étage et vue sur la plage."),
       t: L3("Toma algo en el mirador antes del atardecer.", "Have a drink on the lookout before sunset.", "Prenez un verre au belvédère avant le coucher du soleil.") }
   ];
@@ -173,18 +173,19 @@
     var cities = LIST.map(function (p) { return p.ciudad; }).filter(function (c, i, a) { return c && a.indexOf(c) === i; }).sort();
     sel.innerHTML = '<option value="Todas">' + esc(T("all_cities")) + '</option>' + cities.map(function (c) { return '<option>' + esc(c) + '</option>'; }).join("");
     sel.value = cities.indexOf(keep) >= 0 ? keep : "Todas";
-    var list = LIST.filter(function (p) { return (cat === "all" || p.categoria === cat) && (sel.value === "Todas" || p.ciudad === sel.value); });
+    var soloVip = document.documentElement.classList.contains("modo-vip");
+    var list = LIST.filter(function (p) { return (cat === "all" || p.categoria === cat) && (sel.value === "Todas" || p.ciudad === sel.value) && (!soloVip || p.vip); });
     $("#lgGrid").innerHTML = list.map(function (p) {
       var c = C[p.categoria] || C.experiencia, d = isSample ? txt(p, "d") : txt(p, "desc"), t = isSample ? txt(p, "t") : txt(p, "tip");
       var map = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(p.nombre + ", " + (p.direccion ? p.direccion + ", " : "") + p.ciudad + ", Cuba");
       var wa = (FC.CONFIG.whatsapp ? "https://wa.me/" + FC.CONFIG.whatsapp : "https://wa.me/") + "?text=" + encodeURIComponent(T("m_ask", { p: p.nombre, c: p.ciudad }));
       var pic = p.foto ? '<img src="' + esc(p.foto) + '" alt="' + esc(p.nombre) + '" loading="lazy">' : svg(c.i);
-      return '<article class="lg-card"><div class="lg-pic" style="background:linear-gradient(135deg,' + c.c + ',' + c.c + 'B3)">' + pic +
+      return '<article class="lg-card">' + (p.vip ? '<span class="vip-tag">★ VIP</span>' : '') + '<div class="lg-pic" style="background:linear-gradient(135deg,' + c.c + ',' + c.c + 'B3)">' + pic +
         '<span class="lg-badge">' + esc(c[lang]) + '</span></div><div class="lg-body"><h3>' + esc(p.nombre) + '</h3>' +
         '<p class="meta">' + esc(p.ciudad) + (p.direccion ? ' · ' + esc(p.direccion) : '') + '</p><p>' + esc(d) + '</p>' +
         (t ? '<p class="lg-tip"><b>' + esc(T("tip")) + '</b> ' + esc(t) + '</p>' : '') +
         '<div class="lg-acts"><a class="btn small" href="' + map + '" target="_blank" rel="noopener">' + esc(T("map")) + '</a><a class="btn small" href="' + wa + '" target="_blank" rel="noopener">' + esc(T("ask")) + '</a></div></div></article>';
-    }).join("") || '<p class="lg-empty">' + esc(T("none")) + '</p>';
+    }).join("") || '<p class="lg-empty">' + esc(soloVip ? T("vip_none") : T("none")) + '</p>';
     $("#lgSample").hidden = !isSample;
   }
   $("#lgChips").addEventListener("click", function (e) { var b = e.target.closest("[data-cat]"); if (!b) return; cat = b.getAttribute("data-cat"); draw(); });

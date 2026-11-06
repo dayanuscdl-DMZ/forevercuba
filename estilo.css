@@ -417,3 +417,8 @@ body.es-inicio #packGrid > :nth-child(n+7), body.es-inicio #provGrid > :nth-chil
 :root.modo-vip .cj-links a, :root.modo-vip .ev-side b { color: #E2C35A; }
 :root.modo-vip .ev-steps li::before { background: #C9A227; color: #120E05; }
 :root.modo-vip .ev-side li::before { border-color: #C9A227; color: #E2C35A; }
+/* Etiqueta VIP en tarjetas */
+.card, .lg-card { position: relative; }
+.vip-tag { position: absolute; top: 12px; left: 12px; z-index: 2; background: linear-gradient(135deg, #E9CD72, #B8901E); color: #120E05; font-size: .72rem; font-weight: 800; letter-spacing: .12em; padding: 5px 10px; border-radius: 999px; box-shadow: 0 4px 14px rgba(0,0,0,.25); }
+.vip-vacio { grid-column: 1 / -1; border: 1px dashed #6E5A1E; border-radius: 14px; padding: 22px; color: #CFC6B2; text-align: center; }
+:root:not(.modo-vip) .vip-vacio { color: var(--muted); border-color: var(--line); }

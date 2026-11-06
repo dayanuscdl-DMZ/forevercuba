@@ -27,7 +27,7 @@
 
   /* ---------- Propiedades de ejemplo (se usan mientras no haya propiedades reales en el panel) ---------- */
   FC.EJEMPLOS = [
-    { id: "ej1", tipo: "Casa", ciudad: "Habana Vieja", habitaciones: 3, banos: 2, personas: 6, precio: 55,
+    { id: "ej1", vip: true, tipo: "Casa", ciudad: "Habana Vieja", habitaciones: 3, banos: 2, personas: 6, precio: 55,
       titulo_es: "Casa colonial con patio interior", titulo_en: "Colonial house with inner courtyard", titulo_fr: "Maison coloniale avec patio intérieur",
       desc_es: "Casa del siglo XIX restaurada, con techos altos, arcos y un patio interior lleno de plantas. Está a pocos pasos de la Plaza Vieja y la Catedral, ideal para recorrer La Habana a pie.",
       desc_en: "A restored 19th-century house with high ceilings, arches and a leafy inner courtyard. A few steps from Plaza Vieja and the Cathedral, perfect for exploring Havana on foot.",
@@ -41,14 +41,14 @@
       desc_fr: "Appartement lumineux avec de grandes baies vitrées sur la mer. Depuis le salon, on voit le coucher du soleil sur le Malecón. Proche des restaurants, de la musique live et du Paseo del Prado.",
       comodidades: ["wifi", "ac", "cocina", "agua", "mar", "tv"],
       fotos: [U("photo-1758448511320-05d7d28f4298"), U("photo-1721738861237-3e804f0c9bcc"), U("photo-1725905507743-30f903ebbf2c"), U("photo-1629079447777-1e605162dc8d"), U("photo-1583847268964-b28dc8f51f92")] },
-    { id: "ej3", tipo: "Casa", ciudad: "Vedado", habitaciones: 4, banos: 3, personas: 8, precio: 95,
+    { id: "ej3", vip: true, tipo: "Casa", ciudad: "Vedado", habitaciones: 4, banos: 3, personas: 8, precio: 95,
       titulo_es: "Casa con piscina y terraza", titulo_en: "House with pool and terrace", titulo_fr: "Maison avec piscine et terrasse",
       desc_es: "Casa amplia en una calle tranquila del Vedado, con piscina rodeada de jardín tropical y terraza para comer al aire libre. Perfecta para familias o grupos de amigos.",
       desc_en: "A spacious house on a quiet Vedado street, with a pool surrounded by a tropical garden and a terrace for outdoor meals. Perfect for families or groups of friends.",
       desc_fr: "Grande maison dans une rue calme du Vedado, avec piscine entourée d'un jardin tropical et terrasse pour manger dehors. Parfaite pour les familles ou les groupes d'amis.",
       comodidades: ["wifi", "ac", "cocina", "agua", "piscina", "parqueo", "terraza", "lavadora"],
       fotos: [U("photo-1626571115951-15371ba9354b"), U("photo-1600493505873-cddd69453072"), U("photo-1615874959474-d609969a20ed"), U("photo-1768486143865-342d8cc12c90"), U("photo-1620626011761-996317b8d101")] },
-    { id: "ej4", tipo: "Apartamento", ciudad: "Varadero", habitaciones: 2, banos: 1, personas: 4, precio: 50,
+    { id: "ej4", vip: true, tipo: "Apartamento", ciudad: "Varadero", habitaciones: 2, banos: 1, personas: 4, precio: 50,
       titulo_es: "Apartamento a cinco minutos de la playa", titulo_en: "Apartment five minutes from the beach", titulo_fr: "Appartement à cinq minutes de la plage",
       desc_es: "Apartamento fresco y cómodo a cinco minutos caminando de la playa de Varadero. Tiene todo lo necesario para unas vacaciones de sol y mar.",
       desc_en: "A cool, comfortable apartment a five-minute walk from Varadero beach. Everything you need for a sun-and-sea holiday.",
@@ -142,6 +142,18 @@
       .then(function (rows) { return rows && rows.length ? rows : ejemplos; })
       .catch(function () { return ejemplos; });
     return cacheLug;
+  };
+
+  /* ---------- Autos (del panel; si no hay, la página usa su lista de ejemplo) ---------- */
+  var cacheAutos = null;
+  FC.cargarAutos = function () {
+    if (cacheAutos) return cacheAutos;
+    if (!FC.conectado()) { cacheAutos = Promise.resolve([]); return cacheAutos; }
+    var q = FC.CONFIG.url.replace(/\/$/, "") + "/rest/v1/autos?select=*&publicado=eq.true&order=orden.asc,precio.asc";
+    cacheAutos = fetch(q, { headers: { apikey: FC.CONFIG.key } })
+      .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
+      .catch(function () { return []; });
+    return cacheAutos;
   };
 
   /* Modo VIP: lo que se abre desde Servicio VIP se ve en negro y dorado. El logo lo apaga. */
