@@ -292,3 +292,5 @@ header.top .forever-bar nav a { padding: 9px 0; font-size: .9rem; letter-spacing
 :root[data-theme="dark"] header.top .forever-bar nav a { color: #FF5A7F; }
 @media (max-width: 600px) { header.top .forever-bar nav a { font-size: .74rem; letter-spacing: .06em; } .forever-bar .fbar-links { gap: 0 12px; } }
 @media (max-width: 600px) { .forever-bar .fbar-sep { display: none; } }
+.forever-bar .fbar-links svg { fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.forever-bar .fbar-links a[href="lugares.html"] svg { fill: currentColor; stroke: none; }

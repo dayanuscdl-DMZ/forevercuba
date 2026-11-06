@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="es" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>eVisa Cuba · ForeverCuba</title>
+<meta name="description" content="Pide tu visa electrónica (eVisa) para viajar a Cuba. ForeverCuba te ayuda con el trámite.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="estilo.css">
+<style>
+.cj-hero { padding-top: 36px; max-width: 780px; }
+.cj-hero h1 { font-size: clamp(2.1rem, 5.5vw, 3.6rem); line-height: 1.05; margin-block: 8px 12px; }
+.cj-hero .lead { font-size: 1.12rem; color: var(--muted); max-width: 60ch; }
+.cj-check { display: inline-flex; align-items: center; gap: 8px; margin-top: 14px; font-size: .9rem; font-weight: 600; color: var(--muted); }
+.cj-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr)); gap: 18px; margin-top: 28px; }
+.cj-card { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 20px; display: grid; gap: 12px; align-content: start; box-shadow: 0 2px 14px rgba(0, 0, 0, .05); }
+.cj-card header { display: flex; align-items: center; gap: 12px; }
+.cj-ico { width: 44px; height: 44px; border-radius: 12px; background: #FFF0F4; display: grid; place-items: center; flex: none; }
+:root[data-theme="dark"] .cj-ico { background: #2A1620; }
+.cj-ico svg { width: 24px; height: 24px; fill: none; stroke: #E31C5F; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.cj-card h2 { font-size: 1.15rem; }
+.cj-card ul { margin: 0; padding-left: 18px; display: grid; gap: 8px; }
+.cj-card li { line-height: 1.5; }
+.cj-card.us { border-color: #E31C5F; }
+.cj-links { margin-top: 28px; background: #FFF0F4; border: 2px solid #E31C5F; border-radius: 18px; padding: 20px; display: grid; gap: 10px; }
+:root[data-theme="dark"] .cj-links { background: #2A1620; }
+.cj-links h2 { font-size: 1.15rem; }
+.cj-links ul { margin: 0; padding-left: 18px; display: grid; gap: 6px; }
+.cj-links a { color: #E31C5F; font-weight: 700; }
+.cj-help { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 14px; align-items: center; justify-content: space-between; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 20px; }
+.cj-help p { font-weight: 600; max-width: 60ch; }
+.ev-steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; counter-reset: s; }
+.ev-steps li { counter-increment: s; display: grid; grid-template-columns: 36px minmax(0, 1fr); gap: 12px; align-items: start; }
+.ev-steps li::before { content: counter(s); width: 32px; height: 32px; border-radius: 50%; background: #E31C5F; color: #fff; font-weight: 800; display: grid; place-items: center; }
+.ev-form { display: grid; gap: 12px; }
+.ev-form .two { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr)); gap: 12px; }
+.ev-wide { grid-column: 1 / -1; }
+.ev-trust { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 16px; margin-top: 26px; }
+.ev-trust div { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 12px; align-items: start; }
+.ev-trust b { display: block; margin-bottom: 2px; }
+.ev-trust p { color: var(--muted); font-size: .92rem; }
+.ev-main { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 22px; margin-top: 26px; align-items: start; }
+.ev-box { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 20px; display: grid; gap: 14px; }
+.ev-box h2 { font-size: 1.15rem; }
+.ev-note { background: #FFF0F4; border-radius: 10px; padding: 10px 12px; font-size: .9rem; }
+:root[data-theme="dark"] .ev-note { background: #2A1620; }
+.ev-trav { display: grid; gap: 10px; }
+.ev-trav .row { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 170px), 1fr)); gap: 10px; }
+.ev-trav p { font-weight: 700; }
+.ev-sum { display: flex; justify-content: space-between; gap: 10px; font-weight: 800; padding-top: 10px; border-top: 1px solid var(--line); font-variant-numeric: tabular-nums; }
+.ev-side { position: sticky; top: 190px; background: #FFF0F4; border: 2px solid #E31C5F; border-radius: 18px; padding: 20px; display: grid; gap: 14px; }
+:root[data-theme="dark"] .ev-side { background: #2A1620; }
+.ev-side h2 { font-size: 1.15rem; }
+.ev-side ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; counter-reset: s; }
+.ev-side li { counter-increment: s; display: grid; grid-template-columns: 34px minmax(0, 1fr); gap: 10px; }
+.ev-side li::before { content: counter(s); width: 30px; height: 30px; border-radius: 50%; border: 2px solid #E31C5F; color: #E31C5F; font-weight: 800; display: grid; place-items: center; }
+.ev-side b { display: block; color: #E31C5F; }
+.ev-side p { font-size: .92rem; }
+.ev-diy { margin-top: 26px; }
+.ev-diy summary { cursor: pointer; font-weight: 800; font-size: 1.05rem; padding: 14px 18px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); }
+@media (max-width: 900px) { .ev-main { grid-template-columns: minmax(0, 1fr); } .ev-side { position: static; } }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="topbar"><div class="wrap topbar-in">
+    <div class="langs" role="group" aria-label="Idioma / Language / Langue">
+      <button type="button" class="lang" data-lang="es" aria-label="Español"><svg viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="20" fill="#AA151B"/><rect y="5" width="30" height="10" fill="#F1BF00"/></svg></button>
+      <button type="button" class="lang" data-lang="en" aria-label="English"><svg viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="20" fill="#FFFFFF"/><g fill="#B22234"><rect y="0" width="30" height="1.54"/><rect y="3.08" width="30" height="1.54"/><rect y="6.15" width="30" height="1.54"/><rect y="9.23" width="30" height="1.54"/><rect y="12.31" width="30" height="1.54"/><rect y="15.38" width="30" height="1.54"/><rect y="18.46" width="30" height="1.54"/></g><rect width="12" height="10.77" fill="#3C3B6E"/><g fill="#FFFFFF"><circle cx="2.4" cy="2.2" r=".7"/><circle cx="6" cy="2.2" r=".7"/><circle cx="9.6" cy="2.2" r=".7"/><circle cx="4.2" cy="5.4" r=".7"/><circle cx="7.8" cy="5.4" r=".7"/><circle cx="2.4" cy="8.6" r=".7"/><circle cx="6" cy="8.6" r=".7"/><circle cx="9.6" cy="8.6" r=".7"/></g></svg></button>
+      <button type="button" class="lang" data-lang="fr" aria-label="Français"><svg viewBox="0 0 30 20" aria-hidden="true"><rect width="10" height="20" fill="#002395"/><rect x="10" width="10" height="20" fill="#FFFFFF"/><rect x="20" width="10" height="20" fill="#ED2939"/></svg></button>
+    </div>
+  </div></div>
+  <div class="wrap">
+    <a class="brand" href="index.html"><svg class="cuba-map" viewBox="-1 0 109 36" aria-hidden="true"><path d="M0.5 14.4 L6.0 13.0 L11.0 11.0 L16.0 7.5 L22.0 5.5 L26.5 1.5 L34.0 2.0 L38.0 1.5 L44.0 3.0 L50.0 4.0 L57.0 7.0 L64.0 9.0 L72.0 14.0 L78.0 16.5 L85.0 20.5 L93.0 22.0 L100.0 26.0 L107.0 30.5 L105.0 32.5 L98.0 34.0 L92.0 33.5 L85.0 34.0 L78.0 34.2 L73.0 34.5 L76.0 30.0 L79.0 27.0 L72.0 26.0 L67.0 21.0 L62.0 17.5 L54.0 16.0 L46.0 15.0 L41.0 12.5 L35.0 11.5 L31.0 10.0 L27.0 7.5 L20.0 10.5 L14.0 13.0 L7.0 15.0Z"/><ellipse cx="22" cy="17" rx="3.6" ry="2.4"/></svg><span class="word">Forever<span>Cuba</span></span></a>
+    <nav aria-label="Menu">
+      <a href="index.html#rentas" data-i18n="nav_rent">Casas y apartamentos</a>
+      <a href="index.html#autos" data-i18n="nav_cars">Renta de autos</a>
+      <a href="index.html#tours" data-i18n="nav_tours">Tours</a>
+      <a href="index.html#paquetes" data-i18n="nav_pack">Paquetes</a>
+      <a href="index.html#vuelos" data-i18n="nav_fly">Vuelos</a>
+      <a href="index.html#provincias" data-i18n="nav_prov">Provincias</a>
+      <a href="index.html#vip" class="nav-vip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3 6.1 20.6l1.3-6.6L2.5 9.4l6.6-.8z"/></svg><span data-i18n="nav_vip">Servicio VIP</span></a>
+      <button type="button" class="theme-btn" id="themeBtn"></button>
+    </nav>
+  </div>
+  <div class="forever-bar"><div class="wrap"><nav class="fbar-links" aria-label="Forever">
+    <a href="lugares.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3 6.1 20.6l1.3-6.6L2.5 9.4l6.6-.8z"/></svg><span class="fbar-t" data-i18n="fbar">Nuestros lugares Forever</span></a>
+    <span class="fbar-sep" aria-hidden="true"></span>
+    <a href="consejos.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 13.5l19-8-5.5 15-3.5-6.5z"/></svg><span class="fbar-t" data-i18n="fbar2">Consejos antes de viajar</span></a>
+    <span class="fbar-sep" aria-hidden="true"></span>
+    <a href="evisa.html" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"/><circle cx="12" cy="10" r="3"/><path d="M8.5 16h7"/></svg><span class="fbar-t" data-i18n="fbar3">eVisa Cuba</span></a>
+  </nav></div></div>
+</header>
+
+<main class="wrap" id="page"></main>
+
+<footer class="wrap">
+  <a class="brand" href="index.html"><svg class="cuba-map" viewBox="-1 0 109 36" aria-hidden="true"><path d="M0.5 14.4 L6.0 13.0 L11.0 11.0 L16.0 7.5 L22.0 5.5 L26.5 1.5 L34.0 2.0 L38.0 1.5 L44.0 3.0 L50.0 4.0 L57.0 7.0 L64.0 9.0 L72.0 14.0 L78.0 16.5 L85.0 20.5 L93.0 22.0 L100.0 26.0 L107.0 30.5 L105.0 32.5 L98.0 34.0 L92.0 33.5 L85.0 34.0 L78.0 34.2 L73.0 34.5 L76.0 30.0 L79.0 27.0 L72.0 26.0 L67.0 21.0 L62.0 17.5 L54.0 16.0 L46.0 15.0 L41.0 12.5 L35.0 11.5 L31.0 10.0 L27.0 7.5 L20.0 10.5 L14.0 13.0 L7.0 15.0Z"/><ellipse cx="22" cy="17" rx="3.6" ry="2.4"/></svg><span class="word">Forever<span>Cuba</span></span></a>
+  <p data-i18n="foot">Rentas, tours, paquetes y vuelos a Cuba.</p>
+</footer>
+
+<script src="comun.js"></script>
+<script>
+(function () {
+  /* Precio por eVisa en USD. Déjalo en null para mostrar "te lo confirmamos". Ej: var PRECIO = 45; */
+  var PRECIO = null;
+  var I = {
+    shield: '<path d="M12 2.5l8 3v6c0 5-3.5 8.6-8 10-4.5-1.4-8-5-8-10v-6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/>',
+    chat: '<path d="M4 5h16v11H8l-4 4z"/><path d="M8 9h8M8 12h5"/>',
+    mail: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6l8.5 7 8.5-7"/>',
+    info: '<circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.01"/>',
+    doc: '<rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h4"/>',
+    tip: '<path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.5 10.9V16h7v-2.1A6 6 0 0 0 12 3z"/>'
+  };
+  var TX = {
+    es: { nav_rent: "Casas y apartamentos", nav_cars: "Renta de autos", nav_tours: "Tours", nav_pack: "Paquetes", nav_fly: "Vuelos", nav_prov: "Provincias", nav_vip: "Servicio VIP",
+      fbar: "Nuestros lugares Forever", fbar2: "Consejos antes de viajar", fbar3: "eVisa Cuba", night: "Noche", day: "Día", to_night: "Cambiar a modo noche", to_day: "Cambiar a modo día", foot: "Rentas, tours, paquetes y vuelos a Cuba.",
+      h1: "eVisa para Cuba", lead: "Obtén fácilmente tu visa electrónica de turista. Nosotros nos encargamos del trámite.",
+      t1h: "Trámite sin complicaciones", t1: "Te pedimos solo lo necesario y revisamos tus datos antes de enviarlos.", t2h: "Atención por WhatsApp", t2: "Te acompañamos en español, inglés y francés de principio a fin.", t3h: "eVisa por correo", t3: "Recibes tu eVisa en tu correo electrónico, lista para el viaje.",
+      count_h: "Número de eVisas para Cuba", count_l: "Número de eVisas", per: "por eVisa", ask_price: "Precio: te lo confirmamos por WhatsApp",
+      note: "Cada viajero, incluidos bebés y niños, necesita su propia eVisa. Cada eVisa permite una entrada y una estancia turística de hasta 90 días.",
+      trav_h: "Datos de los viajeros", trav: "Viajero", first: "Nombre", last: "Apellido", same: "Igual que en el pasaporte",
+      contact_h: "Tus datos de contacto", c_name: "Tu nombre", c_mail: "Correo electrónico", c_phone: "Teléfono o WhatsApp", c_date: "Fecha de llegada a Cuba",
+      total: "Total", send: "Pedir mis eVisas por WhatsApp", sent_note: "Al tocar el botón se abre WhatsApp con tu pedido listo. Ahí confirmamos el precio y la forma de pago. No pedimos datos del pasaporte en esta página.",
+      side_h: "Tu eVisa en 4 pasos simples",
+      s1h: "Elige tus eVisas", s1: "Indica cuántas necesitas: una por cada viajero.",
+      s2h: "Escribe los datos de los viajeros", s2: "Solo nombre y apellido de cada uno, como en el pasaporte. Así de simple.",
+      s3h: "Confirma y paga", s3: "Te escribimos por WhatsApp para confirmar el pedido y el pago.",
+      s4h: "Recíbela y llena D'Viajeros", s4: "Te enviamos la eVisa por correo. En la semana antes de llegar, llena el formulario D'Viajeros; si quieres, te ayudamos.",
+      what_h: "¿Qué es la eVisa?", what: ["Es la visa electrónica de turista que reemplazó a la antigua tarjeta del turista de papel.", "Es obligatoria para los turistas desde julio de 2025.", "Queda vinculada a tu pasaporte: viaja con el mismo pasaporte con el que la pediste."],
+      need_h: "Qué necesitas para viajar", need: ["Pasaporte vigente (recomendado con al menos 6 meses de validez).", "Tu eVisa.", "El formulario D'Viajeros, que se llena en la semana antes de llegar.", "Seguro médico de viaje y boleto de regreso."],
+      tips_h: "Nuestros consejos", tips: ["Pídela con al menos dos semanas de anticipación, sobre todo en temporada alta.", "Revisa que tu nombre esté escrito igual que en el pasaporte.", "Si vas a renovar tu pasaporte, hazlo antes de pedir la eVisa.", "Si viajas desde Estados Unidos, además debes viajar bajo una de las categorías autorizadas por EE. UU."],
+      diy_h: "¿Prefieres hacerlo tú mismo?", diy: ["Entra a la página oficial evisacuba.cu.", "Llena el formulario con tus datos exactamente como en tu pasaporte.", "Paga en línea y guarda el comprobante.", "Espera la respuesta en tu correo (puede tardar hasta 72 horas hábiles) y revisa también la carpeta de spam.", "En la semana antes de llegar, llena D'Viajeros en dviajeros.mitrans.gob.cu."],
+      official: "Ir a la página oficial", check: "Información revisada en noviembre de 2026. Los requisitos pueden cambiar: confírmalos siempre en la página oficial.",
+      m_head: "Hola ForeverCuba, quiero pedir eVisas para Cuba.", m_count: "Número de eVisas", m_trav: "Viajeros", m_contact: "Contacto", m_date: "Llegada", m_total: "Total" },
+    en: { nav_rent: "Houses & apartments", nav_cars: "Car rental", nav_tours: "Tours", nav_pack: "Packages", nav_fly: "Flights", nav_prov: "Provinces", nav_vip: "VIP service",
+      fbar: "Our Forever places", fbar2: "Tips before you travel", fbar3: "Cuba eVisa", night: "Night", day: "Day", to_night: "Switch to night mode", to_day: "Switch to day mode", foot: "Stays, tours, packages and flights to Cuba.",
+      h1: "eVisa for Cuba", lead: "Get your electronic tourist visa easily. We take care of the paperwork.",
+      t1h: "Hassle-free process", t1: "We only ask for what's needed and review your details before submitting.", t2h: "Help on WhatsApp", t2: "We assist you in English, Spanish and French from start to finish.", t3h: "eVisa by email", t3: "You receive your eVisa by email, ready for your trip.",
+      count_h: "Number of Cuba eVisas", count_l: "Number of eVisas", per: "per eVisa", ask_price: "Price: we'll confirm it on WhatsApp",
+      note: "Every traveler, including babies and children, needs their own eVisa. Each eVisa allows one entry and a tourist stay of up to 90 days.",
+      trav_h: "Traveler details", trav: "Traveler", first: "First name", last: "Last name", same: "As shown on the passport",
+      contact_h: "Your contact details", c_name: "Your name", c_mail: "Email", c_phone: "Phone or WhatsApp", c_date: "Arrival date in Cuba",
+      total: "Total", send: "Order my eVisas on WhatsApp", sent_note: "The button opens WhatsApp with your order ready. There we confirm the price and payment method. We don't ask for passport details on this page.",
+      side_h: "Your eVisa in 4 simple steps",
+      s1h: "Choose your eVisas", s1: "Tell us how many you need: one per traveler.",
+      s2h: "Enter traveler details", s2: "Just each person's first and last name, as on the passport. That simple.",
+      s3h: "Confirm and pay", s3: "We message you on WhatsApp to confirm the order and payment.",
+      s4h: "Receive it and fill out D'Viajeros", s4: "We email you the eVisa. In the week before arrival, fill out the D'Viajeros form; we can help if you like.",
+      what_h: "What is the eVisa?", what: ["It's the electronic tourist visa that replaced the old paper tourist card.", "It has been required for tourists since July 2025.", "It's linked to your passport: travel with the same passport you applied with."],
+      need_h: "What you need to travel", need: ["A valid passport (ideally with at least 6 months of validity).", "Your eVisa.", "The D'Viajeros form, filled out in the week before arrival.", "Travel health insurance and a return ticket."],
+      tips_h: "Our tips", tips: ["Apply at least two weeks in advance, especially in high season.", "Make sure your name is spelled exactly as on your passport.", "If you're renewing your passport, do it before applying for the eVisa.", "If you travel from the United States, you must also travel under one of the U.S.-authorized categories."],
+      diy_h: "Prefer to do it yourself?", diy: ["Go to the official website evisacuba.cu.", "Fill out the form exactly as your passport shows.", "Pay online and keep the receipt.", "Wait for the answer by email (up to 72 business hours) and check your spam folder.", "In the week before arrival, fill out D'Viajeros at dviajeros.mitrans.gob.cu."],
+      official: "Go to the official website", check: "Information reviewed in November 2026. Requirements can change: always confirm on the official website.",
+      m_head: "Hi ForeverCuba, I'd like to order Cuba eVisas.", m_count: "Number of eVisas", m_trav: "Travelers", m_contact: "Contact", m_date: "Arrival", m_total: "Total" },
+    fr: { nav_rent: "Maisons et appartements", nav_cars: "Location de voitures", nav_tours: "Excursions", nav_pack: "Forfaits", nav_fly: "Vols", nav_prov: "Provinces", nav_vip: "Service VIP",
+      fbar: "Nos lieux Forever", fbar2: "Conseils avant de partir", fbar3: "eVisa Cuba", night: "Nuit", day: "Jour", to_night: "Passer en mode nuit", to_day: "Passer en mode jour", foot: "Logements, excursions, forfaits et vols vers Cuba.",
+      h1: "eVisa pour Cuba", lead: "Obtenez facilement votre visa touristique électronique. Nous nous occupons de la démarche.",
+      t1h: "Démarche simple", t1: "Nous ne demandons que l'essentiel et vérifions vos données avant de les envoyer.", t2h: "Aide sur WhatsApp", t2: "Nous vous accompagnons en français, espagnol et anglais du début à la fin.", t3h: "eVisa par e-mail", t3: "Vous recevez votre eVisa par e-mail, prêt pour le voyage.",
+      count_h: "Nombre d'eVisas pour Cuba", count_l: "Nombre d'eVisas", per: "par eVisa", ask_price: "Prix : nous vous le confirmons sur WhatsApp",
+      note: "Chaque voyageur, bébés et enfants compris, a besoin de son propre eVisa. Chaque eVisa permet une entrée et un séjour touristique de 90 jours maximum.",
+      trav_h: "Données des voyageurs", trav: "Voyageur", first: "Prénom", last: "Nom", same: "Comme sur le passeport",
+      contact_h: "Vos coordonnées", c_name: "Votre nom", c_mail: "E-mail", c_phone: "Téléphone ou WhatsApp", c_date: "Date d'arrivée à Cuba",
+      total: "Total", send: "Commander mes eVisas sur WhatsApp", sent_note: "Le bouton ouvre WhatsApp avec votre commande prête. Nous y confirmons le prix et le mode de paiement. Nous ne demandons pas les données du passeport sur cette page.",
+      side_h: "Votre eVisa en 4 étapes simples",
+      s1h: "Choisissez vos eVisas", s1: "Indiquez combien il vous en faut : un par voyageur.",
+      s2h: "Saisissez les données des voyageurs", s2: "Seulement le prénom et le nom de chacun, comme sur le passeport. C'est tout.",
+      s3h: "Confirmez et payez", s3: "Nous vous écrivons sur WhatsApp pour confirmer la commande et le paiement.",
+      s4h: "Recevez-le et remplissez D'Viajeros", s4: "Nous vous envoyons l'eVisa par e-mail. Dans la semaine avant l'arrivée, remplissez le formulaire D'Viajeros ; nous pouvons vous aider.",
+      what_h: "Qu'est-ce que l'eVisa ?", what: ["C'est le visa touristique électronique qui a remplacé l'ancienne carte de tourisme en papier.", "Il est obligatoire pour les touristes depuis juillet 2025.", "Il est lié à votre passeport : voyagez avec le même passeport que celui de la demande."],
+      need_h: "Ce qu'il faut pour voyager", need: ["Un passeport valide (idéalement au moins 6 mois de validité).", "Votre eVisa.", "Le formulaire D'Viajeros, à remplir dans la semaine avant l'arrivée.", "Une assurance santé de voyage et un billet retour."],
+      tips_h: "Nos conseils", tips: ["Faites la demande au moins deux semaines à l'avance, surtout en haute saison.", "Vérifiez que votre nom est écrit exactement comme sur votre passeport.", "Si vous devez renouveler votre passeport, faites-le avant de demander l'eVisa.", "Si vous partez des États-Unis, vous devez aussi voyager dans l'une des catégories autorisées par les États-Unis."],
+      diy_h: "Vous préférez le faire vous-même ?", diy: ["Allez sur le site officiel evisacuba.cu.", "Remplissez le formulaire exactement comme sur votre passeport.", "Payez en ligne et gardez le reçu.", "Attendez la réponse par e-mail (jusqu'à 72 heures ouvrables) et vérifiez vos spams.", "Dans la semaine avant l'arrivée, remplissez D'Viajeros sur dviajeros.mitrans.gob.cu."],
+      official: "Aller sur le site officiel", check: "Informations vérifiées en novembre 2026. Les conditions peuvent changer : confirmez-les toujours sur le site officiel.",
+      m_head: "Bonjour ForeverCuba, je souhaite commander des eVisas pour Cuba.", m_count: "Nombre d'eVisas", m_trav: "Voyageurs", m_contact: "Contact", m_date: "Arrivée", m_total: "Total" }
+  };
+  var lang = FC.idioma(), esc = FC.esc, state = { n: 1, trav: [{ f: "", l: "" }], c: { name: "", mail: "", phone: "", date: "" } };
+  function $(s) { return document.querySelector(s); }
+  function T(k) { return (TX[lang] && TX[lang][k]) || TX.es[k] || k; }
+  function svg(p) { return '<svg viewBox="0 0 24 24" aria-hidden="true">' + p + '</svg>'; }
+  function card(ico, h, items) { return '<article class="cj-card"><header><span class="cj-ico">' + svg(I[ico]) + '</span><h2>' + esc(h) + '</h2></header><ul>' + items.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join("") + '</ul></article>'; }
+  function opts() { var o = ""; for (var i = 1; i <= 10; i++) o += '<option value="' + i + '"' + (i === state.n ? " selected" : "") + '>' + i + (PRECIO ? " · $" + PRECIO + " USD " + T("per") : "") + '</option>'; return o; }
+  function travHtml() {
+    var out = "";
+    for (var i = 0; i < state.n; i++) {
+      var t = state.trav[i] || { f: "", l: "" };
+      out += '<div><p>' + esc(T("trav")) + ' ' + (i + 1) + '</p><div class="row"><label for="tf' + i + '">' + esc(T("first")) + '<input id="tf' + i + '" data-t="' + i + '" data-k="f" required value="' + esc(t.f) + '"></label>' +
+        '<label for="tl' + i + '">' + esc(T("last")) + '<input id="tl' + i + '" data-t="' + i + '" data-k="l" required value="' + esc(t.l) + '"></label></div></div>';
+    }
+    return out;
+  }
+  function totalTxt() { return PRECIO ? "$" + (PRECIO * state.n) + " USD" : T("ask_price"); }
+  function render() {
+    $("#page").innerHTML =
+      '<div class="cj-hero"><h1>' + esc(T("h1")) + '</h1><p class="lead">' + esc(T("lead")) + '</p></div>' +
+      '<div class="ev-trust">' +
+        '<div><span class="cj-ico">' + svg(I.shield) + '</span><span><b>' + esc(T("t1h")) + '</b><p>' + esc(T("t1")) + '</p></span></div>' +
+        '<div><span class="cj-ico">' + svg(I.chat) + '</span><span><b>' + esc(T("t2h")) + '</b><p>' + esc(T("t2")) + '</p></span></div>' +
+        '<div><span class="cj-ico">' + svg(I.mail) + '</span><span><b>' + esc(T("t3h")) + '</b><p>' + esc(T("t3")) + '</p></span></div></div>' +
+      '<div class="ev-main"><form id="evForm" style="display:grid;gap:16px">' +
+        '<section class="ev-box"><h2>' + esc(T("count_h")) + '</h2><label for="evCount">' + esc(T("count_l")) + '<select id="evCount">' + opts() + '</select></label>' +
+          (PRECIO ? '' : '<p class="meta">' + esc(T("ask_price")) + '</p>') + '<p class="ev-note">' + esc(T("note")) + '</p></section>' +
+        '<section class="ev-box"><h2>' + esc(T("trav_h")) + '</h2><p class="meta">' + esc(T("same")) + '</p><div class="ev-trav" id="evTrav">' + travHtml() + '</div></section>' +
+        '<section class="ev-box"><h2>' + esc(T("contact_h")) + '</h2>' +
+          '<div class="ev-trav"><div class="row"><label for="cName">' + esc(T("c_name")) + '<input id="cName" data-c="name" required autocomplete="name" value="' + esc(state.c.name) + '"></label>' +
+          '<label for="cMail">' + esc(T("c_mail")) + '<input id="cMail" data-c="mail" type="email" required autocomplete="email" value="' + esc(state.c.mail) + '"></label></div>' +
+          '<div class="row"><label for="cPhone">' + esc(T("c_phone")) + '<input id="cPhone" data-c="phone" type="tel" autocomplete="tel" value="' + esc(state.c.phone) + '"></label>' +
+          '<label for="cDate">' + esc(T("c_date")) + '<input id="cDate" data-c="date" type="date" value="' + esc(state.c.date) + '"></label></div></div>' +
+          '<div class="ev-sum"><span>' + esc(T("total")) + '</span><span id="evTotal">' + esc(totalTxt()) + '</span></div>' +
+          '<button class="btn primary" type="submit">' + esc(T("send")) + '</button><p class="meta" style="font-size:.88rem">' + esc(T("sent_note")) + '</p></section>' +
+      '</form>' +
+      '<aside class="ev-side"><h2>' + esc(T("side_h")) + '</h2><ol>' +
+        [1, 2, 3, 4].map(function (i) { return '<li><span><b>' + esc(T("s" + i + "h")) + '</b><p>' + esc(T("s" + i)) + '</p></span></li>'; }).join("") + '</ol></aside></div>' +
+      '<div class="cj-grid">' + card("info", T("what_h"), T("what")) + card("doc", T("need_h"), T("need")) + card("tip", T("tips_h"), T("tips")) + '</div>' +
+      '<details class="ev-diy"><summary>' + esc(T("diy_h")) + '</summary><div class="ev-box" style="margin-top:10px"><ol class="ev-steps">' +
+        T("diy").map(function (x) { return '<li><span>' + esc(x) + '</span></li>'; }).join("") + '</ol><a class="btn" href="https://www.evisacuba.cu" target="_blank" rel="noopener">' + esc(T("official")) + ' →</a></div></details>' +
+      '<p class="cj-check">' + esc(T("check")) + '</p>';
+    $("#evCount").addEventListener("change", function () {
+      state.n = +this.value; while (state.trav.length < state.n) state.trav.push({ f: "", l: "" });
+      $("#evTrav").innerHTML = travHtml(); $("#evTotal").textContent = totalTxt();
+    });
+    $("#evForm").addEventListener("input", function (e) {
+      var t = e.target;
+      if (t.dataset.t) state.trav[+t.dataset.t][t.dataset.k] = t.value;
+      if (t.dataset.c) state.c[t.dataset.c] = t.value;
+    });
+    $("#evForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      var lines = [T("m_head"), T("m_count") + ": " + state.n, T("m_trav") + ":"];
+      for (var i = 0; i < state.n; i++) lines.push("- " + (state.trav[i].f + " " + state.trav[i].l).trim());
+      lines.push(T("m_contact") + ": " + state.c.name + " · " + state.c.mail + (state.c.phone ? " · " + state.c.phone : ""));
+      if (state.c.date) lines.push(T("m_date") + ": " + state.c.date);
+      if (PRECIO) lines.push(T("m_total") + ": $" + (PRECIO * state.n) + " USD");
+      var url = (FC.CONFIG.whatsapp ? "https://wa.me/" + FC.CONFIG.whatsapp : "https://wa.me/") + "?text=" + encodeURIComponent(lines.join("\n"));
+      window.open(url, "_blank", "noopener");
+    });
+  }
+  var root = document.documentElement, tb = $("#themeBtn");
+  var MOON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>';
+  var SUN = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>';
+  function paintTheme() { var d = root.getAttribute("data-theme") === "dark"; tb.innerHTML = d ? SUN + " " + esc(T("day")) : MOON + " " + esc(T("night")); tb.setAttribute("aria-label", d ? T("to_day") : T("to_night")); }
+  function setTheme(t) { root.setAttribute("data-theme", t); paintTheme(); try { localStorage.setItem("fc-theme", t); } catch (e) {} }
+  var st = "light"; try { st = localStorage.getItem("fc-theme") || "light"; } catch (e) {}
+  setTheme(st === "dark" ? "dark" : "light");
+  tb.addEventListener("click", function () { setTheme(root.getAttribute("data-theme") === "dark" ? "light" : "dark"); });
+  function applyLang(l) {
+    lang = TX[l] ? l : "es"; root.setAttribute("lang", lang); FC.guardarIdioma(lang);
+    document.querySelectorAll("[data-i18n]").forEach(function (el) { el.textContent = T(el.getAttribute("data-i18n")); });
+    document.querySelectorAll(".lang").forEach(function (b) { b.setAttribute("aria-pressed", b.getAttribute("data-lang") === lang ? "true" : "false"); });
+    paintTheme(); render();
+  }
+  document.querySelectorAll(".lang").forEach(function (b) { b.addEventListener("click", function () { applyLang(b.getAttribute("data-lang")); }); });
+  applyLang(lang);
+})();
+</script>
+</body>
+</html>
