@@ -295,3 +295,9 @@ header.top .forever-bar nav a { padding: 9px 0; font-size: .9rem; letter-spacing
 .forever-bar .fbar-links svg { fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 .forever-bar .fbar-links a[href="lugares.html"] svg { fill: currentColor; stroke: none; }
 @media (min-width: 601px) and (max-width: 1100px) { header.top .forever-bar nav a { font-size: .78rem; letter-spacing: .08em; } .forever-bar .fbar-links { gap: 0 14px; } }
+/* Inicio: solo 6 por categoría */
+body.es-inicio #rentGrid > :nth-child(n+7), body.es-inicio #carGrid > :nth-child(n+7), body.es-inicio #tourGrid > :nth-child(n+7),
+body.es-inicio #packGrid > :nth-child(n+7), body.es-inicio #provGrid > :nth-child(n+7), body.es-inicio #vipGrid > :nth-child(n+7) { display: none; }
+.ver-todos { display: flex; justify-content: center; margin: 22px 0 4px; }
+.ver-todos[hidden] { display: none; }
+.ver-todos .btn { border: 1.5px solid currentColor; border-radius: 999px; padding: 12px 26px; font-weight: 600; text-decoration: none; }
