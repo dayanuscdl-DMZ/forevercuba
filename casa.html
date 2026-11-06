@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="es" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ForeverCuba</title>
+<meta name="description" content="ForeverCuba: casas y apartamentos en Cuba.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="estilo.css">
+<style>
+.back { display: inline-flex; align-items: center; gap: 6px; margin-top: 22px; font-weight: 700; color: var(--fg); text-decoration: none; }
+.back:hover { text-decoration: underline; }
+.ph-title { margin-top: 14px; font-size: clamp(1.7rem, 4vw, 2.5rem); letter-spacing: -.02em; line-height: 1.15; }
+.ph-sub { margin-top: 6px; color: var(--muted); font-weight: 600; display: flex; flex-wrap: wrap; gap: 4px 14px; align-items: center; }
+.ph-sub a { color: var(--fg); }
+
+.gallery { position: relative; margin-top: 20px; display: grid; grid-template-columns: 2fr 1fr 1fr; grid-template-rows: 210px 210px; gap: 8px; border-radius: 20px; overflow: hidden; }
+.gallery button { padding: 0; border: 0; background: var(--teal-soft); cursor: zoom-in; min-width: 0; overflow: hidden; }
+.gallery img { width: 100%; height: 100%; object-fit: cover; display: block; transition: filter .2s; }
+.gallery button:hover img { filter: brightness(.9); }
+.gallery button:first-child { grid-row: span 2; }
+.gallery .all { position: absolute; right: 14px; bottom: 14px; font: inherit; font-weight: 700; font-size: .9rem; padding: 8px 14px; border-radius: 10px; border: 1.5px solid var(--fg); background: var(--surface); color: var(--fg); cursor: pointer; }
+.gallery.n1 { grid-template-columns: 1fr; grid-template-rows: 420px; }
+.gallery.n2, .gallery.n3, .gallery.n4 { grid-template-columns: 2fr 1fr; }
+
+.ph-main { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 48px; margin-top: 32px; align-items: start; }
+.facts { display: flex; flex-wrap: wrap; gap: 10px 24px; padding-bottom: 22px; border-bottom: 1px solid var(--line); font-weight: 600; }
+.facts span { display: inline-flex; align-items: center; gap: 8px; }
+.facts svg, .amen svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+.ph-block { padding-block: 24px; border-bottom: 1px solid var(--line); }
+.ph-block h2 { font-size: 1.3rem; margin-bottom: 12px; }
+.ph-block p { max-width: 65ch; line-height: 1.65; }
+.amen { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr)); gap: 14px 24px; list-style: none; margin: 0; padding: 0; }
+.amen li { display: flex; align-items: center; gap: 12px; }
+.map-link { display: inline-flex; margin-top: 12px; font-weight: 700; color: var(--coral); }
+
+.book { position: sticky; top: 170px; background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 22px; box-shadow: 0 6px 24px rgba(0, 0, 0, .1); display: grid; gap: 14px; }
+.book .pr { font-size: 1.1rem; }
+.book .pr strong { font-size: 1.6rem; font-variant-numeric: tabular-nums; }
+.book .two { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.sum { display: grid; gap: 6px; font-variant-numeric: tabular-nums; }
+.sum div { display: flex; justify-content: space-between; gap: 10px; }
+.sum .tot { font-weight: 800; padding-top: 8px; border-top: 1px solid var(--line); }
+.book .btn { width: 100%; }
+.book .note { font-size: .85rem; color: var(--muted); text-align: center; }
+.err { color: var(--coral); font-size: .9rem; font-weight: 600; min-height: 1.2em; }
+
+.lb { position: fixed; inset: 0; z-index: 50; background: rgba(0, 0, 0, .92); display: grid; grid-template-rows: auto 1fr auto; padding: max(12px, env(safe-area-inset-top, 0px)) max(12px, env(safe-area-inset-right, 0px)) max(12px, env(safe-area-inset-bottom, 0px)) max(12px, env(safe-area-inset-left, 0px)); }
+.lb-top { display: flex; justify-content: space-between; align-items: center; color: #fff; font-weight: 700; }
+.lb img { max-width: 100%; max-height: 100%; object-fit: contain; margin: auto; display: block; min-height: 0; }
+.lb-mid { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; min-height: 0; gap: 8px; }
+.lb-mid > div { height: 100%; min-height: 0; display: flex; }
+.lb button { font: inherit; font-weight: 700; color: #fff; background: rgba(255, 255, 255, .14); border: 0; border-radius: 999px; width: 46px; height: 46px; cursor: pointer; font-size: 1.3rem; }
+.lb button:hover { background: rgba(255, 255, 255, .28); }
+.lb .close { width: auto; padding: 0 16px; font-size: 1rem; }
+
+.nf { padding-block: 80px; text-align: center; display: grid; gap: 14px; justify-items: center; }
+
+@media (max-width: 900px) {
+  .ph-main { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+  .book { position: static; }
+  .gallery, .gallery.n1, .gallery.n2, .gallery.n3, .gallery.n4 { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; border-radius: 16px; grid-template-rows: none; }
+  .gallery button { flex: 0 0 88%; height: 260px; scroll-snap-align: start; border-radius: 12px; }
+  .gallery button:first-child { grid-row: auto; }
+  .gallery .all { display: none; }
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="topbar"><div class="wrap topbar-in">
+    <div class="langs" role="group" aria-label="Idioma / Language / Langue">
+      <button type="button" class="lang" data-lang="es" aria-label="Español"><svg viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="20" fill="#AA151B"/><rect y="5" width="30" height="10" fill="#F1BF00"/></svg></button>
+      <button type="button" class="lang" data-lang="en" aria-label="English"><svg viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="20" fill="#FFFFFF"/><g fill="#B22234"><rect y="0" width="30" height="1.54"/><rect y="3.08" width="30" height="1.54"/><rect y="6.15" width="30" height="1.54"/><rect y="9.23" width="30" height="1.54"/><rect y="12.31" width="30" height="1.54"/><rect y="15.38" width="30" height="1.54"/><rect y="18.46" width="30" height="1.54"/></g><rect width="12" height="10.77" fill="#3C3B6E"/><g fill="#FFFFFF"><circle cx="2.4" cy="2.2" r=".7"/><circle cx="6" cy="2.2" r=".7"/><circle cx="9.6" cy="2.2" r=".7"/><circle cx="4.2" cy="5.4" r=".7"/><circle cx="7.8" cy="5.4" r=".7"/><circle cx="2.4" cy="8.6" r=".7"/><circle cx="6" cy="8.6" r=".7"/><circle cx="9.6" cy="8.6" r=".7"/></g></svg></button>
+      <button type="button" class="lang" data-lang="fr" aria-label="Français"><svg viewBox="0 0 30 20" aria-hidden="true"><rect width="10" height="20" fill="#002395"/><rect x="10" width="10" height="20" fill="#FFFFFF"/><rect x="20" width="10" height="20" fill="#ED2939"/></svg></button>
+    </div>
+  </div></div>
+  <div class="wrap">
+    <a class="brand" href="index.html"><svg class="cuba-map" viewBox="-1 0 109 36" aria-hidden="true"><path d="M0.5 14.4 L6.0 13.0 L11.0 11.0 L16.0 7.5 L22.0 5.5 L26.5 1.5 L34.0 2.0 L38.0 1.5 L44.0 3.0 L50.0 4.0 L57.0 7.0 L64.0 9.0 L72.0 14.0 L78.0 16.5 L85.0 20.5 L93.0 22.0 L100.0 26.0 L107.0 30.5 L105.0 32.5 L98.0 34.0 L92.0 33.5 L85.0 34.0 L78.0 34.2 L73.0 34.5 L76.0 30.0 L79.0 27.0 L72.0 26.0 L67.0 21.0 L62.0 17.5 L54.0 16.0 L46.0 15.0 L41.0 12.5 L35.0 11.5 L31.0 10.0 L27.0 7.5 L20.0 10.5 L14.0 13.0 L7.0 15.0Z"/><ellipse cx="22" cy="17" rx="3.6" ry="2.4"/></svg><span class="word">Forever<span>Cuba</span></span></a>
+    <nav aria-label="Menu">
+      <a href="index.html#rentas" data-i18n="nav_rent">Casas y apartamentos</a>
+      <a href="index.html#autos" data-i18n="nav_cars">Renta de autos</a>
+      <a href="index.html#tours" data-i18n="nav_tours">Tours</a>
+      <a href="index.html#paquetes" data-i18n="nav_pack">Paquetes</a>
+      <a href="index.html#vuelos" data-i18n="nav_fly">Vuelos</a>
+      <a href="index.html#vip" class="nav-vip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3 6.1 20.6l1.3-6.6L2.5 9.4l6.6-.8z"/></svg><span data-i18n="nav_vip">Servicio VIP</span></a>
+      <button type="button" class="theme-btn" id="themeBtn"></button>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap" id="page">
+  <p class="meta" style="padding-block:60px" data-i18n="loading">Cargando…</p>
+</main>
+
+<div class="lb" id="lb" hidden>
+  <div class="lb-top"><span id="lbCount"></span><button type="button" class="close" id="lbClose" data-i18n="close">Cerrar</button></div>
+  <div class="lb-mid">
+    <button type="button" id="lbPrev" aria-label="←">‹</button>
+    <div><img id="lbImg" alt=""></div>
+    <button type="button" id="lbNext" aria-label="→">›</button>
+  </div>
+  <div></div>
+</div>
+
+<footer class="wrap">
+  <a class="brand" href="index.html"><svg class="cuba-map" viewBox="-1 0 109 36" aria-hidden="true"><path d="M0.5 14.4 L6.0 13.0 L11.0 11.0 L16.0 7.5 L22.0 5.5 L26.5 1.5 L34.0 2.0 L38.0 1.5 L44.0 3.0 L50.0 4.0 L57.0 7.0 L64.0 9.0 L72.0 14.0 L78.0 16.5 L85.0 20.5 L93.0 22.0 L100.0 26.0 L107.0 30.5 L105.0 32.5 L98.0 34.0 L92.0 33.5 L85.0 34.0 L78.0 34.2 L73.0 34.5 L76.0 30.0 L79.0 27.0 L72.0 26.0 L67.0 21.0 L62.0 17.5 L54.0 16.0 L46.0 15.0 L41.0 12.5 L35.0 11.5 L31.0 10.0 L27.0 7.5 L20.0 10.5 L14.0 13.0 L7.0 15.0Z"/><ellipse cx="22" cy="17" rx="3.6" ry="2.4"/></svg><span class="word">Forever<span>Cuba</span></span></a>
+  <p data-i18n="foot">Rentas, tours, paquetes y vuelos a Cuba.</p>
+</footer>
+
+<script src="comun.js"></script>
+<script>
+(function () {
+  var TX = {
+    es: {
+      nav_rent: "Casas y apartamentos", nav_cars: "Renta de autos", nav_tours: "Tours", nav_pack: "Paquetes", nav_fly: "Vuelos", nav_vip: "Servicio VIP",
+      night: "Noche", day: "Día", to_night: "Cambiar a modo noche", to_day: "Cambiar a modo día", foot: "Rentas, tours, paquetes y vuelos a Cuba.",
+      loading: "Cargando…", back: "Todas las casas y apartamentos", all_photos: "Ver todas las fotos ({n})", close: "Cerrar",
+      Casa: "Casa", Apartamento: "Apartamento", guests: "{n} personas", room1: "1 habitación", roomN: "{n} habitaciones", bath1: "1 baño", bathN: "{n} baños",
+      about: "Sobre este lugar", amen_h: "Qué ofrece", where_h: "Dónde está", map: "Ver en el mapa",
+      where_p: "{c}, Cuba. Te enviamos la dirección exacta al confirmar la reserva.",
+      per_night: "USD por noche", checkin: "Llegada", checkout: "Salida", guests_l: "Personas", name_l: "Tu nombre", name_ph: "Nombre y apellido",
+      nights1: "1 noche", nightsN: "{n} noches", total: "Total aproximado", ask: "Pedir por WhatsApp",
+      note: "No se cobra nada ahora. Te confirmamos disponibilidad por WhatsApp.", err_dates: "La salida tiene que ser después de la llegada.",
+      others: "Otros lugares que te pueden gustar", see: "Ver",
+      nf_h: "No encontramos este lugar", nf_p: "Puede que ya no esté disponible.",
+      sample: "Propiedad de ejemplo: el nombre, el precio y las fotos son de prueba.",
+      m_hello: "Hola ForeverCuba, quiero reservar:", m_link: "Enlace", m_dates: "Fechas", m_nights: "Noches", m_pers: "Personas", m_total: "Total aproximado", m_name: "Nombre", m_thanks: "¿Está disponible? Gracias."
+    },
+    en: {
+      nav_rent: "Houses & apartments", nav_cars: "Car rental", nav_tours: "Tours", nav_pack: "Packages", nav_fly: "Flights", nav_vip: "VIP service",
+      night: "Night", day: "Day", to_night: "Switch to night mode", to_day: "Switch to day mode", foot: "Stays, tours, packages and flights to Cuba.",
+      loading: "Loading…", back: "All houses & apartments", all_photos: "Show all photos ({n})", close: "Close",
+      Casa: "House", Apartamento: "Apartment", guests: "{n} guests", room1: "1 bedroom", roomN: "{n} bedrooms", bath1: "1 bathroom", bathN: "{n} bathrooms",
+      about: "About this place", amen_h: "What this place offers", where_h: "Where you'll be", map: "Show on map",
+      where_p: "{c}, Cuba. We send you the exact address once your booking is confirmed.",
+      per_night: "USD per night", checkin: "Check-in", checkout: "Check-out", guests_l: "Guests", name_l: "Your name", name_ph: "First and last name",
+      nights1: "1 night", nightsN: "{n} nights", total: "Estimated total", ask: "Request on WhatsApp",
+      note: "You won't be charged now. We confirm availability on WhatsApp.", err_dates: "Check-out has to be after check-in.",
+      others: "Other places you may like", see: "See",
+      nf_h: "We couldn't find this place", nf_p: "It may no longer be available.",
+      sample: "Sample listing: name, price and photos are for testing.",
+      m_hello: "Hi ForeverCuba, I'd like to book:", m_link: "Link", m_dates: "Dates", m_nights: "Nights", m_pers: "Guests", m_total: "Estimated total", m_name: "Name", m_thanks: "Is it available? Thank you."
+    },
+    fr: {
+      nav_rent: "Maisons et appartements", nav_cars: "Location de voitures", nav_tours: "Excursions", nav_pack: "Forfaits", nav_fly: "Vols", nav_vip: "Service VIP",
+      night: "Nuit", day: "Jour", to_night: "Passer en mode nuit", to_day: "Passer en mode jour", foot: "Logements, excursions, forfaits et vols vers Cuba.",
+      loading: "Chargement…", back: "Tous les logements", all_photos: "Voir toutes les photos ({n})", close: "Fermer",
+      Casa: "Maison", Apartamento: "Appartement", guests: "{n} personnes", room1: "1 chambre", roomN: "{n} chambres", bath1: "1 salle de bain", bathN: "{n} salles de bain",
+      about: "À propos de ce logement", amen_h: "Ce que propose ce logement", where_h: "Où se trouve le logement", map: "Voir sur la carte",
+      where_p: "{c}, Cuba. Nous vous envoyons l'adresse exacte une fois la réservation confirmée.",
+      per_night: "USD par nuit", checkin: "Arrivée", checkout: "Départ", guests_l: "Personnes", name_l: "Votre nom", name_ph: "Prénom et nom",
+      nights1: "1 nuit", nightsN: "{n} nuits", total: "Total estimé", ask: "Demander sur WhatsApp",
+      note: "Aucun paiement maintenant. Nous confirmons la disponibilité sur WhatsApp.", err_dates: "Le départ doit être après l'arrivée.",
+      others: "D'autres logements qui pourraient vous plaire", see: "Voir",
+      nf_h: "Logement introuvable", nf_p: "Il n'est peut-être plus disponible.",
+      sample: "Logement d'exemple : le nom, le prix et les photos sont des tests.",
+      m_hello: "Bonjour ForeverCuba, je souhaite réserver :", m_link: "Lien", m_dates: "Dates", m_nights: "Nuits", m_pers: "Personnes", m_total: "Total estimé", m_name: "Nom", m_thanks: "Est-ce disponible ? Merci."
+    }
+  };
+  var lang = FC.idioma(), esc = FC.esc, prop = null, others = [], lbIndex = 0;
+  function $(s) { return document.querySelector(s); }
+  function T(k, v) { var s = (TX[lang] && TX[lang][k]) || TX.es[k] || k; if (v) Object.keys(v).forEach(function (x) { s = s.replace("{" + x + "}", v[x]); }); return s; }
+  var ICO = {
+    guests: '<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><circle cx="17" cy="9" r="2.5"/><path d="M16 14a5 5 0 0 1 6 5"/>',
+    bed: '<path d="M3 18V7M3 13h18v5M21 13a3 3 0 0 0-3-3h-7v3"/><circle cx="7" cy="10.5" r="1.8"/>',
+    bath: '<path d="M4 12h16v3a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5z"/><path d="M6 12V5.5A2.5 2.5 0 0 1 10.5 4"/><path d="M7 20l-1 2M17 20l1 2"/>'
+  };
+  function svg(p) { return '<svg viewBox="0 0 24 24" aria-hidden="true">' + p + '</svg>'; }
+  function img(src, alt, lazy) { return '<img src="' + esc(src) + '" alt="' + esc(alt) + '"' + (lazy ? ' loading="lazy"' : '') + ' onerror="this.onerror=null;this.src=\'' + FC.FALLBACK + '\'">'; }
+  function today(off) { var d = new Date(); d.setDate(d.getDate() + off); return d.toISOString().slice(0, 10); }
+
+  function render() {
+    var page = $("#page");
+    if (!prop) {
+      page.innerHTML = '<div class="nf"><h1 class="ph-title">' + esc(T("nf_h")) + '</h1><p class="meta">' + esc(T("nf_p")) + '</p><a class="btn primary" href="index.html#rentas">' + esc(T("back")) + '</a></div>';
+      return;
+    }
+    var p = prop, name = FC.titulo(p, lang), fotos = (p.fotos && p.fotos.length) ? p.fotos : [FC.FALLBACK];
+    document.title = name + " · ForeverCuba";
+    var shown = fotos.slice(0, 5);
+    var gal = '<div class="gallery n' + shown.length + '">' + shown.map(function (f, i) {
+      return '<button type="button" data-ph="' + i + '" aria-label="' + esc(T("all_photos", { n: fotos.length })) + '">' + img(f, name, i > 0) + '</button>';
+    }).join("") + (fotos.length > 1 ? '<button type="button" class="all" data-ph="0">' + esc(T("all_photos", { n: fotos.length })) + '</button>' : '') + '</div>';
+    var facts = '<div class="facts">' +
+      '<span>' + svg(ICO.guests) + esc(T("guests", { n: p.personas })) + '</span>' +
+      '<span>' + svg(ICO.bed) + esc(p.habitaciones == 1 ? T("room1") : T("roomN", { n: p.habitaciones })) + '</span>' +
+      (p.banos ? '<span>' + svg(ICO.bath) + esc(p.banos == 1 ? T("bath1") : T("bathN", { n: p.banos })) + '</span>' : '') + '</div>';
+    var amen = (p.comodidades || []).filter(function (k) { return FC.AMEN[k]; }).map(function (k) {
+      return '<li>' + svg(FC.AMEN[k].i) + esc(FC.AMEN[k][lang]) + '</li>';
+    }).join("");
+    var mapUrl = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(p.ciudad + ", Cuba");
+    var isSample = String(p.id).indexOf("ej") === 0;
+    var sel = function (id) { var el = document.getElementById(id); return el ? el.value : ""; };
+    var keep = { a: sel("bIn"), b: sel("bOut"), g: sel("bGuests"), n: sel("bName") };
+    page.innerHTML =
+      '<a class="back" href="index.html#rentas">← ' + esc(T("back")) + '</a>' +
+      '<h1 class="ph-title">' + esc(name) + '</h1>' +
+      '<p class="ph-sub"><span>' + esc(T(p.tipo)) + ' · ' + esc(p.ciudad) + ', Cuba</span></p>' +
+      (isSample ? '<p class="sample" style="margin-top:14px">' + esc(T("sample")) + '</p>' : '') +
+      gal +
+      '<div class="ph-main"><div>' + facts +
+        '<div class="ph-block"><h2>' + esc(T("about")) + '</h2><p>' + esc(FC.desc(p, lang)).replace(/\n/g, "<br>") + '</p></div>' +
+        (amen ? '<div class="ph-block"><h2>' + esc(T("amen_h")) + '</h2><ul class="amen">' + amen + '</ul></div>' : '') +
+        '<div class="ph-block"><h2>' + esc(T("where_h")) + '</h2><p>' + esc(T("where_p", { c: p.ciudad })) + '</p><a class="map-link" href="' + mapUrl + '" target="_blank" rel="noopener">' + esc(T("map")) + ' →</a></div>' +
+      '</div>' +
+      '<aside class="book">' +
+        '<div class="pr"><strong>$' + p.precio + '</strong> ' + esc(T("per_night")) + '</div>' +
+        '<div class="two"><label for="bIn">' + esc(T("checkin")) + '<input id="bIn" type="date" min="' + today(0) + '"></label>' +
+        '<label for="bOut">' + esc(T("checkout")) + '<input id="bOut" type="date" min="' + today(1) + '"></label></div>' +
+        '<label for="bGuests">' + esc(T("guests_l")) + '<input id="bGuests" type="number" min="1" max="' + (p.personas || 20) + '" value="2"></label>' +
+        '<label for="bName">' + esc(T("name_l")) + '<input id="bName" type="text" autocomplete="name" placeholder="' + esc(T("name_ph")) + '"></label>' +
+        '<div class="sum" id="bSum"></div><p class="err" id="bErr" role="status"></p>' +
+        '<a class="btn primary" id="bAsk" href="https://wa.me/" target="_blank" rel="noopener">' + esc(T("ask")) + '</a>' +
+        '<p class="note">' + esc(T("note")) + '</p>' +
+      '</aside></div>' +
+      (others.length ? '<section style="padding-top:48px"><div class="sec-head"><h2>' + esc(T("others")) + '</h2></div><div class="grid">' + others.map(function (o) {
+        var on = FC.titulo(o, lang), href = "casa.html?id=" + encodeURIComponent(o.id);
+        return '<article class="card"><a class="card-link" href="' + href + '">' + img(FC.foto(o), on, true).replace("<img ", '<img class="photo" ') + '</a>' +
+          '<div class="body"><span class="tag">' + esc(T(o.tipo)) + ' · ' + esc(o.ciudad) + '</span><h3><a class="card-link" href="' + href + '">' + esc(on) + '</a></h3>' +
+          '<div class="price"><div><strong>$' + o.precio + '</strong> <span>' + esc(T("per_night")) + '</span></div><a class="btn small" href="' + href + '">' + esc(T("see")) + '</a></div></div></article>';
+      }).join("") + '</div></section>' : '');
+    if (keep.a) $("#bIn").value = keep.a; if (keep.b) $("#bOut").value = keep.b; if (keep.g) $("#bGuests").value = keep.g; if (keep.n) $("#bName").value = keep.n;
+    ["#bIn", "#bOut", "#bGuests", "#bName"].forEach(function (s) { $(s).addEventListener("input", updateBook); });
+    $("#bIn").addEventListener("change", function () { var a = $("#bIn").value; if (a) { $("#bOut").min = a; if ($("#bOut").value && $("#bOut").value <= a) $("#bOut").value = ""; } updateBook(); });
+    updateBook();
+  }
+
+  function fmt(v) { return new Date(v + "T00:00:00").toLocaleDateString({ es: "es", en: "en-US", fr: "fr" }[lang], { day: "numeric", month: "long", year: "numeric" }); }
+  function updateBook() {
+    var p = prop, a = $("#bIn").value, b = $("#bOut").value, g = $("#bGuests").value, n = $("#bName").value.trim();
+    var nights = 0, err = "";
+    if (a && b) { nights = Math.round((new Date(b) - new Date(a)) / 86400000); if (nights <= 0) { err = T("err_dates"); nights = 0; } }
+    $("#bErr").textContent = err;
+    var sum = "";
+    if (nights > 0) sum = '<div><span>$' + p.precio + ' × ' + esc(nights === 1 ? T("nights1") : T("nightsN", { n: nights })) + '</span><span>$' + (p.precio * nights) + '</span></div>' +
+      '<div class="tot"><span>' + esc(T("total")) + '</span><span>$' + (p.precio * nights) + ' USD</span></div>';
+    $("#bSum").innerHTML = sum;
+    var lines = [T("m_hello"), "- " + FC.titulo(p, lang) + " (" + p.ciudad + ")", T("m_link") + ": " + location.href.split("#")[0]];
+    if (a && b && nights > 0) { lines.push(T("m_dates") + ": " + fmt(a) + " → " + fmt(b)); lines.push(T("m_nights") + ": " + nights); lines.push(T("m_total") + ": $" + (p.precio * nights) + " USD"); }
+    if (g) lines.push(T("m_pers") + ": " + g);
+    if (n) lines.push(T("m_name") + ": " + n);
+    lines.push(T("m_thanks"));
+    var base = FC.CONFIG.whatsapp ? "https://wa.me/" + FC.CONFIG.whatsapp : "https://wa.me/";
+    $("#bAsk").setAttribute("href", base + "?text=" + encodeURIComponent(lines.join("\n")));
+  }
+
+  /* Visor de fotos */
+  function openLb(i) { lbIndex = i; $("#lb").hidden = false; document.body.style.overflow = "hidden"; showLb(); $("#lbClose").focus(); }
+  function closeLb() { $("#lb").hidden = true; document.body.style.overflow = ""; }
+  function showLb() {
+    var f = prop.fotos && prop.fotos.length ? prop.fotos : [FC.FALLBACK];
+    lbIndex = (lbIndex + f.length) % f.length;
+    $("#lbImg").src = f[lbIndex]; $("#lbImg").alt = FC.titulo(prop, lang);
+    $("#lbCount").textContent = (lbIndex + 1) + " / " + f.length;
+  }
+  document.addEventListener("click", function (e) { var b = e.target.closest("[data-ph]"); if (b) openLb(+b.getAttribute("data-ph")); });
+  $("#lbClose").addEventListener("click", closeLb);
+  $("#lbPrev").addEventListener("click", function () { lbIndex--; showLb(); });
+  $("#lbNext").addEventListener("click", function () { lbIndex++; showLb(); });
+  document.addEventListener("keydown", function (e) {
+    if ($("#lb").hidden) return;
+    if (e.key === "Escape") closeLb(); else if (e.key === "ArrowLeft") { lbIndex--; showLb(); } else if (e.key === "ArrowRight") { lbIndex++; showLb(); }
+  });
+
+  /* Día / Noche */
+  var root = document.documentElement, tb = $("#themeBtn");
+  var MOON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>';
+  var SUN = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>';
+  function paintTheme() { var d = root.getAttribute("data-theme") === "dark"; tb.innerHTML = d ? SUN + " " + esc(T("day")) : MOON + " " + esc(T("night")); tb.setAttribute("aria-label", d ? T("to_day") : T("to_night")); }
+  function setTheme(t) { root.setAttribute("data-theme", t); paintTheme(); try { localStorage.setItem("fc-theme", t); } catch (e) {} }
+  var st = "light"; try { st = localStorage.getItem("fc-theme") || "light"; } catch (e) {}
+  setTheme(st === "dark" ? "dark" : "light");
+  tb.addEventListener("click", function () { setTheme(root.getAttribute("data-theme") === "dark" ? "light" : "dark"); });
+
+  /* Idioma */
+  function applyLang(l) {
+    lang = TX[l] ? l : "es"; root.setAttribute("lang", lang); FC.guardarIdioma(lang);
+    document.querySelectorAll("[data-i18n]").forEach(function (el) { el.textContent = T(el.getAttribute("data-i18n")); });
+    document.querySelectorAll(".lang").forEach(function (b) { b.setAttribute("aria-pressed", b.getAttribute("data-lang") === lang ? "true" : "false"); });
+    paintTheme();
+    if (prop !== undefined && $("#page").dataset.ready) render();
+  }
+  document.querySelectorAll(".lang").forEach(function (b) { b.addEventListener("click", function () { applyLang(b.getAttribute("data-lang")); }); });
+  applyLang(lang);
+
+  /* Cargar la propiedad */
+  var id = new URLSearchParams(location.search).get("id");
+  FC.cargar().then(function (list) {
+    prop = null;
+    for (var i = 0; i < list.length; i++) if (String(list[i].id) === String(id)) prop = list[i];
+    others = list.filter(function (o) { return o !== prop; }).slice(0, 3);
+    $("#page").dataset.ready = "1";
+    render();
+  });
+})();
+</script>
+</body>
+</html>

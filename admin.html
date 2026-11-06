@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="es" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Panel ForeverCuba</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="estilo.css">
+<style>
+body { background: var(--teal-soft); }
+.bar { background: var(--surface); border-bottom: 1px solid var(--line); }
+.bar .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 20px; padding-block: 12px; }
+.bar .who { color: var(--muted); font-size: .9rem; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.tag-panel { font-size: .75rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.panel { max-width: 980px; margin: 0 auto; padding-block: 28px 60px; display: grid; gap: 20px; }
+.box { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: clamp(16px, 3vw, 28px); display: grid; gap: 16px; min-width: 0; }
+.box h1 { font-size: 1.6rem; }
+.box h2 { font-size: 1.25rem; }
+.row-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; }
+.login { max-width: 440px; margin: 60px auto; }
+.msg { padding: 12px 14px; border-radius: 12px; background: var(--teal-soft); font-weight: 600; }
+.msg.bad { color: var(--coral); }
+.list { display: grid; gap: 10px; }
+.item { display: grid; grid-template-columns: 96px minmax(0, 1fr) auto; gap: 14px; align-items: center; padding: 10px; border: 1px solid var(--line); border-radius: 14px; }
+.item img { width: 96px; height: 72px; object-fit: cover; border-radius: 10px; background: var(--teal-soft); display: block; }
+.item h3 { font-size: 1rem; }
+.item .meta { font-size: .88rem; }
+.item .acts { display: flex; flex-wrap: wrap; gap: 6px; justify-content: flex-end; }
+.pill { display: inline-block; font-size: .72rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; padding: 2px 8px; border-radius: 999px; }
+.pill.on { background: #DDF3E4; color: #1F6B3A; }
+.pill.off { background: var(--line); color: var(--muted); }
+.form { display: grid; gap: 14px; }
+.g2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: 14px; }
+.g4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 130px), 1fr)); gap: 14px; }
+textarea { min-height: 120px; }
+.help { color: var(--muted); font-size: .85rem; font-weight: 500; }
+.checks { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr)); gap: 8px; }
+.checks label { display: flex; align-items: center; gap: 8px; font-weight: 500; padding: 8px 10px; border: 1px solid var(--line); border-radius: 10px; cursor: pointer; }
+.checks input { width: auto; }
+details { border: 1px solid var(--line); border-radius: 12px; padding: 10px 14px; }
+details summary { cursor: pointer; font-weight: 700; }
+details[open] summary { margin-bottom: 12px; }
+.photos { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
+.ph { position: relative; border-radius: 12px; overflow: hidden; border: 1px solid var(--line); background: var(--teal-soft); }
+.ph img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; display: block; }
+.ph .cover { position: absolute; top: 6px; left: 6px; background: var(--coral); color: #fff; font-size: .7rem; font-weight: 800; padding: 2px 8px; border-radius: 999px; }
+.ph .tools { display: flex; justify-content: space-between; padding: 4px; background: var(--surface); }
+.ph .tools button { font: inherit; border: 1px solid var(--line); background: var(--surface); color: var(--fg); border-radius: 8px; width: 32px; height: 28px; cursor: pointer; }
+.drop { border: 2px dashed var(--line); border-radius: 14px; padding: 18px; text-align: center; color: var(--muted); }
+.drop.over { border-color: var(--coral); color: var(--fg); }
+.save-bar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.confirm { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding: 10px; border-radius: 12px; background: #FDECEC; color: #8A1C1C; font-weight: 600; }
+.team { display: grid; gap: 8px; }
+.team div { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 8px 12px; border: 1px solid var(--line); border-radius: 10px; flex-wrap: wrap; }
+.inline { display: flex; gap: 8px; flex-wrap: wrap; }
+.inline input { flex: 1 1 220px; width: auto; }
+@media (max-width: 560px) {
+  .item { grid-template-columns: 72px minmax(0, 1fr); }
+  .item img { width: 72px; height: 56px; }
+  .item .acts { grid-column: 1 / -1; justify-content: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<div class="bar"><div class="wrap">
+  <a class="brand" href="index.html" style="flex-direction:row;gap:10px"><span class="word">Forever<span>Cuba</span></span></a>
+  <div class="who"><span class="tag-panel">Panel del equipo</span><span id="who"></span><button class="btn small" id="logout" hidden>Salir</button></div>
+</div></div>
+
+<main class="wrap" id="app"><p class="panel meta">Cargando…</p></main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script src="comun.js"></script>
+<script>
+(function () {
+  var esc = FC.esc, app = document.getElementById("app");
+  function $(s, r) { return (r || document).querySelector(s); }
+  if (!FC.conectado()) { app.innerHTML = '<div class="panel"><div class="box"><h1>Panel sin conectar</h1><p>Falta poner los datos de Supabase en el archivo comun.js.</p></div></div>'; return; }
+  var sb = supabase.createClient(FC.CONFIG.url, FC.CONFIG.key);
+  var user = null, props = [], editing = null, photos = [], pendingDelete = null;
+  var CIUDADES = ["Habana Vieja", "Centro Habana", "Vedado", "Miramar", "Playa", "Varadero", "Viñales", "Trinidad", "Cienfuegos", "Santa Clara", "Camagüey", "Santiago de Cuba", "Holguín", "Baracoa", "Cayo Coco", "Cayo Santa María"];
+
+  /* ---------- Entrar ---------- */
+  function showLogin(note, bad) {
+    $("#who").textContent = ""; $("#logout").hidden = true;
+    app.innerHTML = '<div class="box login"><h1>Entrar al panel</h1>' +
+      '<p class="help" style="font-size:1rem">Escribe tu correo. Te enviamos un enlace para entrar, sin contraseña.</p>' +
+      (note ? '<p class="msg' + (bad ? ' bad' : '') + '">' + esc(note) + '</p>' : '') +
+      '<form id="loginForm" class="form"><label for="email">Correo<input id="email" type="email" required autocomplete="email" placeholder="tucorreo@gmail.com"></label>' +
+      '<button class="btn primary" type="submit">Enviarme el enlace</button></form></div>';
+    $("#loginForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      var email = $("#email").value.trim(), btn = $("#loginForm button");
+      btn.disabled = true; btn.textContent = "Enviando…";
+      sb.auth.signInWithOtp({ email: email, options: { emailRedirectTo: location.origin + location.pathname } }).then(function (r) {
+        if (r.error) { showLogin("No se pudo enviar el enlace: " + r.error.message, true); return; }
+        showLogin("Listo. Revisa tu correo (" + email + ") y toca el enlace que te enviamos. Si no aparece, mira en Spam o Promociones.");
+      });
+    });
+  }
+
+  sb.auth.onAuthStateChange(function (ev, session) {
+    var u = session && session.user;
+    if (u && (!user || user.id !== u.id)) { user = u; start(); }
+    if (!u && user) { user = null; showLogin(); }
+  });
+  sb.auth.getSession().then(function (r) { if (r.data.session) { user = r.data.session.user; start(); } else showLogin(); });
+  $("#logout").addEventListener("click", function () { sb.auth.signOut(); });
+
+  function start() {
+    $("#who").textContent = user.email; $("#logout").hidden = false;
+    sb.rpc("es_equipo").then(function (r) {
+      if (!r.data) { app.innerHTML = '<div class="box login"><h1>Sin acceso</h1><p class="msg bad">El correo ' + esc(user.email) + ' no está en el equipo. Pide a alguien del equipo que lo agregue.</p></div>'; return; }
+      loadList();
+    });
+  }
+
+  /* ---------- Lista de propiedades ---------- */
+  function loadList(note) {
+    sb.from("propiedades").select("*").order("orden").order("creado", { ascending: false }).then(function (r) {
+      if (r.error) { app.innerHTML = '<div class="panel"><p class="msg bad">Error al cargar: ' + esc(r.error.message) + '</p></div>'; return; }
+      props = r.data || []; showList(note);
+    });
+  }
+  function showList(note) {
+    editing = null;
+    var items = props.map(function (p) {
+      var del = pendingDelete === p.id ? '<div class="confirm" style="grid-column:1/-1">¿Borrar "' + esc(p.titulo_es) + '" para siempre? <button class="btn small" data-act="del-yes" data-id="' + p.id + '">Sí, borrar</button><button class="btn small" data-act="del-no">No</button></div>' : '';
+      return '<div class="item"><img src="' + esc(FC.foto(p)) + '" alt="">' +
+        '<div><h3>' + esc(p.titulo_es) + '</h3><p class="meta">' + esc(p.tipo) + ' · ' + esc(p.ciudad) + ' · $' + p.precio + ' por noche · ' + (p.fotos || []).length + ' fotos</p>' +
+        '<span class="pill ' + (p.publicado ? 'on">Publicada' : 'off">Oculta') + '</span></div>' +
+        '<div class="acts"><a class="btn small" href="casa.html?id=' + p.id + '" target="_blank">Ver</a><button class="btn small" data-act="edit" data-id="' + p.id + '">Editar</button>' +
+        '<button class="btn small" data-act="toggle" data-id="' + p.id + '">' + (p.publicado ? 'Ocultar' : 'Publicar') + '</button>' +
+        '<button class="btn small" data-act="del" data-id="' + p.id + '">Borrar</button></div>' + del + '</div>';
+    }).join("");
+    app.innerHTML = '<div class="panel">' + (note ? '<p class="msg">' + esc(note) + '</p>' : '') +
+      '<div class="box"><div class="row-head"><h1>Casas y apartamentos</h1><button class="btn primary" data-act="new">+ Agregar propiedad</button></div>' +
+      (props.length ? '<div class="list">' + items + '</div>' : '<p class="help" style="font-size:1rem">Todavía no hay propiedades. Mientras tanto la página muestra las de ejemplo. Toca <b>Agregar propiedad</b> para subir la primera; en cuanto haya una publicada, las de ejemplo desaparecen.</p>') +
+      '</div>' + teamBox() + '</div>';
+    loadTeam();
+  }
+
+  /* ---------- Equipo ---------- */
+  function teamBox() {
+    return '<div class="box"><h2>Equipo con acceso</h2><p class="help">Las personas de esta lista pueden entrar al panel con su correo.</p><div class="team" id="team"></div>' +
+      '<form class="inline" id="teamForm"><input id="teamEmail" type="email" required placeholder="correo@ejemplo.com" aria-label="Correo nuevo"><button class="btn small" type="submit">Agregar al equipo</button></form><p class="help" id="teamMsg"></p></div>';
+  }
+  function loadTeam() {
+    sb.from("equipo").select("email").order("email").then(function (r) {
+      var box = $("#team"); if (!box) return;
+      box.innerHTML = (r.data || []).map(function (t) {
+        var me = t.email.toLowerCase() === (user.email || "").toLowerCase();
+        return '<div><span>' + esc(t.email) + (me ? ' <span class="help">(tú)</span>' : '') + '</span>' + (me ? '' : '<button class="btn small" data-act="team-del" data-email="' + esc(t.email) + '">Quitar</button>') + '</div>';
+      }).join("");
+    });
+    var f = $("#teamForm");
+    if (f) f.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var em = $("#teamEmail").value.trim().toLowerCase();
+      sb.from("equipo").insert({ email: em }).then(function (r) {
+        $("#teamMsg").textContent = r.error ? "No se pudo agregar: " + r.error.message : em + " ya puede entrar al panel con su correo.";
+        $("#teamEmail").value = ""; loadTeam();
+      });
+    });
+  }
+
+  /* ---------- Formulario ---------- */
+  function showForm(p) {
+    editing = p ? p.id : "new";
+    p = p || { tipo: "Casa", ciudad: "", titulo_es: "", titulo_en: "", titulo_fr: "", desc_es: "", desc_en: "", desc_fr: "", habitaciones: 1, banos: 1, personas: 2, precio: "", comodidades: ["wifi", "ac", "agua"], fotos: [], publicado: true, orden: 0 };
+    photos = (p.fotos || []).map(function (u) { return { url: u }; });
+    var amen = Object.keys(FC.AMEN).map(function (k) {
+      return '<label><input type="checkbox" name="amen" value="' + k + '"' + ((p.comodidades || []).indexOf(k) >= 0 ? ' checked' : '') + '>' + esc(FC.AMEN[k].es) + '</label>';
+    }).join("");
+    app.innerHTML = '<div class="panel"><div class="box"><div class="row-head"><h1>' + (editing === "new" ? "Agregar propiedad" : "Editar propiedad") + '</h1><button class="btn small" data-act="back">← Volver a la lista</button></div>' +
+      '<form class="form" id="pf">' +
+      '<div class="g2"><label for="fTipo">Tipo<select id="fTipo"><option value="Casa">Casa</option><option value="Apartamento">Apartamento</option></select></label>' +
+      '<label for="fCiudad">Ciudad o barrio<input id="fCiudad" list="ciudades" required value="' + esc(p.ciudad) + '" placeholder="Ej. Vedado"><datalist id="ciudades">' + CIUDADES.map(function (c) { return '<option value="' + esc(c) + '">'; }).join("") + '</datalist></label></div>' +
+      '<label for="fTit">Nombre de la propiedad<input id="fTit" required value="' + esc(p.titulo_es) + '" placeholder="Ej. Casa colonial con patio interior"></label>' +
+      '<label for="fDesc">Descripción<textarea id="fDesc" placeholder="Cómo es el lugar, qué hay cerca, qué la hace especial…">' + esc(p.desc_es) + '</textarea></label>' +
+      '<details' + (p.titulo_en || p.titulo_fr ? ' open' : '') + '><summary>Inglés y francés (opcional)</summary><div class="form">' +
+        '<p class="help">Si lo dejas vacío, se muestra el texto en español.</p>' +
+        '<label for="fTitEn">Nombre en inglés<input id="fTitEn" value="' + esc(p.titulo_en) + '"></label>' +
+        '<label for="fDescEn">Descripción en inglés<textarea id="fDescEn">' + esc(p.desc_en) + '</textarea></label>' +
+        '<label for="fTitFr">Nombre en francés<input id="fTitFr" value="' + esc(p.titulo_fr) + '"></label>' +
+        '<label for="fDescFr">Descripción en francés<textarea id="fDescFr">' + esc(p.desc_fr) + '</textarea></label>' +
+      '</div></details>' +
+      '<div class="g4"><label for="fPrecio">Precio por noche (USD)<input id="fPrecio" type="number" min="0" required value="' + esc(p.precio) + '"></label>' +
+      '<label for="fPers">Personas<input id="fPers" type="number" min="1" required value="' + esc(p.personas) + '"></label>' +
+      '<label for="fHab">Habitaciones<input id="fHab" type="number" min="0" required value="' + esc(p.habitaciones) + '"></label>' +
+      '<label for="fBan">Baños<input id="fBan" type="number" min="0" required value="' + esc(p.banos) + '"></label></div>' +
+      '<div><p style="font-weight:600;margin-bottom:8px">Qué ofrece</p><div class="checks">' + amen + '</div></div>' +
+      '<div><p style="font-weight:600;margin-bottom:4px">Fotos</p><p class="help" style="margin-bottom:10px">La primera foto es la portada. Usa las flechas para cambiar el orden.</p>' +
+        '<div class="photos" id="phs"></div>' +
+        '<label class="drop" id="drop" for="fFotos" style="margin-top:10px;display:block;cursor:pointer">Toca aquí para elegir fotos, o arrástralas aquí<input id="fFotos" type="file" accept="image/*" multiple hidden></label></div>' +
+      '<label style="display:flex;align-items:center;gap:10px;font-weight:600"><input id="fPub" type="checkbox" style="width:auto"' + (p.publicado ? ' checked' : '') + '> Publicada (se ve en la página)</label>' +
+      '<div class="save-bar"><button class="btn primary" type="submit" id="saveBtn">Guardar</button><button class="btn" type="button" data-act="back">Cancelar</button><span class="help" id="saveMsg" role="status"></span></div>' +
+      '</form></div></div>';
+    $("#fTipo").value = p.tipo;
+    drawPhotos();
+    $("#fFotos").addEventListener("change", function (e) { addFiles(e.target.files); e.target.value = ""; });
+    var d = $("#drop");
+    ["dragenter", "dragover"].forEach(function (t) { d.addEventListener(t, function (e) { e.preventDefault(); d.classList.add("over"); }); });
+    ["dragleave", "drop"].forEach(function (t) { d.addEventListener(t, function (e) { e.preventDefault(); d.classList.remove("over"); }); });
+    d.addEventListener("drop", function (e) { addFiles(e.dataTransfer.files); });
+    $("#pf").addEventListener("submit", save);
+    window.scrollTo(0, 0);
+  }
+  function drawPhotos() {
+    var box = $("#phs"); if (!box) return;
+    box.innerHTML = photos.map(function (ph, i) {
+      return '<div class="ph"><img src="' + esc(ph.preview || ph.url) + '" alt="">' + (i === 0 ? '<span class="cover">Portada</span>' : '') +
+        '<div class="tools"><button type="button" data-act="ph-left" data-i="' + i + '" aria-label="Mover a la izquierda">←</button>' +
+        '<button type="button" data-act="ph-del" data-i="' + i + '" aria-label="Quitar foto">✕</button>' +
+        '<button type="button" data-act="ph-right" data-i="' + i + '" aria-label="Mover a la derecha">→</button></div></div>';
+    }).join("");
+  }
+  function addFiles(list) {
+    Array.prototype.forEach.call(list, function (f) {
+      if (!/^image\//.test(f.type)) return;
+      photos.push({ file: f, preview: URL.createObjectURL(f) });
+    });
+    drawPhotos();
+  }
+  function shrink(file) {
+    return new Promise(function (res) {
+      var img = new Image();
+      img.onload = function () {
+        var max = 1600, w = img.naturalWidth, h = img.naturalHeight, k = Math.min(1, max / Math.max(w, h));
+        var c = document.createElement("canvas"); c.width = Math.round(w * k); c.height = Math.round(h * k);
+        c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
+        c.toBlob(function (b) { res(b || file); }, "image/jpeg", 0.82);
+      };
+      img.onerror = function () { res(file); };
+      img.src = URL.createObjectURL(file);
+    });
+  }
+  function upload(ph, i, folder) {
+    if (!ph.file) return Promise.resolve(ph.url);
+    return shrink(ph.file).then(function (blob) {
+      var path = folder + "/" + Date.now() + "-" + i + ".jpg";
+      return sb.storage.from("fotos").upload(path, blob, { contentType: "image/jpeg", upsert: false }).then(function (r) {
+        if (r.error) throw r.error;
+        return sb.storage.from("fotos").getPublicUrl(path).data.publicUrl;
+      });
+    });
+  }
+  function save(e) {
+    e.preventDefault();
+    var btn = $("#saveBtn"), msg = $("#saveMsg");
+    var nuevos = photos.filter(function (p) { return p.file; }).length;
+    btn.disabled = true; msg.textContent = nuevos ? "Subiendo " + nuevos + " foto(s)…" : "Guardando…";
+    var folder = editing === "new" ? "p-" + Date.now() : editing;
+    var chain = Promise.resolve(), urls = [];
+    photos.forEach(function (ph, i) { chain = chain.then(function () { return upload(ph, i, folder).then(function (u) { urls[i] = u; ph.url = u; delete ph.file; }); }); });
+    chain.then(function () {
+      var row = {
+        tipo: $("#fTipo").value, ciudad: $("#fCiudad").value.trim(),
+        titulo_es: $("#fTit").value.trim(), desc_es: $("#fDesc").value.trim(),
+        titulo_en: $("#fTitEn").value.trim() || null, desc_en: $("#fDescEn").value.trim() || null,
+        titulo_fr: $("#fTitFr").value.trim() || null, desc_fr: $("#fDescFr").value.trim() || null,
+        precio: +$("#fPrecio").value || 0, personas: +$("#fPers").value || 1, habitaciones: +$("#fHab").value || 0, banos: +$("#fBan").value || 0,
+        comodidades: Array.prototype.map.call(document.querySelectorAll('input[name="amen"]:checked'), function (c) { return c.value; }),
+        fotos: urls.filter(Boolean), publicado: $("#fPub").checked
+      };
+      var q = editing === "new" ? sb.from("propiedades").insert(row) : sb.from("propiedades").update(row).eq("id", editing);
+      return q.then(function (r) { if (r.error) throw r.error; loadList('Guardado: "' + row.titulo_es + '". Ya ' + (row.publicado ? 'se ve en la página.' : 'está guardada (oculta).')); });
+    }).catch(function (err) {
+      btn.disabled = false; msg.textContent = "No se pudo guardar: " + (err.message || err) + ". Inténtalo otra vez."; drawPhotos();
+    });
+  }
+
+  /* ---------- Botones ---------- */
+  document.addEventListener("click", function (e) {
+    var b = e.target.closest("[data-act]"); if (!b) return;
+    var act = b.getAttribute("data-act"), id = b.getAttribute("data-id"), i = +b.getAttribute("data-i");
+    var p = props.filter(function (x) { return x.id === id; })[0];
+    if (act === "new") showForm(null);
+    else if (act === "edit") showForm(p);
+    else if (act === "back") { pendingDelete = null; showList(); }
+    else if (act === "toggle") sb.from("propiedades").update({ publicado: !p.publicado }).eq("id", id).then(function () { loadList(p.publicado ? "Propiedad oculta." : "Propiedad publicada."); });
+    else if (act === "del") { pendingDelete = id; showList(); }
+    else if (act === "del-no") { pendingDelete = null; showList(); }
+    else if (act === "del-yes") { pendingDelete = null; sb.from("propiedades").delete().eq("id", id).then(function (r) { loadList(r.error ? "No se pudo borrar: " + r.error.message : "Propiedad borrada."); }); }
+    else if (act === "team-del") sb.from("equipo").delete().eq("email", b.getAttribute("data-email")).then(loadTeam);
+    else if (act === "ph-del") { photos.splice(i, 1); drawPhotos(); }
+    else if (act === "ph-left" && i > 0) { photos.splice(i - 1, 0, photos.splice(i, 1)[0]); drawPhotos(); }
+    else if (act === "ph-right" && i < photos.length - 1) { photos.splice(i + 1, 0, photos.splice(i, 1)[0]); drawPhotos(); }
+  });
+})();
+</script>
+</body>
+</html>

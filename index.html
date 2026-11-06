@@ -4,208 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="ForeverCuba: renta de casas, apartamentos y autos en Cuba, tours, paquetes turísticos, vuelos y servicio VIP. Houses, car rental, tours, packages, flights and VIP service in Cuba.">
-<style>html{color-scheme:light}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 <title>ForeverCuba</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap">
-<style>
-/* Concepto: una calle de fachadas coloniales pintadas (Habana) como firma visual; secciones claras tipo mostrador de agencia de viajes. */
-:root {
-  --bg: #FFFFFF;
-  --surface: #FFFFFF;
-  --fg: #222222;
-  --muted: #6A6A6A;
-  --line: #DDDDDD;
-  --teal: #E31C5F;
-  --teal-soft: #F7F7F7;
-  --coral: #E31C5F;
-  --on-coral: #FFFFFF;
-  --sun: #F0B429;
-  --ink: #222222;
-  --gold: #C9A227;
-  --gold-ink: #8A6A00;
-  --vip-bg: #17140F;
-  --vip-fg: #F7F3EA;
-  --vip-muted: #BDB4A2;
-  --vip-line: #3A3326;
-  --vip-chip: #2A2418;
-  --font-display: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-body: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
-}
-:root[data-theme="dark"] {
-  --bg: #121212; --surface: #1E1E1E; --fg: #F7F7F7; --muted: #B0B0B0; --line: #3A3A3A;
-  --teal: #FF5A5F; --teal-soft: #2A2A2A; --coral: #FF5A5F; --on-coral: #1B0F0B; --sun: #F0B429; --ink: #0A0A0A;
-  --gold-ink: #E2C35A; --vip-bg: #1E1A13; color-scheme: dark;
-}
-* { box-sizing: border-box; }
-body {
-  background: var(--bg); color: var(--fg);
-  font-family: var(--font-body); font-size: 16px; line-height: 1.55;
-  padding-left: max(16px, env(safe-area-inset-left, 0px));
-  padding-right: max(16px, env(safe-area-inset-right, 0px));
-  padding-block: 0;
-}
-body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
-.wrap { max-width: 1120px; margin: 0 auto; }
-h1, h2, h3 { text-wrap: balance; margin: 0; }
-p { margin: 0; }
-a { color: inherit; }
-:focus-visible { outline: 3px solid var(--coral); outline-offset: 2px; }
-
-/* Encabezado */
-header.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 11; background: var(--bg); border-bottom: 1px solid var(--line); }
-header.top .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 24px; padding-block: 12px; }
-.brand { font-family: var(--font-display); font-size: 1.6rem; font-weight: 800; color: var(--coral); text-decoration: none; letter-spacing: -.02em; }
-.brand span { color: var(--fg); }
-.brand { display: inline-flex; flex-direction: column-reverse; align-items: center; gap: 2px; line-height: 1.1; }
-.brand .word { color: var(--coral); }
-.cuba-map { width: 110px; height: auto; flex: none; fill: var(--fg); stroke: var(--fg); stroke-width: 1.2; stroke-linejoin: round; }
-nav { display: flex; flex-wrap: wrap; gap: 4px 6px; }
-nav a { text-decoration: none; padding: 6px 12px; border-radius: 999px; font-weight: 600; font-size: .95rem; }
-nav a, .theme-btn { text-transform: uppercase; letter-spacing: .06em; font-size: .82rem; font-weight: 700; }
-nav a:hover { background: var(--teal-soft); }
-.theme-btn { font: inherit; font-weight: 600; font-size: .95rem; padding: 5px 12px; border-radius: 999px; border: 1.5px solid var(--line); background: var(--surface); color: var(--fg); cursor: pointer; display: inline-flex; align-items: center; gap: 6px; }
-.theme-btn:hover { border-color: var(--fg); }
-.theme-btn svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; }
-nav a.cta { background: var(--coral); color: var(--on-coral); }
-nav a.cta:hover { background: var(--coral); filter: brightness(1.08); }
-
-/* Portada */
-.hero { padding-top: 40px; display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 32px; align-items: end; }
-.eyebrow { font-weight: 800; font-size: clamp(1.05rem, 2.2vw, 1.3rem); letter-spacing: .12em; text-transform: uppercase; color: var(--teal); }
-.hero h1 { font-family: var(--font-display); font-weight: 800; letter-spacing: -.03em; font-size: clamp(2.4rem, 6vw, 4rem); line-height: 1.05; margin-block: 12px 16px; }
-.hero p.lead { color: var(--muted); font-size: 1.1rem; max-width: 46ch; }
-.hero-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
-.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; font: inherit; font-weight: 700; padding: 12px 22px; border-radius: 12px; border: 1.5px solid var(--fg); background: transparent; color: var(--fg); text-decoration: none; cursor: pointer; }
-.btn:hover { background: var(--teal-soft); }
-.btn.primary { background: var(--coral); border-color: var(--coral); color: var(--on-coral); }
-.btn.primary:hover { filter: brightness(1.08); background: var(--coral); }
-.btn.small { padding: 8px 14px; font-size: .92rem; border-width: 1.5px; }
-.btn.added { background: var(--fg); border-color: var(--fg); color: var(--bg); }
-
-.hero-photo { border-radius: 24px; overflow: hidden; aspect-ratio: 5 / 4; max-height: 560px; max-width: 100%; box-shadow: 0 8px 30px rgba(0, 0, 0, .15); }
-.hero-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.photo { display: block; width: 100%; max-width: 100%; aspect-ratio: 4 / 3; object-fit: cover; background: var(--teal-soft); }
-.street { position: relative; display: flex; align-items: flex-end; justify-content: center; gap: 0; height: 300px; border-bottom: 6px solid var(--ink); }
-.street .sun { position: absolute; width: 150px; height: 150px; border-radius: 50%; background: var(--sun); top: 0; right: 8%; }
-.street svg { position: relative; display: block; height: auto; border-inline: 2px solid var(--ink); }
-.street svg:nth-of-type(1) { width: 20%; }
-.street svg:nth-of-type(2) { width: 24%; }
-.street svg:nth-of-type(3) { width: 21%; }
-.street svg:nth-of-type(4) { width: 23%; }
-.street .s1 { margin-bottom: 0; }
-
-.search { margin-top: 32px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 150px), 1fr)); gap: 12px; align-items: end; background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 16px; box-shadow: 0 2px 14px rgba(0, 0, 0, .08); }
-.search .btn { height: 100%; min-height: 46px; }
-.sample { margin-top: 28px; padding: 10px 14px; border: 1px dashed var(--muted); border-radius: 10px; color: var(--muted); font-size: .9rem; }
-
-/* Secciones */
-section { padding-block: 56px 8px; }
-.sec-head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 12px 24px; margin-bottom: 24px; }
-.sec-head h2 { font-family: var(--font-display); font-weight: 700; letter-spacing: -.02em; font-size: clamp(1.7rem, 4vw, 2.3rem); }
-.sec-head p { color: var(--muted); max-width: 52ch; }
-
-.filters { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center; margin-bottom: 20px; }
-.chips { display: flex; flex-wrap: wrap; gap: 6px; }
-.chip { font: inherit; font-weight: 600; font-size: .9rem; padding: 6px 14px; border-radius: 999px; border: 1.5px solid var(--line); background: var(--surface); color: var(--fg); cursor: pointer; }
-.chip[aria-pressed="true"] { background: var(--fg); border-color: var(--fg); color: var(--bg); }
-select, input, textarea { font: inherit; color: var(--fg); background: var(--surface); border: 1.5px solid var(--line); border-radius: 10px; padding: 9px 12px; min-width: 0; width: 100%; }
-.filters select { width: auto; }
-label { display: grid; gap: 4px; font-weight: 600; font-size: .9rem; min-width: 0; }
-
-.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 20px; }
-.card { background: var(--surface); border: 1px solid var(--line); border-radius: 20px; box-shadow: 0 2px 14px rgba(0, 0, 0, .08); overflow: hidden; display: flex; flex-direction: column; min-width: 0; }
-.card .pic { height: 210px; display: flex; align-items: flex-end; justify-content: center; padding-top: 18px; }
-.card .pic svg { height: 100%; width: auto; display: block; }
-.card .body { padding: 16px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
-.card h3 { font-size: 1.1rem; line-height: 1.3; }
-.meta { color: var(--muted); font-size: .92rem; }
-.tag { display: inline-block; font-size: .75rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--teal); }
-.price { margin-top: auto; padding-top: 6px; display: flex; align-items: baseline; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
-.price strong { font-size: 1.4rem; font-variant-numeric: tabular-nums; }
-.price span { color: var(--muted); font-size: .88rem; }
-.count { color: var(--muted); font-size: .92rem; margin-bottom: 14px; }
-
-.tour { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 4px 16px; padding: 18px; }
-.tour .dur { grid-row: span 2; align-self: start; font-family: var(--font-display); font-weight: 800; font-size: 1.9rem; line-height: 1; color: var(--coral); min-width: 3.2ch; text-align: center; }
-.tour .dur small { display: block; font-family: var(--font-body); font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-top: 4px; }
-.tour .foot { grid-column: 1 / -1; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-top: 10px; padding-top: 12px; border-top: 1px solid var(--line); }
-
-.pack { padding: 0; }
-.pack .head { background: var(--ink); color: #fff; padding: 16px; display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
-.pack .head h3 { color: #fff; }
-.pack .head .days { font-family: var(--font-display); font-weight: 800; color: var(--sun); font-size: 1.3rem; }
-.route { list-style: none; margin: 4px 0 0; padding: 0; display: grid; gap: 6px; }
-.route li { padding-left: 18px; position: relative; }
-.route li::before { content: ""; position: absolute; left: 0; top: .6em; width: 8px; height: 8px; border-radius: 50%; background: var(--coral); }
-
-/* Vuelos */
-.flight { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 20px; display: grid; gap: 16px; }
-.flight .row { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr)); gap: 14px; }
-.seg { display: inline-flex; border: 1.5px solid var(--line); border-radius: 10px; overflow: hidden; width: fit-content; }
-.seg button { font: inherit; font-weight: 600; padding: 8px 16px; border: 0; background: var(--surface); color: var(--fg); cursor: pointer; }
-.seg button[aria-pressed="true"] { background: var(--fg); color: var(--bg); }
-.note { color: var(--muted); font-size: .9rem; }
-
-/* Solicitud */
-.request { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 20px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px; }
-.request h3 { font-size: 1.15rem; margin-bottom: 10px; }
-.picked { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; min-height: 2.2rem; }
-.picked .empty { color: var(--muted); }
-.pick { display: inline-flex; align-items: center; gap: 8px; background: var(--teal-soft); border-radius: 999px; padding: 5px 6px 5px 14px; font-size: .92rem; font-weight: 600; max-width: 100%; }
-.pick button { font: inherit; border: 0; background: var(--surface); color: var(--fg); width: 24px; height: 24px; border-radius: 50%; cursor: pointer; line-height: 1; flex: none; }
-.fields { display: grid; gap: 12px; }
-.fields .two { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 140px), 1fr)); gap: 12px; }
-textarea { min-height: 200px; resize: vertical; line-height: 1.5; }
-.actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
-.status { min-height: 1.4em; margin-top: 8px; font-size: .92rem; color: var(--teal); font-weight: 600; }
-
-footer { margin-top: 64px; border-top: 1px solid var(--line); padding-block: 28px 40px; color: var(--muted); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 24px; }
-footer .brand { color: var(--fg); font-size: 1.3rem; }
-
-section { scroll-margin-top: 140px; }
-@media (max-width: 800px) {
-  header.top { position: static; }
-  section { scroll-margin-top: 12px; }
-  .hero { grid-template-columns: minmax(0, 1fr); }
-  .hero-photo { aspect-ratio: 4 / 3; }
-  .request { grid-template-columns: minmax(0, 1fr); }
-}
-@media (prefers-reduced-motion: no-preference) {
-  .card { transition: transform .15s ease; }
-  .card:hover { transform: translateY(-3px); }
-}
-.nav-vip { display: inline-flex; align-items: center; gap: 6px; color: var(--gold-ink) !important; }
-.nav-vip svg { width: 14px; height: 14px; fill: var(--gold); }
-.vip { padding-top: 64px; }
-.vip-inner { background: var(--vip-bg); color: var(--vip-fg); border-radius: 28px; padding: clamp(22px, 4vw, 44px); }
-.vip .sec-head p { color: var(--vip-muted); }
-.vip .sec-head h2 { color: var(--vip-fg); }
-.vip-kicker { display: inline-flex; align-items: center; gap: 8px; color: var(--gold) !important; font-weight: 800; font-size: .85rem; letter-spacing: .14em; text-transform: uppercase; margin-bottom: 8px !important; }
-.vip-kicker svg { width: 16px; height: 16px; fill: var(--gold); }
-.vip-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 16px; }
-.vip-card { border: 1px solid var(--vip-line); border-radius: 18px; padding: 20px; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
-.vip-card .ico { width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; background: var(--vip-chip); }
-.vip-card .ico svg { width: 24px; height: 24px; fill: none; stroke: var(--gold); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
-.vip-card h3 { font-size: 1.1rem; color: var(--vip-fg); }
-.vip-card p { color: var(--vip-muted); font-size: .95rem; }
-.vip-card .foot { margin-top: auto; padding-top: 10px; display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
-.vip-card .quote { color: var(--gold); font-weight: 700; font-size: .92rem; }
-.vip-card .btn { border-color: var(--gold); color: var(--vip-fg); }
-.vip-card .btn:hover { background: var(--vip-chip); }
-.vip-card .btn.added { background: var(--gold); border-color: var(--gold); color: #1A1406; }
-.topbar { border-bottom: 1px solid var(--line); }
-header.top .wrap.topbar-in { display: flex; justify-content: flex-end; align-items: center; padding-block: 4px; }
-#carGrid { grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr)); }
-.feats { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
-.feats li { font-size: .82rem; font-weight: 600; padding: 3px 10px; border-radius: 999px; background: var(--teal-soft); color: var(--fg); }
-.langs { display: inline-flex; gap: 4px; }
-.lang { font: inherit; font-size: .78rem; font-weight: 700; letter-spacing: .04em; display: inline-flex; align-items: center; gap: 5px; padding: 4px 6px; border-radius: 8px; border: 1.5px solid transparent; background: transparent; color: var(--fg); cursor: pointer; }
-.lang svg { width: 26px; height: 18px; border-radius: 2px; box-shadow: 0 0 0 1px var(--line); flex: none; }
-.lang:hover { border-color: var(--line); }
-.lang[aria-pressed="true"] { border-color: var(--fg); }
-</style>
+<link rel="stylesheet" href="estilo.css">
 </head>
 <body>
 
@@ -403,10 +206,11 @@ header.top .wrap.topbar-in { display: flex; justify-content: flex-end; align-ite
   <p data-i18n="foot">Rentas, tours, paquetes y vuelos a Cuba.</p>
 </footer>
 
+<script src="comun.js"></script>
 <script>
 (function () {
   // Cambia este número por el WhatsApp de ForeverCuba (solo dígitos, con código de país). Ej: "5219991234567"
-  var WHATSAPP = "";
+  var WHATSAPP = FC.CONFIG.whatsapp || "";
 
   /* ---------- Textos en los tres idiomas ---------- */
   var TX = {
@@ -423,7 +227,7 @@ header.top .wrap.topbar-in { display: flex; justify-content: flex-end; align-ite
       chip_all: "Todos", chip_house: "Casas", chip_apt: "Apartamentos", city: "Ciudad", city_all: "Todas",
       count1: "alojamiento", countN: "alojamientos", none: "No hay alojamientos con ese filtro. Prueba con otra ciudad.",
       Casa: "Casa", Apartamento: "Apartamento", room1: "habitación", roomN: "habitaciones", upto: "hasta {n} personas",
-      per_night: "USD por noche", per_person: "USD por persona", from: "Desde", add: "Agregar", added: "Agregado",
+      per_night: "USD por noche", see_house: "Ver la casa", per_person: "USD por persona", from: "Desde", add: "Agregar", added: "Agregado",
       tours_h2: "Tours", tours_p: "Excursiones de medio día y día completo, con guía y transporte.", hours: "horas", dayu: "día",
       pack_h2: "Paquetes turísticos", pack_p: "Viajes armados con alojamiento, traslados y visitas. Los ajustamos a tus fechas.", days: "días",
       fly_h2: "Vuelos", fly_p: "Cuéntanos tu ruta y fechas. Buscamos las mejores opciones y te las enviamos.",
@@ -453,7 +257,7 @@ header.top .wrap.topbar-in { display: flex; justify-content: flex-end; align-ite
       chip_all: "All", chip_house: "Houses", chip_apt: "Apartments", city: "City", city_all: "All",
       count1: "stay", countN: "stays", none: "No stays match this filter. Try another city.",
       Casa: "House", Apartamento: "Apartment", room1: "bedroom", roomN: "bedrooms", upto: "up to {n} guests",
-      per_night: "USD per night", per_person: "USD per person", from: "From", add: "Add", added: "Added",
+      per_night: "USD per night", see_house: "See the place", per_person: "USD per person", from: "From", add: "Add", added: "Added",
       tours_h2: "Tours", tours_p: "Half-day and full-day trips with a guide and transport.", hours: "hours", dayu: "day",
       pack_h2: "Travel packages", pack_p: "Ready-made trips with lodging, transfers and visits, adjusted to your dates.", days: "days",
       fly_h2: "Flights", fly_p: "Tell us your route and dates. We'll find the best options and send them to you.",
@@ -483,7 +287,7 @@ header.top .wrap.topbar-in { display: flex; justify-content: flex-end; align-ite
       chip_all: "Tous", chip_house: "Maisons", chip_apt: "Appartements", city: "Ville", city_all: "Toutes",
       count1: "logement", countN: "logements", none: "Aucun logement ne correspond à ce filtre. Essayez une autre ville.",
       Casa: "Maison", Apartamento: "Appartement", room1: "chambre", roomN: "chambres", upto: "jusqu'à {n} personnes",
-      per_night: "USD par nuit", per_person: "USD par personne", from: "À partir de", add: "Ajouter", added: "Ajouté",
+      per_night: "USD par nuit", see_house: "Voir le logement", per_person: "USD par personne", from: "À partir de", add: "Ajouter", added: "Ajouté",
       tours_h2: "Excursions", tours_p: "Excursions à la demi-journée ou à la journée, avec guide et transport.", hours: "heures", dayu: "jour",
       pack_h2: "Forfaits voyage", pack_p: "Voyages tout prêts avec hébergement, transferts et visites, adaptés à vos dates.", days: "jours",
       fly_h2: "Vols", fly_p: "Indiquez-nous votre itinéraire et vos dates. Nous trouvons les meilleures options et vous les envoyons.",
@@ -564,16 +368,7 @@ header.top .wrap.topbar-in { display: flex; justify-content: flex-end; align-ite
   }
 
   /* ---------- Ofertas (cada texto en es / en / fr) ---------- */
-  var RENTAS = [
-    { t: { es: "Casa colonial con patio interior", en: "Colonial house with inner courtyard", fr: "Maison coloniale avec patio intérieur" }, z: "Habana Vieja", tipo: "Casa", h: 3, g: 6, p: 55, img: "calle-auto", web: "photo-1692197116258-128882f1182b" },
-    { t: { es: "Apartamento frente al Malecón", en: "Apartment facing the Malecón", fr: "Appartement face au Malecón" }, z: "Centro Habana", tipo: "Apartamento", h: 2, g: 4, p: 40, img: "fachadas", web: "photo-1758448511320-05d7d28f4298" },
-    { t: { es: "Casa con piscina y terraza", en: "House with pool and terrace", fr: "Maison avec piscine et terrasse" }, z: "Vedado", tipo: "Casa", h: 4, g: 8, p: 95, img: "hotel-plaza", web: "photo-1626571115951-15371ba9354b" },
-    { t: { es: "Apartamento a cinco minutos de la playa", en: "Apartment five minutes from the beach", fr: "Appartement à cinq minutes de la plage" }, z: "Varadero", tipo: "Apartamento", h: 2, g: 4, p: 50, img: "playa-cuba", web: "photo-1583847268964-b28dc8f51f92" },
-    { t: { es: "Casa particular en el centro histórico", en: "Casa particular in the historic center", fr: "Casa particular dans le centre historique" }, z: "Trinidad", tipo: "Casa", h: 2, g: 4, p: 35, img: "auto-rosa", web: "photo-1532323544230-7191fd51bc1b" },
-    { t: { es: "Casa rural con vista al valle", en: "Country house with valley views", fr: "Maison de campagne avec vue sur la vallée" }, z: "Viñales", tipo: "Casa", h: 2, g: 4, p: 30, img: "vinales", web: "photo-1560184897-ae75f418493e" },
-    { t: { es: "Apartamento con balcón", en: "Apartment with balcony", fr: "Appartement avec balcon" }, z: "Vedado", tipo: "Apartamento", h: 1, g: 2, p: 32, img: "capitolio-auto", web: "photo-1600493505873-cddd69453072" },
-    { t: { es: "Casa familiar cerca de la bahía", en: "Family house near the bay", fr: "Maison familiale près de la baie" }, z: "Cienfuegos", tipo: "Casa", h: 3, g: 6, p: 45, img: "plaza", web: "photo-1775146089517-79a8ac943a7b" }
-  ];
+  var RENTAS = FC.EJEMPLOS.slice();
   var TOURS = [
     { t: { es: "La Habana Vieja a pie", en: "Old Havana on foot", fr: "La Vieille Havane à pied" }, d: 4, u: "hours", p: 25, img: "habana-vieja",
       r: { es: "Plazas, catedral, Capitolio y Malecón con guía local.", en: "Squares, cathedral, Capitol and Malecón with a local guide.", fr: "Places, cathédrale, Capitole et Malecón avec un guide local." } },
@@ -613,12 +408,7 @@ header.top .wrap.topbar-in { display: flex; justify-content: flex-end; align-ite
   }
 
   /* ---------- Idioma ---------- */
-  var lang = "es";
-  try {
-    var savedLang = localStorage.getItem("fc-lang");
-    if (savedLang && TX[savedLang]) lang = savedLang;
-    else { var nav = (navigator.language || "es").slice(0, 2); if (TX[nav]) lang = nav; }
-  } catch (e) {}
+  var lang = FC.idioma();
   function T(k, vars) {
     var s = (TX[lang] && TX[lang][k]) || TX.es[k] || k;
     if (vars) Object.keys(vars).forEach(function (v) { s = s.replace("{" + v + "}", vars[v]); });
@@ -634,8 +424,11 @@ header.top .wrap.topbar-in { display: flex; justify-content: flex-end; align-ite
       return T("l_flight") + " (" + (f.rt ? T("round") : T("oneway")).toLowerCase() + "): " + f.o + " " + T("l_to") + " " + f.d + ", " + T("l_dep") + " " + f.i +
         (f.rt && f.v ? ", " + T("l_ret") + " " + f.v : "") + ", " + f.p + " " + (f.p === "1" ? T("pax1") : T("paxN"));
     }
+    if (it.slice(0, 2) === "r:") {
+      var r = RENTAS.filter(function (x) { return String(x.id) === it.slice(2); })[0];
+      return r ? T("l_rent") + ": " + FC.titulo(r, lang) + " (" + r.ciudad + ")" : T("l_rent");
+    }
     var n = +it.slice(1);
-    if (it[0] === "r") { var r = RENTAS[n]; return T("l_rent") + ": " + r.t[lang] + " (" + r.z + ")"; }
     if (it[0] === "t") return T("l_tour") + ": " + TOURS[n].t[lang];
     if (it[0] === "v") return "VIP: " + VIP[n].t[lang];
     if (it[0] === "c") return T("l_car") + ": " + AUTOS[n].t[lang];
@@ -695,23 +488,32 @@ header.top .wrap.topbar-in { display: flex; justify-content: flex-end; align-ite
 
   /* ---------- Rentas ---------- */
   var tipo = "Todos";
-  var zonas = RENTAS.map(function (r) { return r.z; }).filter(function (z, i, a) { return a.indexOf(z) === i; }).sort();
-  var zonaOpts = zonas.map(function (z) { return '<option value="' + esc(z) + '">' + esc(z) + "</option>"; }).join("");
-  $("#zona").insertAdjacentHTML("beforeend", zonaOpts);
-  $("#sZona").insertAdjacentHTML("beforeend", zonaOpts);
+  function buildZonas() {
+    var zonas = RENTAS.map(function (r) { return r.ciudad; }).filter(function (z, i, a) { return z && a.indexOf(z) === i; }).sort();
+    var zonaOpts = zonas.map(function (z) { return '<option value="' + esc(z) + '">' + esc(z) + "</option>"; }).join("");
+    ["#zona", "#sZona"].forEach(function (s) {
+      var el = $(s), keep = el.value;
+      while (el.options.length > 1) el.remove(1);
+      el.insertAdjacentHTML("beforeend", zonaOpts);
+      el.value = Array.prototype.some.call(el.options, function (o) { return o.value === keep; }) ? keep : "Todas";
+    });
+  }
+  buildZonas();
   function drawRentas() {
     var z = $("#zona").value;
-    var list = RENTAS.map(function (r, i) { return [r, i]; }).filter(function (x) {
-      return (tipo === "Todos" || x[0].tipo === tipo) && (z === "Todas" || x[0].z === z);
+    var list = RENTAS.filter(function (r) {
+      return (tipo === "Todos" || r.tipo === tipo) && (z === "Todas" || r.ciudad === z);
     });
     $("#rentCount").textContent = list.length + " " + (list.length === 1 ? T("count1") : T("countN"));
-    $("#rentGrid").innerHTML = list.map(function (x) {
-      var r = x[0], name = r.t[lang];
-      return '<article class="card">' + foto(r.img, name + ", " + r.z, r.web) +
-        '<div class="body"><span class="tag">' + esc(T(r.tipo)) + ' · ' + esc(r.z) + '</span><h3>' + esc(name) + '</h3>' +
-        '<p class="meta">' + r.h + " " + (r.h === 1 ? T("room1") : T("roomN")) + ' · ' + esc(T("upto", { n: r.g })) + '</p>' +
-        '<div class="price"><div><strong>$' + r.p + '</strong> <span>' + T("per_night") + '</span></div>' +
-        '<button type="button" class="btn small" data-add="r' + x[1] + '"></button></div></div></article>';
+    $("#rentGrid").innerHTML = list.map(function (r) {
+      var name = FC.titulo(r, lang), href = "casa.html?id=" + encodeURIComponent(r.id);
+      return '<article class="card">' +
+        '<a class="card-link" href="' + href + '"><img class="photo" src="' + esc(FC.foto(r)) + '" alt="' + esc(name + ", " + r.ciudad) + '" loading="lazy" onerror="this.onerror=null;this.src=\'' + FC.FALLBACK + '\'"></a>' +
+        '<div class="body"><span class="tag">' + esc(T(r.tipo)) + ' · ' + esc(r.ciudad) + '</span><h3><a class="card-link" href="' + href + '">' + esc(name) + '</a></h3>' +
+        '<p class="meta">' + r.habitaciones + " " + (r.habitaciones == 1 ? T("room1") : T("roomN")) + ' · ' + esc(T("upto", { n: r.personas })) + '</p>' +
+        '<a class="see-more" href="' + href + '">' + esc(T("see_house")) + ' →</a>' +
+        '<div class="price"><div><strong>$' + r.precio + '</strong> <span>' + T("per_night") + '</span></div>' +
+        '<button type="button" class="btn small" data-add="r:' + esc(r.id) + '"></button></div></div></article>';
     }).join("") || '<p class="meta">' + esc(T("none")) + '</p>';
   }
   $("#tipoChips").addEventListener("click", function (e) {
@@ -814,6 +616,11 @@ header.top .wrap.topbar-in { display: flex; justify-content: flex-end; align-ite
   });
 
   applyLang(lang);
+
+  /* Propiedades reales del panel (si ya está conectado) */
+  if (FC.conectado()) {
+    FC.cargar().then(function (list) { RENTAS = list.slice(); buildZonas(); drawRentas(); refresh(); });
+  }
 })();
 </script>
 
