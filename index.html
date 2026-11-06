@@ -221,6 +221,9 @@
   <section id="vip" class="vip">
     <div class="vip-hero vip-only">
       <img src="img/capitolio-auto.jpg" alt="" aria-hidden="true">
+      <video id="vipVideo" muted loop playsinline preload="none" aria-hidden="true" poster="img/capitolio-auto.jpg"
+        data-src="https://videos.pexels.com/video-files/8344927/8344927-hd_1280_720_25fps.mp4"
+        data-src-movil="https://videos.pexels.com/video-files/8344927/8344927-sd_960_540_25fps.mp4"></video>
       <div class="vip-hero-in">
         <p class="vh-kicker"><span class="vh-line"></span><span data-i18n="vh_kicker">ForeverCuba · Colección VIP</span></p>
         <h2 class="vh-title"><span data-i18n="vh_t1">Cuba, como</span> <em data-i18n="vh_t2">nunca la has vivido.</em></h2>
@@ -857,6 +860,7 @@
     var v = location.hash.slice(1), show = VIEWS[v];
     document.querySelectorAll(".home-only").forEach(function (el) { el.hidden = !!show; });
     document.body.classList.toggle("modo-vip", v === "vip");
+    vipVideo(v === "vip");
     document.querySelectorAll("main > section, #sampleNote").forEach(function (el) { el.hidden = show ? show.indexOf(el.id) < 0 : false; });
     document.querySelectorAll("header.top nav a").forEach(function (a) {
       if (show && a.getAttribute("href") === "#" + v) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current");
@@ -884,6 +888,17 @@
   Object.keys(GRIDS).forEach(function (id) { var g = document.getElementById(id); if (g) new MutationObserver(verTodos).observe(g, { childList: true }); });
   window.addEventListener("hashchange", verTodos);
   verTodos();
+  /* Video VIP en blanco y negro: solo se descarga al abrir Servicio VIP */
+  function vipVideo(on) {
+    var vid = document.getElementById("vipVideo"); if (!vid) return;
+    if (!on) { vid.pause(); return; }
+    if (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (!vid.getAttribute("src")) {
+      vid.src = innerWidth < 760 ? vid.getAttribute("data-src-movil") : vid.getAttribute("data-src");
+      vid.addEventListener("playing", function () { vid.classList.add("listo"); });
+    }
+    var p = vid.play(); if (p && p.catch) p.catch(function () {});
+  }
   function go(id) { if (location.hash === "#" + id) route(); else location.hash = id; }
   window.addEventListener("hashchange", route);
   document.querySelectorAll('a[href="#vipGrid"]').forEach(function (a) {
