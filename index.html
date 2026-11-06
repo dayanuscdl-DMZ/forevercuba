@@ -810,7 +810,7 @@
     document.querySelectorAll("header.top nav a").forEach(function (a) {
       if (show && a.getAttribute("href") === "#" + v) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current");
     });
-    if (show) window.scrollTo(0, 0);
+    if (show || v === "inicio") { window.scrollTo(0, 0); setTimeout(function () { window.scrollTo(0, 0); }, 0); }
     if (cubaMap && !$("#mapa").hidden) setTimeout(function () { cubaMap.invalidateSize(); cubaMap.fitBounds([[19.75, -85.0], [23.3, -74.1]]); }, 0);
   }
   /* En la página principal solo se ven 6 de cada categoría, con botón "Ver todos" */
@@ -835,6 +835,10 @@
   verTodos();
   function go(id) { if (location.hash === "#" + id) route(); else location.hash = id; }
   window.addEventListener("hashchange", route);
+  /* Logo: siempre vuelve al inicio, arriba del todo */
+  document.querySelectorAll("a.brand").forEach(function (a) {
+    a.addEventListener("click", function (e) { e.preventDefault(); if (location.hash === "#inicio") route(); else location.hash = "inicio"; });
+  });
   route();
 
   /* Propiedades reales del panel (si ya está conectado) */
