@@ -1,0 +1,533 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="ForeverCuba: renta de casas y apartamentos en Cuba, tours, paquetes turísticos y vuelos.">
+<style>html{color-scheme:light}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>ForeverCuba</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap">
+<style>
+/* Concepto: una calle de fachadas coloniales pintadas (Habana) como firma visual; secciones claras tipo mostrador de agencia de viajes. */
+:root {
+  --bg: #FFFFFF;
+  --surface: #FFFFFF;
+  --fg: #222222;
+  --muted: #6A6A6A;
+  --line: #DDDDDD;
+  --teal: #E31C5F;
+  --teal-soft: #F7F7F7;
+  --coral: #E31C5F;
+  --on-coral: #FFFFFF;
+  --sun: #F0B429;
+  --ink: #222222;
+  --font-display: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-body: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #121212; --surface: #1E1E1E; --fg: #F7F7F7; --muted: #B0B0B0; --line: #3A3A3A;
+    --teal: #FF5A5F; --teal-soft: #2A2A2A; --coral: #FF5A5F; --on-coral: #1B0F0B; --sun: #F0B429; --ink: #0A0A0A;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #121212; --surface: #1E1E1E; --fg: #F7F7F7; --muted: #B0B0B0; --line: #3A3A3A;
+  --teal: #FF5A5F; --teal-soft: #2A2A2A; --coral: #FF5A5F; --on-coral: #1B0F0B; --sun: #F0B429; --ink: #0A0A0A;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--fg);
+  font-family: var(--font-body); font-size: 16px; line-height: 1.55;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 0;
+}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+.wrap { max-width: 1120px; margin: 0 auto; }
+h1, h2, h3 { text-wrap: balance; margin: 0; }
+p { margin: 0; }
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--coral); outline-offset: 2px; }
+
+/* Encabezado */
+header.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 11; background: var(--bg); border-bottom: 1px solid var(--line); }
+header.top .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 24px; padding-block: 12px; }
+.brand { font-family: var(--font-display); font-size: 1.6rem; font-weight: 800; color: var(--coral); text-decoration: none; letter-spacing: -.02em; }
+.brand span { color: var(--fg); }
+.brand { display: inline-flex; flex-direction: column-reverse; align-items: center; gap: 2px; line-height: 1.1; }
+.brand .word { color: var(--coral); }
+.cuba-map { width: 110px; height: auto; flex: none; fill: var(--fg); stroke: var(--fg); stroke-width: 1.2; stroke-linejoin: round; }
+nav { display: flex; flex-wrap: wrap; gap: 4px 6px; }
+nav a { text-decoration: none; padding: 6px 12px; border-radius: 999px; font-weight: 600; font-size: .95rem; }
+nav a:hover { background: var(--teal-soft); }
+nav a.cta { background: var(--coral); color: var(--on-coral); }
+nav a.cta:hover { background: var(--coral); filter: brightness(1.08); }
+
+/* Portada */
+.hero { padding-top: 40px; display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 32px; align-items: end; }
+.eyebrow { font-weight: 700; font-size: .8rem; letter-spacing: .14em; text-transform: uppercase; color: var(--teal); }
+.hero h1 { font-family: var(--font-display); font-weight: 800; letter-spacing: -.03em; font-size: clamp(2.4rem, 6vw, 4rem); line-height: 1.05; margin-block: 12px 16px; }
+.hero p.lead { color: var(--muted); font-size: 1.1rem; max-width: 46ch; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; font: inherit; font-weight: 700; padding: 12px 22px; border-radius: 12px; border: 1.5px solid var(--fg); background: transparent; color: var(--fg); text-decoration: none; cursor: pointer; }
+.btn:hover { background: var(--teal-soft); }
+.btn.primary { background: var(--coral); border-color: var(--coral); color: var(--on-coral); }
+.btn.primary:hover { filter: brightness(1.08); background: var(--coral); }
+.btn.small { padding: 8px 14px; font-size: .92rem; border-width: 1.5px; }
+.btn.added { background: var(--fg); border-color: var(--fg); color: var(--bg); }
+
+.hero-photo { border-radius: 24px; overflow: hidden; aspect-ratio: 4 / 5; max-height: 560px; max-width: 100%; box-shadow: 0 8px 30px rgba(0, 0, 0, .15); }
+.hero-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.photo { display: block; width: 100%; max-width: 100%; aspect-ratio: 4 / 3; object-fit: cover; background: var(--teal-soft); }
+.street { position: relative; display: flex; align-items: flex-end; justify-content: center; gap: 0; height: 300px; border-bottom: 6px solid var(--ink); }
+.street .sun { position: absolute; width: 150px; height: 150px; border-radius: 50%; background: var(--sun); top: 0; right: 8%; }
+.street svg { position: relative; display: block; height: auto; border-inline: 2px solid var(--ink); }
+.street svg:nth-of-type(1) { width: 20%; }
+.street svg:nth-of-type(2) { width: 24%; }
+.street svg:nth-of-type(3) { width: 21%; }
+.street svg:nth-of-type(4) { width: 23%; }
+.street .s1 { margin-bottom: 0; }
+
+.search { margin-top: 32px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 150px), 1fr)); gap: 12px; align-items: end; background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 16px; box-shadow: 0 2px 14px rgba(0, 0, 0, .08); }
+.search .btn { height: 100%; min-height: 46px; }
+.sample { margin-top: 28px; padding: 10px 14px; border: 1px dashed var(--muted); border-radius: 10px; color: var(--muted); font-size: .9rem; }
+
+/* Secciones */
+section { padding-block: 56px 8px; }
+.sec-head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 12px 24px; margin-bottom: 24px; }
+.sec-head h2 { font-family: var(--font-display); font-weight: 700; letter-spacing: -.02em; font-size: clamp(1.7rem, 4vw, 2.3rem); }
+.sec-head p { color: var(--muted); max-width: 52ch; }
+
+.filters { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center; margin-bottom: 20px; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { font: inherit; font-weight: 600; font-size: .9rem; padding: 6px 14px; border-radius: 999px; border: 1.5px solid var(--line); background: var(--surface); color: var(--fg); cursor: pointer; }
+.chip[aria-pressed="true"] { background: var(--fg); border-color: var(--fg); color: var(--bg); }
+select, input, textarea { font: inherit; color: var(--fg); background: var(--surface); border: 1.5px solid var(--line); border-radius: 10px; padding: 9px 12px; min-width: 0; width: 100%; }
+.filters select { width: auto; }
+label { display: grid; gap: 4px; font-weight: 600; font-size: .9rem; min-width: 0; }
+
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 20px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 20px; box-shadow: 0 2px 14px rgba(0, 0, 0, .08); overflow: hidden; display: flex; flex-direction: column; min-width: 0; }
+.card .pic { height: 210px; display: flex; align-items: flex-end; justify-content: center; padding-top: 18px; }
+.card .pic svg { height: 100%; width: auto; display: block; }
+.card .body { padding: 16px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+.card h3 { font-size: 1.1rem; line-height: 1.3; }
+.meta { color: var(--muted); font-size: .92rem; }
+.tag { display: inline-block; font-size: .75rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--teal); }
+.price { margin-top: auto; padding-top: 6px; display: flex; align-items: baseline; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+.price strong { font-size: 1.4rem; font-variant-numeric: tabular-nums; }
+.price span { color: var(--muted); font-size: .88rem; }
+.count { color: var(--muted); font-size: .92rem; margin-bottom: 14px; }
+
+.tour { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 4px 16px; padding: 18px; }
+.tour .dur { grid-row: span 2; align-self: start; font-family: var(--font-display); font-weight: 800; font-size: 1.9rem; line-height: 1; color: var(--coral); min-width: 3.2ch; text-align: center; }
+.tour .dur small { display: block; font-family: var(--font-body); font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-top: 4px; }
+.tour .foot { grid-column: 1 / -1; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-top: 10px; padding-top: 12px; border-top: 1px solid var(--line); }
+
+.pack { padding: 0; }
+.pack .head { background: var(--ink); color: #fff; padding: 16px; display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.pack .head h3 { color: #fff; }
+.pack .head .days { font-family: var(--font-display); font-weight: 800; color: var(--sun); font-size: 1.3rem; }
+.route { list-style: none; margin: 4px 0 0; padding: 0; display: grid; gap: 6px; }
+.route li { padding-left: 18px; position: relative; }
+.route li::before { content: ""; position: absolute; left: 0; top: .6em; width: 8px; height: 8px; border-radius: 50%; background: var(--coral); }
+
+/* Vuelos */
+.flight { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 20px; display: grid; gap: 16px; }
+.flight .row { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr)); gap: 14px; }
+.seg { display: inline-flex; border: 1.5px solid var(--line); border-radius: 10px; overflow: hidden; width: fit-content; }
+.seg button { font: inherit; font-weight: 600; padding: 8px 16px; border: 0; background: var(--surface); color: var(--fg); cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--fg); color: var(--bg); }
+.note { color: var(--muted); font-size: .9rem; }
+
+/* Solicitud */
+.request { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 20px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px; }
+.request h3 { font-size: 1.15rem; margin-bottom: 10px; }
+.picked { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; min-height: 2.2rem; }
+.picked .empty { color: var(--muted); }
+.pick { display: inline-flex; align-items: center; gap: 8px; background: var(--teal-soft); border-radius: 999px; padding: 5px 6px 5px 14px; font-size: .92rem; font-weight: 600; max-width: 100%; }
+.pick button { font: inherit; border: 0; background: var(--surface); color: var(--fg); width: 24px; height: 24px; border-radius: 50%; cursor: pointer; line-height: 1; flex: none; }
+.fields { display: grid; gap: 12px; }
+.fields .two { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 140px), 1fr)); gap: 12px; }
+textarea { min-height: 200px; resize: vertical; line-height: 1.5; }
+.actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
+.status { min-height: 1.4em; margin-top: 8px; font-size: .92rem; color: var(--teal); font-weight: 600; }
+
+footer { margin-top: 64px; border-top: 1px solid var(--line); padding-block: 28px 40px; color: var(--muted); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 24px; }
+footer .brand { color: var(--fg); font-size: 1.3rem; }
+
+@media (max-width: 800px) {
+  .hero { grid-template-columns: minmax(0, 1fr); }
+  .hero-photo { aspect-ratio: 4 / 3; }
+  .request { grid-template-columns: minmax(0, 1fr); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .card { transition: transform .15s ease; }
+  .card:hover { transform: translateY(-3px); }
+}
+</style>
+</head>
+<body>
+
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#inicio"><svg class="cuba-map" viewBox="-1 0 109 36" aria-hidden="true"><path d="M0.5 14.4 L6.0 13.0 L11.0 11.0 L16.0 7.5 L22.0 5.5 L26.5 1.5 L34.0 2.0 L38.0 1.5 L44.0 3.0 L50.0 4.0 L57.0 7.0 L64.0 9.0 L72.0 14.0 L78.0 16.5 L85.0 20.5 L93.0 22.0 L100.0 26.0 L107.0 30.5 L105.0 32.5 L98.0 34.0 L92.0 33.5 L85.0 34.0 L78.0 34.2 L73.0 34.5 L76.0 30.0 L79.0 27.0 L72.0 26.0 L67.0 21.0 L62.0 17.5 L54.0 16.0 L46.0 15.0 L41.0 12.5 L35.0 11.5 L31.0 10.0 L27.0 7.5 L20.0 10.5 L14.0 13.0 L7.0 15.0Z"/><ellipse cx="22" cy="17" rx="3.6" ry="2.4"/></svg><span class="word">Forever<span>Cuba</span></span></a>
+    <nav aria-label="Secciones">
+      <a href="#rentas">Casas y apartamentos</a>
+      <a href="#tours">Tours</a>
+      <a href="#paquetes">Paquetes</a>
+      <a href="#vuelos">Vuelos</a>
+      <a class="cta" href="#solicitud">Mi solicitud (<span id="navCount">0</span>)</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap" id="inicio">
+  <div class="hero">
+    <div>
+      <p class="eyebrow">Renta, recorre y vuela</p>
+      <h1>Cuba entera, en un solo lugar.</h1>
+      <p class="lead">Casas y apartamentos para quedarte, tours para conocer, paquetes ya armados y vuelos para llegar. Elige lo que te guste y nosotros te respondemos por WhatsApp.</p>
+      <div class="hero-actions">
+        <a class="btn primary" href="#rentas">Ver casas y apartamentos</a>
+        <a class="btn" href="#paquetes">Ver paquetes</a>
+      </div>
+    </div>
+    <div class="hero-photo"><img src="img/prado-jeep.jpg" alt="Paseo del Prado en La Habana, con arcos de colores y un jeep antiguo naranja"></div>
+  </div>
+
+  <form class="search" id="searchForm">
+    <label for="sZona">Dónde
+      <select id="sZona"><option value="Todas">Toda Cuba</option></select>
+    </label>
+    <label for="sIn">Llegada
+      <input id="sIn" type="date">
+    </label>
+    <label for="sOut">Salida
+      <input id="sOut" type="date">
+    </label>
+    <label for="sPers">Personas
+      <input id="sPers" type="number" min="1" max="20" value="2">
+    </label>
+    <button class="btn primary" type="submit">Buscar casas</button>
+  </form>
+
+  <p class="sample">Versión de muestra. Los nombres y precios son ejemplos, y las fotos de las casas son de calles de Cuba, no de las casas reales. Los cambiamos por los tuyos.</p>
+
+  <section id="rentas">
+    <div class="sec-head">
+      <h2>Casas y apartamentos</h2>
+      <p>Alojamientos para estancias cortas o largas, con anfitriones locales.</p>
+    </div>
+    <div class="filters">
+      <div class="chips" id="tipoChips" role="group" aria-label="Tipo de alojamiento">
+        <button class="chip" data-v="Todos" aria-pressed="true">Todos</button>
+        <button class="chip" data-v="Casa" aria-pressed="false">Casas</button>
+        <button class="chip" data-v="Apartamento" aria-pressed="false">Apartamentos</button>
+      </div>
+      <label style="display:flex;align-items:center;gap:8px;">Ciudad
+        <select id="zona"><option>Todas</option></select>
+      </label>
+    </div>
+    <p class="count" id="rentCount"></p>
+    <div class="grid" id="rentGrid"></div>
+  </section>
+
+  <section id="tours">
+    <div class="sec-head">
+      <h2>Tours</h2>
+      <p>Excursiones de medio día y día completo, con guía y transporte.</p>
+    </div>
+    <div class="grid" id="tourGrid"></div>
+  </section>
+
+  <section id="paquetes">
+    <div class="sec-head">
+      <h2>Paquetes turísticos</h2>
+      <p>Viajes armados con alojamiento, traslados y visitas. Los ajustamos a tus fechas.</p>
+    </div>
+    <div class="grid" id="packGrid"></div>
+  </section>
+
+  <section id="vuelos">
+    <div class="sec-head">
+      <h2>Vuelos</h2>
+      <p>Cuéntanos tu ruta y fechas. Buscamos las mejores opciones y te las enviamos.</p>
+    </div>
+    <form class="flight" id="flightForm">
+      <div class="seg" role="group" aria-label="Tipo de viaje">
+        <button type="button" id="ida" aria-pressed="false">Solo ida</button>
+        <button type="button" id="idavuelta" aria-pressed="true">Ida y vuelta</button>
+      </div>
+      <div class="row">
+        <label for="fOrigen">Salgo desde
+          <input id="fOrigen" type="text" placeholder="Ciudad o aeropuerto" required>
+        </label>
+        <label for="fDestino">Voy a
+          <select id="fDestino">
+            <option>La Habana (HAV)</option>
+            <option>Varadero (VRA)</option>
+            <option>Santiago de Cuba (SCU)</option>
+            <option>Holguín (HOG)</option>
+            <option>Cayo Coco (CCC)</option>
+            <option>Santa Clara (SNU)</option>
+          </select>
+        </label>
+        <label for="fIda">Fecha de ida
+          <input id="fIda" type="date" required>
+        </label>
+        <label for="fVuelta" id="vueltaLabel">Fecha de regreso
+          <input id="fVuelta" type="date">
+        </label>
+        <label for="fPax">Pasajeros
+          <input id="fPax" type="number" min="1" max="9" value="1">
+        </label>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;align-items:center;gap:14px;">
+        <button class="btn primary" type="submit">Agregar vuelo a mi solicitud</button>
+        <span class="note">Los precios de vuelos cambian a diario, por eso te cotizamos al momento.</span>
+      </div>
+    </form>
+  </section>
+
+  <section id="solicitud">
+    <div class="sec-head">
+      <h2>Mi solicitud</h2>
+      <p>Aquí queda lo que elegiste. Revisa el mensaje y envíalo por WhatsApp.</p>
+    </div>
+    <div class="request">
+      <div>
+        <h3>Lo que elegiste</h3>
+        <div class="picked" id="picked"></div>
+        <div class="fields">
+          <label for="rNombre">Tu nombre
+            <input id="rNombre" type="text" autocomplete="name" placeholder="Nombre y apellido">
+          </label>
+          <div class="two">
+            <label for="rFechas">Fechas del viaje
+              <input id="rFechas" type="text" placeholder="Ej. del 10 al 20 de enero">
+            </label>
+            <label for="rPers">Personas
+              <input id="rPers" type="number" min="1" value="2">
+            </label>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h3>Mensaje listo para enviar</h3>
+        <textarea id="msg" readonly aria-label="Mensaje para WhatsApp"></textarea>
+        <div class="actions">
+          <a class="btn primary" id="waLink" href="https://wa.me/" target="_blank" rel="noopener">Enviar por WhatsApp</a>
+          <button class="btn" type="button" id="copyBtn">Copiar mensaje</button>
+        </div>
+        <p class="status" id="status" role="status"></p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="wrap">
+  <a class="brand" href="#inicio"><svg class="cuba-map" viewBox="-1 0 109 36" aria-hidden="true"><path d="M0.5 14.4 L6.0 13.0 L11.0 11.0 L16.0 7.5 L22.0 5.5 L26.5 1.5 L34.0 2.0 L38.0 1.5 L44.0 3.0 L50.0 4.0 L57.0 7.0 L64.0 9.0 L72.0 14.0 L78.0 16.5 L85.0 20.5 L93.0 22.0 L100.0 26.0 L107.0 30.5 L105.0 32.5 L98.0 34.0 L92.0 33.5 L85.0 34.0 L78.0 34.2 L73.0 34.5 L76.0 30.0 L79.0 27.0 L72.0 26.0 L67.0 21.0 L62.0 17.5 L54.0 16.0 L46.0 15.0 L41.0 12.5 L35.0 11.5 L31.0 10.0 L27.0 7.5 L20.0 10.5 L14.0 13.0 L7.0 15.0Z"/><ellipse cx="22" cy="17" rx="3.6" ry="2.4"/></svg><span class="word">Forever<span>Cuba</span></span></a>
+  <p>Rentas, tours, paquetes y vuelos a Cuba.</p>
+</footer>
+
+<script>
+(function () {
+  // Cambia este número por el WhatsApp de ForeverCuba (solo dígitos, con código de país). Ej: "5219991234567"
+  var WHATSAPP = "";
+
+  var RENTAS = [
+    { t: "Casa colonial con patio interior", z: "Habana Vieja", tipo: "Casa", h: 3, g: 6, p: 55, img: "calle-auto" },
+    { t: "Apartamento frente al Malecón", z: "Centro Habana", tipo: "Apartamento", h: 2, g: 4, p: 40, img: "fachadas" },
+    { t: "Casa con piscina y terraza", z: "Vedado", tipo: "Casa", h: 4, g: 8, p: 95, img: "hotel-plaza" },
+    { t: "Apartamento a cinco minutos de la playa", z: "Varadero", tipo: "Apartamento", h: 2, g: 4, p: 50, img: "playa-cuba" },
+    { t: "Casa particular en el centro histórico", z: "Trinidad", tipo: "Casa", h: 2, g: 4, p: 35, img: "auto-rosa" },
+    { t: "Casa rural con vista al valle", z: "Viñales", tipo: "Casa", h: 2, g: 4, p: 30, img: "vinales" },
+    { t: "Apartamento con balcón", z: "Vedado", tipo: "Apartamento", h: 1, g: 2, p: 32, img: "capitolio-auto" },
+    { t: "Casa familiar cerca de la bahía", z: "Cienfuegos", tipo: "Casa", h: 3, g: 6, p: 45, img: "plaza" }
+  ];
+  var TOURS = [
+    { t: "La Habana Vieja a pie", d: "4", u: "horas", p: 25, img: "habana-vieja", r: "Plazas, catedral, Capitolio y Malecón con guía local." },
+    { t: "Valle de Viñales y tabaco", d: "1", u: "día", p: 60, img: "vinales", r: "Mogotes, finca de tabaco, cueva y almuerzo criollo." },
+    { t: "Trinidad y Valle de los Ingenios", d: "1", u: "día", p: 55, img: "musicos", r: "Ciudad colonial, torre de Iznaga y tren de vapor." },
+    { t: "Autos clásicos por La Habana", d: "2", u: "horas", p: 40, img: "auto-rojo", r: "Recorrido en convertible por Vedado, Miramar y el Malecón." },
+    { t: "Cayo Santa María, día de playa", d: "1", u: "día", p: 70, img: "playa-cuba", r: "Traslado, playa, snorkel y almuerzo incluido." },
+    { t: "Santiago de Cuba y El Cobre", d: "1", u: "día", p: 65, img: "plaza", r: "Centro histórico, castillo del Morro y Basílica de El Cobre." }
+  ];
+  var PAQUETES = [
+    { t: "La Habana y Viñales", d: 5, p: 540, img: "capitolio", r: ["3 noches en La Habana", "2 noches en Viñales", "Traslados y tour de ciudad", "Excursión por el valle"] },
+    { t: "Occidente y Trinidad", d: 8, p: 890, img: "fachadas", r: ["3 noches en La Habana", "1 noche en Viñales", "2 noches en Trinidad", "2 noches en Varadero"] },
+    { t: "Oriente: Santiago y Baracoa", d: 7, p: 780, img: "musicos", r: ["3 noches en Santiago de Cuba", "3 noches en Baracoa", "Visita a El Cobre", "Traslados por carretera"] }
+  ];
+
+  function $(s) { return document.querySelector(s); }
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+
+  /* Fachada colonial dibujada en SVG */
+  function facade(wall, trim, door) {
+    var ink = "#12262F", out = '<svg viewBox="0 0 100 150" role="img" aria-hidden="true">';
+    out += '<rect width="100" height="150" fill="' + wall + '"/>';
+    out += '<rect width="100" height="9" fill="' + trim + '"/>';
+    [20, 68].forEach(function (y) {
+      [10, 40, 70].forEach(function (x) {
+        out += '<path d="M' + x + ' ' + (y + 34) + 'V' + (y + 11) + 'a10 10 0 0 1 20 0V' + (y + 34) + 'Z" fill="' + trim + '"/>';
+        out += '<path d="M' + (x + 3) + ' ' + (y + 34) + 'V' + (y + 11) + 'a7 7 0 0 1 14 0V' + (y + 34) + 'Z" fill="' + ink + '"/>';
+      });
+      out += '<rect x="4" y="' + (y + 34) + '" width="92" height="4" fill="' + trim + '"/>';
+    });
+    out += '<path d="M38 150V122a12 12 0 0 1 24 0V150Z" fill="' + door + '"/>';
+    out += '<rect x="48.5" y="122" width="3" height="28" fill="' + ink + '" opacity=".35"/>';
+    return out + '</svg>';
+  }
+
+  /* Calle de la portada */
+  var PAL = [
+    ["#FF5A5F", "#FFFFFF", "#222222"], ["#FFC2C7", "#FFFFFF", "#E31C5F"], ["#F0B429", "#FFFFFF", "#222222"],
+    ["#FF8A8F", "#FFF4F4", "#222222"], ["#E9E9E9", "#FFFFFF", "#E31C5F"], ["#FFD98A", "#FFFFFF", "#E31C5F"]
+  ];
+  function pal(r) { return PAL[RENTAS.indexOf(r) % PAL.length]; }
+  function foto(name, alt) { return '<img class="photo" src="img/' + name + '.jpg" alt="' + esc(alt) + '" loading="lazy">'; }
+
+  /* Solicitud */
+  var sel = [];
+  function key(l) { return l; }
+  function toggle(label) {
+    var i = sel.indexOf(label);
+    if (i >= 0) sel.splice(i, 1); else sel.push(label);
+    refresh();
+  }
+  function refresh() {
+    $("#navCount").textContent = sel.length;
+    var box = $("#picked");
+    if (!sel.length) box.innerHTML = '<span class="empty">Todavía no elegiste nada. Usa el botón Agregar en cualquier tarjeta.</span>';
+    else box.innerHTML = sel.map(function (l, i) {
+      return '<span class="pick">' + esc(l) + '<button type="button" data-rm="' + i + '" aria-label="Quitar ' + esc(l) + '">×</button></span>';
+    }).join("");
+    document.querySelectorAll("[data-add]").forEach(function (b) {
+      var on = sel.indexOf(b.getAttribute("data-add")) >= 0;
+      b.classList.toggle("added", on);
+      b.textContent = on ? "Agregado" : "Agregar";
+    });
+    buildMsg();
+  }
+  function buildMsg() {
+    var n = $("#rNombre").value.trim(), f = $("#rFechas").value.trim(), p = $("#rPers").value;
+    var lines = ["Hola ForeverCuba, quiero información sobre:"];
+    if (sel.length) sel.forEach(function (l) { lines.push("- " + l); }); else lines.push("- (aún sin elegir)");
+    lines.push("");
+    if (n) lines.push("Nombre: " + n);
+    if (f) lines.push("Fechas: " + f);
+    if (p) lines.push("Personas: " + p);
+    lines.push("Gracias.");
+    var text = lines.join("\n");
+    $("#msg").value = text;
+    var base = WHATSAPP ? "https://wa.me/" + WHATSAPP : "https://wa.me/";
+    $("#waLink").setAttribute("href", base + "?text=" + encodeURIComponent(text));
+  }
+
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest("[data-add]");
+    if (a) { toggle(a.getAttribute("data-add")); return; }
+    var r = e.target.closest("[data-rm]");
+    if (r) { sel.splice(+r.getAttribute("data-rm"), 1); refresh(); }
+  });
+  ["#rNombre", "#rFechas", "#rPers"].forEach(function (s) { $(s).addEventListener("input", buildMsg); });
+
+  $("#copyBtn").addEventListener("click", function () {
+    var ta = $("#msg"), st = $("#status");
+    function fallback() { ta.focus(); ta.select(); st.textContent = "Mensaje seleccionado. Cópialo con tu teclado."; }
+    try {
+      navigator.clipboard.writeText(ta.value).then(function () { st.textContent = "Mensaje copiado."; }, fallback);
+    } catch (err) { fallback(); }
+  });
+
+  /* Rentas */
+  var tipo = "Todos";
+  var zonas = RENTAS.map(function (r) { return r.z; }).filter(function (z, i, a) { return a.indexOf(z) === i; }).sort();
+  $("#zona").insertAdjacentHTML("beforeend", zonas.map(function (z) { return "<option>" + esc(z) + "</option>"; }).join(""));
+  function drawRentas() {
+    var z = $("#zona").value;
+    var list = RENTAS.filter(function (r) { return (tipo === "Todos" || r.tipo === tipo) && (z === "Todas" || r.z === z); });
+    $("#rentCount").textContent = list.length + (list.length === 1 ? " alojamiento" : " alojamientos");
+    $("#rentGrid").innerHTML = list.map(function (r) {
+      var label = "Renta: " + r.t + " (" + r.z + ")";
+      return '<article class="card">' + foto(r.img, r.t + ", " + r.z) +
+        '<div class="body"><span class="tag">' + esc(r.tipo) + ' · ' + esc(r.z) + '</span><h3>' + esc(r.t) + '</h3>' +
+        '<p class="meta">' + r.h + (r.h === 1 ? " habitación" : " habitaciones") + ' · hasta ' + r.g + ' personas</p>' +
+        '<div class="price"><div><strong>$' + r.p + '</strong> <span>USD por noche</span></div>' +
+        '<button type="button" class="btn small" data-add="' + esc(label) + '">Agregar</button></div></div></article>';
+    }).join("") || '<p class="meta">No hay alojamientos con ese filtro. Prueba con otra ciudad.</p>';
+    refresh();
+  }
+  $("#tipoChips").addEventListener("click", function (e) {
+    var b = e.target.closest(".chip"); if (!b) return;
+    tipo = b.getAttribute("data-v");
+    document.querySelectorAll("#tipoChips .chip").forEach(function (c) { c.setAttribute("aria-pressed", c === b ? "true" : "false"); });
+    drawRentas();
+  });
+  $("#zona").addEventListener("change", drawRentas);
+
+  /* Buscador de la portada */
+  $("#sZona").insertAdjacentHTML("beforeend", zonas.map(function (z) { return "<option>" + esc(z) + "</option>"; }).join(""));
+  function fecha(v) { return new Date(v + "T00:00:00").toLocaleDateString("es", { day: "numeric", month: "long" }); }
+  $("#searchForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    $("#zona").value = $("#sZona").value;
+    drawRentas();
+    var a = $("#sIn").value, b = $("#sOut").value;
+    if (a && b) $("#rFechas").value = "del " + fecha(a) + " al " + fecha(b);
+    else if (a) $("#rFechas").value = "desde el " + fecha(a);
+    $("#rPers").value = $("#sPers").value;
+    buildMsg();
+    $("#rentas").scrollIntoView({ behavior: "smooth" });
+  });
+
+  /* Tours */
+  $("#tourGrid").innerHTML = TOURS.map(function (t) {
+    var label = "Tour: " + t.t;
+    return '<article class="card">' + foto(t.img, t.t) + '<div class="tour"><div class="dur">' + t.d + '<small>' + t.u + '</small></div>' +
+      '<h3>' + esc(t.t) + '</h3><p class="meta">' + esc(t.r) + '</p>' +
+      '<div class="foot"><div class="price" style="margin:0;padding:0"><strong>$' + t.p + '</strong> <span>USD por persona</span></div>' +
+      '<button type="button" class="btn small" data-add="' + esc(label) + '">Agregar</button></div></div></article>';
+  }).join("");
+
+  /* Paquetes */
+  $("#packGrid").innerHTML = PAQUETES.map(function (p) {
+    var label = "Paquete: " + p.t + " (" + p.d + " días)";
+    return '<article class="card pack">' + foto(p.img, p.t) + '<div class="head"><h3>' + esc(p.t) + '</h3><span class="days">' + p.d + ' días</span></div>' +
+      '<div class="body"><ul class="route">' + p.r.map(function (x) { return "<li>" + esc(x) + "</li>"; }).join("") + '</ul>' +
+      '<div class="price"><div><span>Desde</span> <strong>$' + p.p + '</strong> <span>USD por persona</span></div>' +
+      '<button type="button" class="btn small" data-add="' + esc(label) + '">Agregar</button></div></div></article>';
+  }).join("");
+
+  /* Vuelos */
+  var roundTrip = true;
+  function setTrip(rt) {
+    roundTrip = rt;
+    $("#ida").setAttribute("aria-pressed", rt ? "false" : "true");
+    $("#idavuelta").setAttribute("aria-pressed", rt ? "true" : "false");
+    $("#vueltaLabel").hidden = !rt;
+  }
+  $("#ida").addEventListener("click", function () { setTrip(false); });
+  $("#idavuelta").addEventListener("click", function () { setTrip(true); });
+  $("#flightForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    var o = $("#fOrigen").value.trim(), d = $("#fDestino").value, i = $("#fIda").value, v = $("#fVuelta").value, p = $("#fPax").value;
+    var txt = "Vuelo " + (roundTrip ? "ida y vuelta" : "solo ida") + ": " + o + " a " + d + ", salida " + i + (roundTrip && v ? ", regreso " + v : "") + ", " + p + (p === "1" ? " pasajero" : " pasajeros");
+    if (sel.indexOf(txt) < 0) sel.push(txt);
+    refresh();
+    $("#solicitud").scrollIntoView({ behavior: "smooth" });
+  });
+  setTrip(true);
+
+  drawRentas();
+})();
+</script>
+
+</body>
+</html>
