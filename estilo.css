@@ -225,3 +225,4 @@ a.card-link:has(img):hover { text-decoration: none; }
 .prov-body p { font-size: .93rem; }
 .prov-body .see-more { margin-top: auto; padding-top: 4px; }
 .leaflet-interactive { cursor: pointer; }
+@media (min-width: 801px) { nav { gap: 2px 2px; } nav a { padding: 6px 9px; } nav a, .theme-btn { letter-spacing: .04em; font-size: .78rem; } }
