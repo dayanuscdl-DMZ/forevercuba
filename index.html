@@ -222,9 +222,12 @@
   <section id="vip" class="vip">
     <div class="vip-hero vip-only">
       <img src="img/capitolio-auto.jpg" alt="" aria-hidden="true">
-      <video id="vipVideo" muted loop playsinline preload="none" aria-hidden="true" poster="img/capitolio-auto.jpg"
+      <video class="vip-vid" muted playsinline preload="none" aria-hidden="true"
         data-src="https://videos.pexels.com/video-files/8344927/8344927-hd_1280_720_25fps.mp4"
         data-src-movil="https://videos.pexels.com/video-files/8344927/8344927-sd_960_540_25fps.mp4"></video>
+      <video class="vip-vid" muted playsinline preload="none" aria-hidden="true" data-rate="0.7"
+        data-src="https://videos.pexels.com/video-files/13063143/13063143-hd_1280_720_50fps.mp4"
+        data-src-movil="https://videos.pexels.com/video-files/13063143/13063143-sd_960_540_25fps.mp4"></video>
       <div class="vip-hero-in">
         <p class="vh-kicker"><span class="vh-line"></span><span data-i18n="vh_kicker">ForeverCuba · Colección VIP</span></p>
         <h2 class="vh-title"><span data-i18n="vh_t1">Cuba, como</span> <em data-i18n="vh_t2">nunca la has vivido.</em></h2>
@@ -899,25 +902,34 @@
   Object.keys(GRIDS).forEach(function (id) { var g = document.getElementById(id); if (g) new MutationObserver(verTodos).observe(g, { childList: true }); });
   window.addEventListener("hashchange", verTodos);
   verTodos();
-  /* Portada VIP: primero la foto del Capitolio y, 4 segundos después, el video del chofer y el Mercedes (en blanco y negro) */
-  var vipTimer = null;
+  /* Portada VIP: foto del Capitolio 4 segundos, luego el video del chofer y el Mercedes,
+     después el del champán, y así se van turnando (todo en blanco y negro) */
+  var vipTimer = null, vipIdx = 0;
   function vipVideo(on) {
-    var vid = document.getElementById("vipVideo"); if (!vid) return;
+    var vids = Array.prototype.slice.call(document.querySelectorAll(".vip-vid"));
+    if (!vids.length) return;
     clearTimeout(vipTimer);
-    if (!on) { vid.pause(); vid.classList.remove("listo"); return; }
+    vids.forEach(function (v) { v.pause(); v.classList.remove("listo"); });
+    if (!on) return;
     if (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    if (!vid.getAttribute("src")) {
-      vid.preload = "auto";
-      vid.src = innerWidth < 760 ? vid.getAttribute("data-src-movil") : vid.getAttribute("data-src");
-      vid.load();
+    vids.forEach(function (v, i) {
+      if (!v.getAttribute("src")) {
+        v.preload = "auto";
+        v.src = innerWidth < 760 ? v.getAttribute("data-src-movil") : v.getAttribute("data-src");
+        v.load();
+        v.addEventListener("ended", function () { if (soloVip()) mostrarVid((i + 1) % vids.length); });
+      }
+    });
+    function mostrarVid(n) {
+      vipIdx = n;
+      var v = vids[n];
+      try { v.currentTime = 0; } catch (e) {}
+      v.playbackRate = +v.getAttribute("data-rate") || 1;
+      var p = v.play();
+      var ver = function () { vids.forEach(function (o, k) { o.classList.toggle("listo", k === n); if (k !== n) o.pause(); }); };
+      if (p && p.then) p.then(ver).catch(function () {}); else ver();
     }
-    vid.classList.remove("listo");
-    vipTimer = setTimeout(function () {
-      try { vid.currentTime = 0; } catch (e) {}
-      var p = vid.play();
-      var mostrar = function () { vid.classList.add("listo"); };
-      if (p && p.then) p.then(mostrar).catch(function () {}); else mostrar();
-    }, 4000);
+    vipTimer = setTimeout(function () { mostrarVid(0); }, 4000);
   }
   function go(id) { if (location.hash === "#" + id) route(); else location.hash = id; }
   window.addEventListener("hashchange", route);
