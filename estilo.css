@@ -395,3 +395,9 @@ body.modo-vip .vip-pasos h3 { font-family: var(--serif); font-size: 1.6rem; font
 }
 @media (prefers-reduced-motion: reduce) { .vip-hero img { animation: none; transform: none; } }
 @media (max-width: 760px) { .vip-hero { min-height: 0; } .vip-perks b { font-size: 1.35rem; } .vip-perks li { padding: 4px 14px; } }
+/* Portada VIP: texto alineado con el logo y con ancho cómodo */
+.vip-hero-in { max-width: 1152px; margin: 0 auto; padding: clamp(60px, 10vh, 110px) 16px 70px; }
+.vip-hero-in > * { max-width: 640px; }
+.vh-kicker { white-space: nowrap; letter-spacing: .26em; }
+@media (max-width: 760px) { .vh-kicker { white-space: normal; letter-spacing: .2em; } .vip-hero-in { padding: 56px 16px 44px; } }
+@media (min-width: 761px) { .vip-hero { min-height: min(70vh, 600px); } }
