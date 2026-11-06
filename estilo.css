@@ -282,3 +282,13 @@ header.top .forever-bar .wrap { justify-content: center; flex-wrap: nowrap; padd
 :root[data-theme="dark"] .forever-bar a { color: #FF5A7F; }
 :root[data-theme="dark"] .forever-bar svg { fill: #FF5A7F; }
 :root[data-theme="dark"] .forever-bar .fbar-sub { color: #C9B5BC; }
+/* Franja con dos enlaces */
+.forever-bar .fbar-links { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 0 22px; }
+.forever-bar .fbar-links a { padding-block: 9px; }
+.forever-bar .fbar-sep { width: 1px; height: 18px; background: #E31C5F; opacity: .45; }
+:root[data-theme="dark"] .forever-bar .fbar-sep { background: #FF5A7F; }
+.forever-bar .fbar-links a[aria-current="page"] .fbar-t { text-decoration: underline; text-underline-offset: 4px; }
+header.top .forever-bar nav a { padding: 9px 0; font-size: .9rem; letter-spacing: .14em; text-transform: uppercase; color: #E31C5F; background: none; box-shadow: none; }
+:root[data-theme="dark"] header.top .forever-bar nav a { color: #FF5A7F; }
+@media (max-width: 600px) { header.top .forever-bar nav a { font-size: .74rem; letter-spacing: .06em; } .forever-bar .fbar-links { gap: 0 12px; } }
+@media (max-width: 600px) { .forever-bar .fbar-sep { display: none; } }
