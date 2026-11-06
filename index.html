@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="ForeverCuba: renta de casas y apartamentos en Cuba, tours, paquetes turísticos y vuelos.">
+<meta name="description" content="ForeverCuba: renta de casas y apartamentos en Cuba, tours, paquetes turísticos y vuelos. Houses, tours, packages and flights to Cuba.">
 <style>html{color-scheme:light}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 <title>ForeverCuba</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -166,6 +166,11 @@ footer .brand { color: var(--fg); font-size: 1.3rem; }
   .card { transition: transform .15s ease; }
   .card:hover { transform: translateY(-3px); }
 }
+.langs { display: inline-flex; gap: 4px; }
+.lang { font: inherit; font-size: .78rem; font-weight: 700; letter-spacing: .04em; display: inline-flex; align-items: center; gap: 5px; padding: 5px 8px; border-radius: 999px; border: 1.5px solid transparent; background: transparent; color: var(--fg); cursor: pointer; }
+.lang svg { width: 20px; height: 14px; border-radius: 2px; box-shadow: 0 0 0 1px var(--line); flex: none; }
+.lang:hover { border-color: var(--line); }
+.lang[aria-pressed="true"] { border-color: var(--fg); }
 </style>
 </head>
 <body>
@@ -174,13 +179,18 @@ footer .brand { color: var(--fg); font-size: 1.3rem; }
 <header class="top">
   <div class="wrap">
     <a class="brand" href="#inicio"><svg class="cuba-map" viewBox="-1 0 109 36" aria-hidden="true"><path d="M0.5 14.4 L6.0 13.0 L11.0 11.0 L16.0 7.5 L22.0 5.5 L26.5 1.5 L34.0 2.0 L38.0 1.5 L44.0 3.0 L50.0 4.0 L57.0 7.0 L64.0 9.0 L72.0 14.0 L78.0 16.5 L85.0 20.5 L93.0 22.0 L100.0 26.0 L107.0 30.5 L105.0 32.5 L98.0 34.0 L92.0 33.5 L85.0 34.0 L78.0 34.2 L73.0 34.5 L76.0 30.0 L79.0 27.0 L72.0 26.0 L67.0 21.0 L62.0 17.5 L54.0 16.0 L46.0 15.0 L41.0 12.5 L35.0 11.5 L31.0 10.0 L27.0 7.5 L20.0 10.5 L14.0 13.0 L7.0 15.0Z"/><ellipse cx="22" cy="17" rx="3.6" ry="2.4"/></svg><span class="word">Forever<span>Cuba</span></span></a>
-    <nav aria-label="Secciones">
-      <a href="#rentas">Casas y apartamentos</a>
-      <a href="#tours">Tours</a>
-      <a href="#paquetes">Paquetes</a>
-      <a href="#vuelos">Vuelos</a>
+    <nav aria-label="Menu">
+      <a href="#rentas" data-i18n="nav_rent">Casas y apartamentos</a>
+      <a href="#tours" data-i18n="nav_tours">Tours</a>
+      <a href="#paquetes" data-i18n="nav_pack">Paquetes</a>
+      <a href="#vuelos" data-i18n="nav_fly">Vuelos</a>
+      <div class="langs" role="group" aria-label="Idioma / Language / Langue">
+        <button type="button" class="lang" data-lang="es" aria-label="Español"><svg viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="20" fill="#AA151B"/><rect y="5" width="30" height="10" fill="#F1BF00"/></svg>ES</button>
+        <button type="button" class="lang" data-lang="en" aria-label="English"><svg viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="20" fill="#FFFFFF"/><g fill="#B22234"><rect y="0" width="30" height="1.54"/><rect y="3.08" width="30" height="1.54"/><rect y="6.15" width="30" height="1.54"/><rect y="9.23" width="30" height="1.54"/><rect y="12.31" width="30" height="1.54"/><rect y="15.38" width="30" height="1.54"/><rect y="18.46" width="30" height="1.54"/></g><rect width="12" height="10.77" fill="#3C3B6E"/><g fill="#FFFFFF"><circle cx="2.4" cy="2.2" r=".7"/><circle cx="6" cy="2.2" r=".7"/><circle cx="9.6" cy="2.2" r=".7"/><circle cx="4.2" cy="5.4" r=".7"/><circle cx="7.8" cy="5.4" r=".7"/><circle cx="2.4" cy="8.6" r=".7"/><circle cx="6" cy="8.6" r=".7"/><circle cx="9.6" cy="8.6" r=".7"/></g></svg>EN</button>
+        <button type="button" class="lang" data-lang="fr" aria-label="Français"><svg viewBox="0 0 30 20" aria-hidden="true"><rect width="10" height="20" fill="#002395"/><rect x="10" width="10" height="20" fill="#FFFFFF"/><rect x="20" width="10" height="20" fill="#ED2939"/></svg>FR</button>
+      </div>
       <button type="button" class="theme-btn" id="themeBtn"></button>
-      <a class="cta" href="#solicitud">Mi solicitud (<span id="navCount">0</span>)</a>
+      <a class="cta" href="#solicitud"><span data-i18n="nav_req">Mi solicitud</span> (<span id="navCount">0</span>)</a>
     </nav>
   </div>
 </header>
@@ -188,48 +198,48 @@ footer .brand { color: var(--fg); font-size: 1.3rem; }
 <main class="wrap" id="inicio">
   <div class="hero">
     <div>
-      <p class="eyebrow">Renta, recorre y vuela</p>
-      <h1>Cuba entera, en un solo lugar.</h1>
-      <p class="lead">Casas y apartamentos para quedarte, tours para conocer, paquetes ya armados y vuelos para llegar. Elige lo que te guste y nosotros te respondemos por WhatsApp.</p>
+      <p class="eyebrow" data-i18n="eyebrow">Renta, recorre y vuela</p>
+      <h1 data-i18n="h1">Cuba entera, en un solo lugar.</h1>
+      <p class="lead" data-i18n="lead">Casas y apartamentos para quedarte, tours para conocer, paquetes ya armados y vuelos para llegar. Elige lo que te guste y nosotros te respondemos por WhatsApp.</p>
       <div class="hero-actions">
-        <a class="btn primary" href="#rentas">Ver casas y apartamentos</a>
-        <a class="btn" href="#paquetes">Ver paquetes</a>
+        <a class="btn primary" href="#rentas" data-i18n="btn_rent">Ver casas y apartamentos</a>
+        <a class="btn" href="#paquetes" data-i18n="btn_pack">Ver paquetes</a>
       </div>
     </div>
-    <div class="hero-photo"><img src="img/portada.jpg" alt="Fachadas de colores y autos clásicos en el Paseo del Prado, La Habana"></div>
+    <div class="hero-photo"><img src="img/portada.jpg" data-i18n-alt="hero_alt" alt="Fachadas de colores y autos clásicos en el Paseo del Prado, La Habana"></div>
   </div>
 
   <form class="search" id="searchForm">
-    <label for="sZona">Dónde
-      <select id="sZona"><option value="Todas">Toda Cuba</option></select>
+    <label for="sZona"><span data-i18n="s_where">Dónde</span>
+      <select id="sZona"><option value="Todas" data-i18n="s_all">Toda Cuba</option></select>
     </label>
-    <label for="sIn">Llegada
+    <label for="sIn"><span data-i18n="s_in">Llegada</span>
       <input id="sIn" type="date">
     </label>
-    <label for="sOut">Salida
+    <label for="sOut"><span data-i18n="s_out">Salida</span>
       <input id="sOut" type="date">
     </label>
-    <label for="sPers">Personas
+    <label for="sPers"><span data-i18n="s_pers">Personas</span>
       <input id="sPers" type="number" min="1" max="20" value="2">
     </label>
-    <button class="btn primary" type="submit">Buscar casas</button>
+    <button class="btn primary" type="submit" data-i18n="s_btn">Buscar casas</button>
   </form>
 
-  <p class="sample">Versión de muestra. Los nombres y precios son ejemplos, y las fotos de las casas son de calles de Cuba, no de las casas reales. Los cambiamos por los tuyos.</p>
+  <p class="sample" data-i18n="sample">Versión de muestra. Los nombres y precios son ejemplos, y las fotos de las casas son de calles de Cuba, no de las casas reales.</p>
 
   <section id="rentas">
     <div class="sec-head">
-      <h2>Casas y apartamentos</h2>
-      <p>Alojamientos para estancias cortas o largas, con anfitriones locales.</p>
+      <h2 data-i18n="rent_h2">Casas y apartamentos</h2>
+      <p data-i18n="rent_p">Alojamientos para estancias cortas o largas, con anfitriones locales.</p>
     </div>
     <div class="filters">
-      <div class="chips" id="tipoChips" role="group" aria-label="Tipo de alojamiento">
-        <button class="chip" data-v="Todos" aria-pressed="true">Todos</button>
-        <button class="chip" data-v="Casa" aria-pressed="false">Casas</button>
-        <button class="chip" data-v="Apartamento" aria-pressed="false">Apartamentos</button>
+      <div class="chips" id="tipoChips" role="group">
+        <button class="chip" data-v="Todos" aria-pressed="true" data-i18n="chip_all">Todos</button>
+        <button class="chip" data-v="Casa" aria-pressed="false" data-i18n="chip_house">Casas</button>
+        <button class="chip" data-v="Apartamento" aria-pressed="false" data-i18n="chip_apt">Apartamentos</button>
       </div>
-      <label style="display:flex;align-items:center;gap:8px;">Ciudad
-        <select id="zona"><option>Todas</option></select>
+      <label style="display:flex;align-items:center;gap:8px;"><span data-i18n="city">Ciudad</span>
+        <select id="zona"><option value="Todas" data-i18n="city_all">Todas</option></select>
       </label>
     </div>
     <p class="count" id="rentCount"></p>
@@ -238,35 +248,35 @@ footer .brand { color: var(--fg); font-size: 1.3rem; }
 
   <section id="tours">
     <div class="sec-head">
-      <h2>Tours</h2>
-      <p>Excursiones de medio día y día completo, con guía y transporte.</p>
+      <h2 data-i18n="tours_h2">Tours</h2>
+      <p data-i18n="tours_p">Excursiones de medio día y día completo, con guía y transporte.</p>
     </div>
     <div class="grid" id="tourGrid"></div>
   </section>
 
   <section id="paquetes">
     <div class="sec-head">
-      <h2>Paquetes turísticos</h2>
-      <p>Viajes armados con alojamiento, traslados y visitas. Los ajustamos a tus fechas.</p>
+      <h2 data-i18n="pack_h2">Paquetes turísticos</h2>
+      <p data-i18n="pack_p">Viajes armados con alojamiento, traslados y visitas. Los ajustamos a tus fechas.</p>
     </div>
     <div class="grid" id="packGrid"></div>
   </section>
 
   <section id="vuelos">
     <div class="sec-head">
-      <h2>Vuelos</h2>
-      <p>Cuéntanos tu ruta y fechas. Buscamos las mejores opciones y te las enviamos.</p>
+      <h2 data-i18n="fly_h2">Vuelos</h2>
+      <p data-i18n="fly_p">Cuéntanos tu ruta y fechas. Buscamos las mejores opciones y te las enviamos.</p>
     </div>
     <form class="flight" id="flightForm">
-      <div class="seg" role="group" aria-label="Tipo de viaje">
-        <button type="button" id="ida" aria-pressed="false">Solo ida</button>
-        <button type="button" id="idavuelta" aria-pressed="true">Ida y vuelta</button>
+      <div class="seg" role="group">
+        <button type="button" id="ida" aria-pressed="false" data-i18n="oneway">Solo ida</button>
+        <button type="button" id="idavuelta" aria-pressed="true" data-i18n="round">Ida y vuelta</button>
       </div>
       <div class="row">
-        <label for="fOrigen">Salgo desde
-          <input id="fOrigen" type="text" placeholder="Ciudad o aeropuerto" required>
+        <label for="fOrigen"><span data-i18n="f_from">Salgo desde</span>
+          <input id="fOrigen" type="text" data-i18n-ph="f_from_ph" placeholder="Ciudad o aeropuerto" required>
         </label>
-        <label for="fDestino">Voy a
+        <label for="fDestino"><span data-i18n="f_to">Voy a</span>
           <select id="fDestino">
             <option>La Habana (HAV)</option>
             <option>Varadero (VRA)</option>
@@ -276,52 +286,52 @@ footer .brand { color: var(--fg); font-size: 1.3rem; }
             <option>Santa Clara (SNU)</option>
           </select>
         </label>
-        <label for="fIda">Fecha de ida
+        <label for="fIda"><span data-i18n="f_dep">Fecha de ida</span>
           <input id="fIda" type="date" required>
         </label>
-        <label for="fVuelta" id="vueltaLabel">Fecha de regreso
+        <label for="fVuelta" id="vueltaLabel"><span data-i18n="f_ret">Fecha de regreso</span>
           <input id="fVuelta" type="date">
         </label>
-        <label for="fPax">Pasajeros
+        <label for="fPax"><span data-i18n="f_pax">Pasajeros</span>
           <input id="fPax" type="number" min="1" max="9" value="1">
         </label>
       </div>
       <div style="display:flex;flex-wrap:wrap;align-items:center;gap:14px;">
-        <button class="btn primary" type="submit">Agregar vuelo a mi solicitud</button>
-        <span class="note">Los precios de vuelos cambian a diario, por eso te cotizamos al momento.</span>
+        <button class="btn primary" type="submit" data-i18n="f_btn">Agregar vuelo a mi solicitud</button>
+        <span class="note" data-i18n="f_note">Los precios de vuelos cambian a diario, por eso te cotizamos al momento.</span>
       </div>
     </form>
   </section>
 
   <section id="solicitud">
     <div class="sec-head">
-      <h2>Mi solicitud</h2>
-      <p>Aquí queda lo que elegiste. Revisa el mensaje y envíalo por WhatsApp.</p>
+      <h2 data-i18n="req_h2">Mi solicitud</h2>
+      <p data-i18n="req_p">Aquí queda lo que elegiste. Revisa el mensaje y envíalo por WhatsApp.</p>
     </div>
     <div class="request">
       <div>
-        <h3>Lo que elegiste</h3>
+        <h3 data-i18n="picked_h">Lo que elegiste</h3>
         <div class="picked" id="picked"></div>
         <div class="fields">
-          <label for="rNombre">Tu nombre
-            <input id="rNombre" type="text" autocomplete="name" placeholder="Nombre y apellido">
+          <label for="rNombre"><span data-i18n="name">Tu nombre</span>
+            <input id="rNombre" type="text" autocomplete="name" data-i18n-ph="name_ph" placeholder="Nombre y apellido">
           </label>
           <div class="two">
-            <label for="rFechas">Fechas del viaje
-              <input id="rFechas" type="text" placeholder="Ej. del 10 al 20 de enero">
+            <label for="rFechas"><span data-i18n="dates">Fechas del viaje</span>
+              <input id="rFechas" type="text" data-i18n-ph="dates_ph" placeholder="Ej. del 10 al 20 de enero">
             </label>
-            <label for="rPers">Personas
+            <label for="rPers"><span data-i18n="s_pers">Personas</span>
               <input id="rPers" type="number" min="1" value="2">
             </label>
           </div>
         </div>
       </div>
       <div>
-        <h3>Mensaje listo para enviar</h3>
-        <textarea id="msg" readonly aria-label="Mensaje para WhatsApp"></textarea>
+        <h3 data-i18n="msg_h">Mensaje listo para enviar</h3>
+        <textarea id="msg" readonly aria-label="WhatsApp"></textarea>
         <div class="actions">
-          <a class="btn primary" id="waLink" href="https://wa.me/" target="_blank" rel="noopener">Enviar por WhatsApp</a>
-          <button class="btn" type="button" id="copyBtn">Copiar mensaje</button>
+          <a class="btn primary" id="waLink" href="https://wa.me/" target="_blank" rel="noopener" data-i18n="send">Enviar por WhatsApp</a>
+          <button class="btn" type="button" id="copyBtn" data-i18n="copy">Copiar mensaje</button>
         </div>
         <p class="status" id="status" role="status"></p>
       </div>
@@ -331,7 +341,7 @@ footer .brand { color: var(--fg); font-size: 1.3rem; }
 
 <footer class="wrap">
   <a class="brand" href="#inicio"><svg class="cuba-map" viewBox="-1 0 109 36" aria-hidden="true"><path d="M0.5 14.4 L6.0 13.0 L11.0 11.0 L16.0 7.5 L22.0 5.5 L26.5 1.5 L34.0 2.0 L38.0 1.5 L44.0 3.0 L50.0 4.0 L57.0 7.0 L64.0 9.0 L72.0 14.0 L78.0 16.5 L85.0 20.5 L93.0 22.0 L100.0 26.0 L107.0 30.5 L105.0 32.5 L98.0 34.0 L92.0 33.5 L85.0 34.0 L78.0 34.2 L73.0 34.5 L76.0 30.0 L79.0 27.0 L72.0 26.0 L67.0 21.0 L62.0 17.5 L54.0 16.0 L46.0 15.0 L41.0 12.5 L35.0 11.5 L31.0 10.0 L27.0 7.5 L20.0 10.5 L14.0 13.0 L7.0 15.0Z"/><ellipse cx="22" cy="17" rx="3.6" ry="2.4"/></svg><span class="word">Forever<span>Cuba</span></span></a>
-  <p>Rentas, tours, paquetes y vuelos a Cuba.</p>
+  <p data-i18n="foot">Rentas, tours, paquetes y vuelos a Cuba.</p>
 </footer>
 
 <script>
@@ -339,89 +349,201 @@ footer .brand { color: var(--fg); font-size: 1.3rem; }
   // Cambia este número por el WhatsApp de ForeverCuba (solo dígitos, con código de país). Ej: "5219991234567"
   var WHATSAPP = "";
 
+  /* ---------- Textos en los tres idiomas ---------- */
+  var TX = {
+    es: {
+      nav_rent: "Casas y apartamentos", nav_tours: "Tours", nav_pack: "Paquetes", nav_fly: "Vuelos", nav_req: "Mi solicitud",
+      night: "Noche", day: "Día", to_night: "Cambiar a modo noche", to_day: "Cambiar a modo día",
+      eyebrow: "Renta, recorre y vuela", h1: "Cuba entera, en un solo lugar.",
+      lead: "Casas y apartamentos para quedarte, tours para conocer, paquetes ya armados y vuelos para llegar. Elige lo que te guste y nosotros te respondemos por WhatsApp.",
+      btn_rent: "Ver casas y apartamentos", btn_pack: "Ver paquetes",
+      hero_alt: "Fachadas de colores y autos clásicos en el Paseo del Prado, La Habana",
+      s_where: "Dónde", s_all: "Toda Cuba", s_in: "Llegada", s_out: "Salida", s_pers: "Personas", s_btn: "Buscar casas",
+      sample: "Versión de muestra. Los nombres y precios son ejemplos, y las fotos de las casas son de calles de Cuba, no de las casas reales.",
+      rent_h2: "Casas y apartamentos", rent_p: "Alojamientos para estancias cortas o largas, con anfitriones locales.",
+      chip_all: "Todos", chip_house: "Casas", chip_apt: "Apartamentos", city: "Ciudad", city_all: "Todas",
+      count1: "alojamiento", countN: "alojamientos", none: "No hay alojamientos con ese filtro. Prueba con otra ciudad.",
+      Casa: "Casa", Apartamento: "Apartamento", room1: "habitación", roomN: "habitaciones", upto: "hasta {n} personas",
+      per_night: "USD por noche", per_person: "USD por persona", from: "Desde", add: "Agregar", added: "Agregado",
+      tours_h2: "Tours", tours_p: "Excursiones de medio día y día completo, con guía y transporte.", hours: "horas", dayu: "día",
+      pack_h2: "Paquetes turísticos", pack_p: "Viajes armados con alojamiento, traslados y visitas. Los ajustamos a tus fechas.", days: "días",
+      fly_h2: "Vuelos", fly_p: "Cuéntanos tu ruta y fechas. Buscamos las mejores opciones y te las enviamos.",
+      oneway: "Solo ida", round: "Ida y vuelta", f_from: "Salgo desde", f_from_ph: "Ciudad o aeropuerto", f_to: "Voy a",
+      f_dep: "Fecha de ida", f_ret: "Fecha de regreso", f_pax: "Pasajeros", f_btn: "Agregar vuelo a mi solicitud",
+      f_note: "Los precios de vuelos cambian a diario, por eso te cotizamos al momento.",
+      req_h2: "Mi solicitud", req_p: "Aquí queda lo que elegiste. Revisa el mensaje y envíalo por WhatsApp.",
+      picked_h: "Lo que elegiste", empty: "Todavía no elegiste nada. Usa el botón Agregar en cualquier tarjeta.",
+      name: "Tu nombre", name_ph: "Nombre y apellido", dates: "Fechas del viaje", dates_ph: "Ej. del 10 al 20 de enero",
+      msg_h: "Mensaje listo para enviar", send: "Enviar por WhatsApp", copy: "Copiar mensaje",
+      copied: "Mensaje copiado.", selected: "Mensaje seleccionado. Cópialo con tu teclado.", remove: "Quitar",
+      foot: "Rentas, tours, paquetes y vuelos a Cuba.",
+      m_hello: "Hola ForeverCuba, quiero información sobre:", m_none: "(aún sin elegir)", m_name: "Nombre", m_dates: "Fechas", m_pers: "Personas", m_thanks: "Gracias.",
+      l_rent: "Renta", l_tour: "Tour", l_pack: "Paquete", l_flight: "Vuelo", l_to: "a", l_dep: "salida", l_ret: "regreso", pax1: "pasajero", paxN: "pasajeros",
+      range: "del {a} al {b}", since: "desde el {a}"
+    },
+    en: {
+      nav_rent: "Houses & apartments", nav_tours: "Tours", nav_pack: "Packages", nav_fly: "Flights", nav_req: "My request",
+      night: "Night", day: "Day", to_night: "Switch to night mode", to_day: "Switch to day mode",
+      eyebrow: "Stay, explore and fly", h1: "All of Cuba, in one place.",
+      lead: "Houses and apartments to stay in, tours to explore, ready-made packages and flights to get there. Pick what you like and we'll reply on WhatsApp.",
+      btn_rent: "See houses & apartments", btn_pack: "See packages",
+      hero_alt: "Colorful facades and classic cars on Paseo del Prado, Havana",
+      s_where: "Where", s_all: "All of Cuba", s_in: "Check-in", s_out: "Check-out", s_pers: "Guests", s_btn: "Search stays",
+      sample: "Sample version. Names and prices are examples, and the house photos show Cuban streets, not the actual houses.",
+      rent_h2: "Houses & apartments", rent_p: "Short and long stays with local hosts.",
+      chip_all: "All", chip_house: "Houses", chip_apt: "Apartments", city: "City", city_all: "All",
+      count1: "stay", countN: "stays", none: "No stays match this filter. Try another city.",
+      Casa: "House", Apartamento: "Apartment", room1: "bedroom", roomN: "bedrooms", upto: "up to {n} guests",
+      per_night: "USD per night", per_person: "USD per person", from: "From", add: "Add", added: "Added",
+      tours_h2: "Tours", tours_p: "Half-day and full-day trips with a guide and transport.", hours: "hours", dayu: "day",
+      pack_h2: "Travel packages", pack_p: "Ready-made trips with lodging, transfers and visits, adjusted to your dates.", days: "days",
+      fly_h2: "Flights", fly_p: "Tell us your route and dates. We'll find the best options and send them to you.",
+      oneway: "One way", round: "Round trip", f_from: "Flying from", f_from_ph: "City or airport", f_to: "Flying to",
+      f_dep: "Departure date", f_ret: "Return date", f_pax: "Passengers", f_btn: "Add flight to my request",
+      f_note: "Flight prices change every day, so we quote you on the spot.",
+      req_h2: "My request", req_p: "Everything you picked is here. Check the message and send it on WhatsApp.",
+      picked_h: "Your picks", empty: "Nothing picked yet. Use the Add button on any card.",
+      name: "Your name", name_ph: "First and last name", dates: "Travel dates", dates_ph: "E.g. January 10 to 20",
+      msg_h: "Message ready to send", send: "Send on WhatsApp", copy: "Copy message",
+      copied: "Message copied.", selected: "Message selected. Copy it with your keyboard.", remove: "Remove",
+      foot: "Stays, tours, packages and flights to Cuba.",
+      m_hello: "Hi ForeverCuba, I'd like information about:", m_none: "(nothing picked yet)", m_name: "Name", m_dates: "Dates", m_pers: "Guests", m_thanks: "Thank you.",
+      l_rent: "Stay", l_tour: "Tour", l_pack: "Package", l_flight: "Flight", l_to: "to", l_dep: "departing", l_ret: "returning", pax1: "passenger", paxN: "passengers",
+      range: "{a} to {b}", since: "from {a}"
+    },
+    fr: {
+      nav_rent: "Maisons et appartements", nav_tours: "Excursions", nav_pack: "Forfaits", nav_fly: "Vols", nav_req: "Ma demande",
+      night: "Nuit", day: "Jour", to_night: "Passer en mode nuit", to_day: "Passer en mode jour",
+      eyebrow: "Séjournez, explorez et volez", h1: "Toute Cuba, en un seul endroit.",
+      lead: "Des maisons et appartements pour séjourner, des excursions pour découvrir, des forfaits tout prêts et des vols pour arriver. Choisissez ce qui vous plaît et nous vous répondons sur WhatsApp.",
+      btn_rent: "Voir les logements", btn_pack: "Voir les forfaits",
+      hero_alt: "Façades colorées et voitures anciennes sur le Paseo del Prado, La Havane",
+      s_where: "Où", s_all: "Toute Cuba", s_in: "Arrivée", s_out: "Départ", s_pers: "Personnes", s_btn: "Rechercher",
+      sample: "Version de démonstration. Les noms et les prix sont des exemples, et les photos des logements montrent des rues de Cuba, pas les logements réels.",
+      rent_h2: "Maisons et appartements", rent_p: "Séjours courts ou longs chez des hôtes locaux.",
+      chip_all: "Tous", chip_house: "Maisons", chip_apt: "Appartements", city: "Ville", city_all: "Toutes",
+      count1: "logement", countN: "logements", none: "Aucun logement ne correspond à ce filtre. Essayez une autre ville.",
+      Casa: "Maison", Apartamento: "Appartement", room1: "chambre", roomN: "chambres", upto: "jusqu'à {n} personnes",
+      per_night: "USD par nuit", per_person: "USD par personne", from: "À partir de", add: "Ajouter", added: "Ajouté",
+      tours_h2: "Excursions", tours_p: "Excursions à la demi-journée ou à la journée, avec guide et transport.", hours: "heures", dayu: "jour",
+      pack_h2: "Forfaits voyage", pack_p: "Voyages tout prêts avec hébergement, transferts et visites, adaptés à vos dates.", days: "jours",
+      fly_h2: "Vols", fly_p: "Indiquez-nous votre itinéraire et vos dates. Nous trouvons les meilleures options et vous les envoyons.",
+      oneway: "Aller simple", round: "Aller-retour", f_from: "Je pars de", f_from_ph: "Ville ou aéroport", f_to: "Je vais à",
+      f_dep: "Date de départ", f_ret: "Date de retour", f_pax: "Passagers", f_btn: "Ajouter le vol à ma demande",
+      f_note: "Les prix des vols changent chaque jour, nous vous faisons donc un devis sur le moment.",
+      req_h2: "Ma demande", req_p: "Tout ce que vous avez choisi est ici. Vérifiez le message et envoyez-le sur WhatsApp.",
+      picked_h: "Vos choix", empty: "Rien de choisi pour l'instant. Utilisez le bouton Ajouter sur une carte.",
+      name: "Votre nom", name_ph: "Prénom et nom", dates: "Dates du voyage", dates_ph: "Ex. du 10 au 20 janvier",
+      msg_h: "Message prêt à envoyer", send: "Envoyer sur WhatsApp", copy: "Copier le message",
+      copied: "Message copié.", selected: "Message sélectionné. Copiez-le avec votre clavier.", remove: "Retirer",
+      foot: "Logements, excursions, forfaits et vols vers Cuba.",
+      m_hello: "Bonjour ForeverCuba, je souhaite des informations sur :", m_none: "(rien de choisi)", m_name: "Nom", m_dates: "Dates", m_pers: "Personnes", m_thanks: "Merci.",
+      l_rent: "Logement", l_tour: "Excursion", l_pack: "Forfait", l_flight: "Vol", l_to: "à", l_dep: "départ", l_ret: "retour", pax1: "passager", paxN: "passagers",
+      range: "du {a} au {b}", since: "à partir du {a}"
+    }
+  };
+
+  /* ---------- Ofertas (cada texto en es / en / fr) ---------- */
   var RENTAS = [
-    { t: "Casa colonial con patio interior", z: "Habana Vieja", tipo: "Casa", h: 3, g: 6, p: 55, img: "calle-auto" },
-    { t: "Apartamento frente al Malecón", z: "Centro Habana", tipo: "Apartamento", h: 2, g: 4, p: 40, img: "fachadas" },
-    { t: "Casa con piscina y terraza", z: "Vedado", tipo: "Casa", h: 4, g: 8, p: 95, img: "hotel-plaza" },
-    { t: "Apartamento a cinco minutos de la playa", z: "Varadero", tipo: "Apartamento", h: 2, g: 4, p: 50, img: "playa-cuba" },
-    { t: "Casa particular en el centro histórico", z: "Trinidad", tipo: "Casa", h: 2, g: 4, p: 35, img: "auto-rosa" },
-    { t: "Casa rural con vista al valle", z: "Viñales", tipo: "Casa", h: 2, g: 4, p: 30, img: "vinales" },
-    { t: "Apartamento con balcón", z: "Vedado", tipo: "Apartamento", h: 1, g: 2, p: 32, img: "capitolio-auto" },
-    { t: "Casa familiar cerca de la bahía", z: "Cienfuegos", tipo: "Casa", h: 3, g: 6, p: 45, img: "plaza" }
+    { t: { es: "Casa colonial con patio interior", en: "Colonial house with inner courtyard", fr: "Maison coloniale avec patio intérieur" }, z: "Habana Vieja", tipo: "Casa", h: 3, g: 6, p: 55, img: "calle-auto" },
+    { t: { es: "Apartamento frente al Malecón", en: "Apartment facing the Malecón", fr: "Appartement face au Malecón" }, z: "Centro Habana", tipo: "Apartamento", h: 2, g: 4, p: 40, img: "fachadas" },
+    { t: { es: "Casa con piscina y terraza", en: "House with pool and terrace", fr: "Maison avec piscine et terrasse" }, z: "Vedado", tipo: "Casa", h: 4, g: 8, p: 95, img: "hotel-plaza" },
+    { t: { es: "Apartamento a cinco minutos de la playa", en: "Apartment five minutes from the beach", fr: "Appartement à cinq minutes de la plage" }, z: "Varadero", tipo: "Apartamento", h: 2, g: 4, p: 50, img: "playa-cuba" },
+    { t: { es: "Casa particular en el centro histórico", en: "Casa particular in the historic center", fr: "Casa particular dans le centre historique" }, z: "Trinidad", tipo: "Casa", h: 2, g: 4, p: 35, img: "auto-rosa" },
+    { t: { es: "Casa rural con vista al valle", en: "Country house with valley views", fr: "Maison de campagne avec vue sur la vallée" }, z: "Viñales", tipo: "Casa", h: 2, g: 4, p: 30, img: "vinales" },
+    { t: { es: "Apartamento con balcón", en: "Apartment with balcony", fr: "Appartement avec balcon" }, z: "Vedado", tipo: "Apartamento", h: 1, g: 2, p: 32, img: "capitolio-auto" },
+    { t: { es: "Casa familiar cerca de la bahía", en: "Family house near the bay", fr: "Maison familiale près de la baie" }, z: "Cienfuegos", tipo: "Casa", h: 3, g: 6, p: 45, img: "plaza" }
   ];
   var TOURS = [
-    { t: "La Habana Vieja a pie", d: "4", u: "horas", p: 25, img: "habana-vieja", r: "Plazas, catedral, Capitolio y Malecón con guía local." },
-    { t: "Valle de Viñales y tabaco", d: "1", u: "día", p: 60, img: "vinales", r: "Mogotes, finca de tabaco, cueva y almuerzo criollo." },
-    { t: "Trinidad y Valle de los Ingenios", d: "1", u: "día", p: 55, img: "musicos", r: "Ciudad colonial, torre de Iznaga y tren de vapor." },
-    { t: "Autos clásicos por La Habana", d: "2", u: "horas", p: 40, img: "auto-rojo", r: "Recorrido en convertible por Vedado, Miramar y el Malecón." },
-    { t: "Cayo Santa María, día de playa", d: "1", u: "día", p: 70, img: "playa-cuba", r: "Traslado, playa, snorkel y almuerzo incluido." },
-    { t: "Santiago de Cuba y El Cobre", d: "1", u: "día", p: 65, img: "plaza", r: "Centro histórico, castillo del Morro y Basílica de El Cobre." }
+    { t: { es: "La Habana Vieja a pie", en: "Old Havana on foot", fr: "La Vieille Havane à pied" }, d: 4, u: "hours", p: 25, img: "habana-vieja",
+      r: { es: "Plazas, catedral, Capitolio y Malecón con guía local.", en: "Squares, cathedral, Capitol and Malecón with a local guide.", fr: "Places, cathédrale, Capitole et Malecón avec un guide local." } },
+    { t: { es: "Valle de Viñales y tabaco", en: "Viñales Valley and tobacco", fr: "Vallée de Viñales et tabac" }, d: 1, u: "dayu", p: 60, img: "vinales",
+      r: { es: "Mogotes, finca de tabaco, cueva y almuerzo criollo.", en: "Mogotes, tobacco farm, cave and Creole lunch.", fr: "Mogotes, plantation de tabac, grotte et déjeuner créole." } },
+    { t: { es: "Trinidad y Valle de los Ingenios", en: "Trinidad and the Valley of the Sugar Mills", fr: "Trinidad et la Vallée des Moulins à sucre" }, d: 1, u: "dayu", p: 55, img: "musicos",
+      r: { es: "Ciudad colonial, torre de Iznaga y tren de vapor.", en: "Colonial town, Iznaga tower and steam train.", fr: "Ville coloniale, tour Iznaga et train à vapeur." } },
+    { t: { es: "Autos clásicos por La Habana", en: "Classic car ride through Havana", fr: "La Havane en voiture ancienne" }, d: 2, u: "hours", p: 40, img: "auto-rojo",
+      r: { es: "Recorrido en convertible por Vedado, Miramar y el Malecón.", en: "Convertible ride through Vedado, Miramar and the Malecón.", fr: "Balade en décapotable dans le Vedado, Miramar et le long du Malecón." } },
+    { t: { es: "Cayo Santa María, día de playa", en: "Cayo Santa María beach day", fr: "Journée plage à Cayo Santa María" }, d: 1, u: "dayu", p: 70, img: "playa-cuba",
+      r: { es: "Traslado, playa, snorkel y almuerzo incluido.", en: "Transfer, beach, snorkeling and lunch included.", fr: "Transfert, plage, snorkeling et déjeuner inclus." } },
+    { t: { es: "Santiago de Cuba y El Cobre", en: "Santiago de Cuba and El Cobre", fr: "Santiago de Cuba et El Cobre" }, d: 1, u: "dayu", p: 65, img: "plaza",
+      r: { es: "Centro histórico, castillo del Morro y Basílica de El Cobre.", en: "Historic center, El Morro castle and El Cobre Basilica.", fr: "Centre historique, château du Morro et basilique d'El Cobre." } }
   ];
   var PAQUETES = [
-    { t: "La Habana y Viñales", d: 5, p: 540, img: "capitolio", r: ["3 noches en La Habana", "2 noches en Viñales", "Traslados y tour de ciudad", "Excursión por el valle"] },
-    { t: "Occidente y Trinidad", d: 8, p: 890, img: "fachadas", r: ["3 noches en La Habana", "1 noche en Viñales", "2 noches en Trinidad", "2 noches en Varadero"] },
-    { t: "Oriente: Santiago y Baracoa", d: 7, p: 780, img: "musicos", r: ["3 noches en Santiago de Cuba", "3 noches en Baracoa", "Visita a El Cobre", "Traslados por carretera"] }
+    { t: { es: "La Habana y Viñales", en: "Havana and Viñales", fr: "La Havane et Viñales" }, d: 5, p: 540, img: "capitolio",
+      r: { es: ["3 noches en La Habana", "2 noches en Viñales", "Traslados y tour de ciudad", "Excursión por el valle"],
+           en: ["3 nights in Havana", "2 nights in Viñales", "Transfers and city tour", "Valley excursion"],
+           fr: ["3 nuits à La Havane", "2 nuits à Viñales", "Transferts et visite de la ville", "Excursion dans la vallée"] } },
+    { t: { es: "Occidente y Trinidad", en: "Western Cuba and Trinidad", fr: "L'Ouest cubain et Trinidad" }, d: 8, p: 890, img: "fachadas",
+      r: { es: ["3 noches en La Habana", "1 noche en Viñales", "2 noches en Trinidad", "2 noches en Varadero"],
+           en: ["3 nights in Havana", "1 night in Viñales", "2 nights in Trinidad", "2 nights in Varadero"],
+           fr: ["3 nuits à La Havane", "1 nuit à Viñales", "2 nuits à Trinidad", "2 nuits à Varadero"] } },
+    { t: { es: "Oriente: Santiago y Baracoa", en: "Eastern Cuba: Santiago and Baracoa", fr: "L'Est cubain : Santiago et Baracoa" }, d: 7, p: 780, img: "musicos",
+      r: { es: ["3 noches en Santiago de Cuba", "3 noches en Baracoa", "Visita a El Cobre", "Traslados por carretera"],
+           en: ["3 nights in Santiago de Cuba", "3 nights in Baracoa", "Visit to El Cobre", "Road transfers"],
+           fr: ["3 nuits à Santiago de Cuba", "3 nuits à Baracoa", "Visite d'El Cobre", "Transferts par la route"] } }
   ];
 
   function $(s) { return document.querySelector(s); }
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
-
-  /* Fachada colonial dibujada en SVG */
-  function facade(wall, trim, door) {
-    var ink = "#12262F", out = '<svg viewBox="0 0 100 150" role="img" aria-hidden="true">';
-    out += '<rect width="100" height="150" fill="' + wall + '"/>';
-    out += '<rect width="100" height="9" fill="' + trim + '"/>';
-    [20, 68].forEach(function (y) {
-      [10, 40, 70].forEach(function (x) {
-        out += '<path d="M' + x + ' ' + (y + 34) + 'V' + (y + 11) + 'a10 10 0 0 1 20 0V' + (y + 34) + 'Z" fill="' + trim + '"/>';
-        out += '<path d="M' + (x + 3) + ' ' + (y + 34) + 'V' + (y + 11) + 'a7 7 0 0 1 14 0V' + (y + 34) + 'Z" fill="' + ink + '"/>';
-      });
-      out += '<rect x="4" y="' + (y + 34) + '" width="92" height="4" fill="' + trim + '"/>';
-    });
-    out += '<path d="M38 150V122a12 12 0 0 1 24 0V150Z" fill="' + door + '"/>';
-    out += '<rect x="48.5" y="122" width="3" height="28" fill="' + ink + '" opacity=".35"/>';
-    return out + '</svg>';
-  }
-
-  /* Calle de la portada */
-  var PAL = [
-    ["#FF5A5F", "#FFFFFF", "#222222"], ["#FFC2C7", "#FFFFFF", "#E31C5F"], ["#F0B429", "#FFFFFF", "#222222"],
-    ["#FF8A8F", "#FFF4F4", "#222222"], ["#E9E9E9", "#FFFFFF", "#E31C5F"], ["#FFD98A", "#FFFFFF", "#E31C5F"]
-  ];
-  function pal(r) { return PAL[RENTAS.indexOf(r) % PAL.length]; }
   function foto(name, alt) { return '<img class="photo" src="img/' + name + '.jpg" alt="' + esc(alt) + '" loading="lazy">'; }
 
-  /* Solicitud */
-  var sel = [];
-  function key(l) { return l; }
-  function toggle(label) {
-    var i = sel.indexOf(label);
-    if (i >= 0) sel.splice(i, 1); else sel.push(label);
+  /* ---------- Idioma ---------- */
+  var lang = "es";
+  try {
+    var savedLang = localStorage.getItem("fc-lang");
+    if (savedLang && TX[savedLang]) lang = savedLang;
+    else { var nav = (navigator.language || "es").slice(0, 2); if (TX[nav]) lang = nav; }
+  } catch (e) {}
+  function T(k, vars) {
+    var s = (TX[lang] && TX[lang][k]) || TX.es[k] || k;
+    if (vars) Object.keys(vars).forEach(function (v) { s = s.replace("{" + v + "}", vars[v]); });
+    return s;
+  }
+
+  /* ---------- Solicitud ---------- */
+  var sel = []; // claves: "r0", "t2", "p1" o vuelos { f: {...} }
+  function itemKey(it) { return typeof it === "string" ? it : JSON.stringify(it); }
+  function label(it) {
+    if (typeof it !== "string") {
+      var f = it.f;
+      return T("l_flight") + " (" + (f.rt ? T("round") : T("oneway")).toLowerCase() + "): " + f.o + " " + T("l_to") + " " + f.d + ", " + T("l_dep") + " " + f.i +
+        (f.rt && f.v ? ", " + T("l_ret") + " " + f.v : "") + ", " + f.p + " " + (f.p === "1" ? T("pax1") : T("paxN"));
+    }
+    var n = +it.slice(1);
+    if (it[0] === "r") { var r = RENTAS[n]; return T("l_rent") + ": " + r.t[lang] + " (" + r.z + ")"; }
+    if (it[0] === "t") return T("l_tour") + ": " + TOURS[n].t[lang];
+    var p = PAQUETES[n]; return T("l_pack") + ": " + p.t[lang] + " (" + p.d + " " + T("days") + ")";
+  }
+  function isSel(k) { return sel.some(function (it) { return itemKey(it) === k; }); }
+  function toggle(k) {
+    var i = sel.findIndex(function (it) { return itemKey(it) === k; });
+    if (i >= 0) sel.splice(i, 1); else sel.push(k);
     refresh();
   }
   function refresh() {
     $("#navCount").textContent = sel.length;
     var box = $("#picked");
-    if (!sel.length) box.innerHTML = '<span class="empty">Todavía no elegiste nada. Usa el botón Agregar en cualquier tarjeta.</span>';
-    else box.innerHTML = sel.map(function (l, i) {
-      return '<span class="pick">' + esc(l) + '<button type="button" data-rm="' + i + '" aria-label="Quitar ' + esc(l) + '">×</button></span>';
+    if (!sel.length) box.innerHTML = '<span class="empty">' + esc(T("empty")) + '</span>';
+    else box.innerHTML = sel.map(function (it, i) {
+      var l = label(it);
+      return '<span class="pick">' + esc(l) + '<button type="button" data-rm="' + i + '" aria-label="' + esc(T("remove") + " " + l) + '">×</button></span>';
     }).join("");
     document.querySelectorAll("[data-add]").forEach(function (b) {
-      var on = sel.indexOf(b.getAttribute("data-add")) >= 0;
+      var on = isSel(b.getAttribute("data-add"));
       b.classList.toggle("added", on);
-      b.textContent = on ? "Agregado" : "Agregar";
+      b.textContent = on ? T("added") : T("add");
     });
     buildMsg();
   }
   function buildMsg() {
     var n = $("#rNombre").value.trim(), f = $("#rFechas").value.trim(), p = $("#rPers").value;
-    var lines = ["Hola ForeverCuba, quiero información sobre:"];
-    if (sel.length) sel.forEach(function (l) { lines.push("- " + l); }); else lines.push("- (aún sin elegir)");
+    var lines = [T("m_hello")];
+    if (sel.length) sel.forEach(function (it) { lines.push("- " + label(it)); }); else lines.push("- " + T("m_none"));
     lines.push("");
-    if (n) lines.push("Nombre: " + n);
-    if (f) lines.push("Fechas: " + f);
-    if (p) lines.push("Personas: " + p);
-    lines.push("Gracias.");
+    if (n) lines.push(T("m_name") + ": " + n);
+    if (f) lines.push(T("m_dates") + ": " + f);
+    if (p) lines.push(T("m_pers") + ": " + p);
+    lines.push(T("m_thanks"));
     var text = lines.join("\n");
     $("#msg").value = text;
     var base = WHATSAPP ? "https://wa.me/" + WHATSAPP : "https://wa.me/";
@@ -438,72 +560,77 @@ footer .brand { color: var(--fg); font-size: 1.3rem; }
 
   $("#copyBtn").addEventListener("click", function () {
     var ta = $("#msg"), st = $("#status");
-    function fallback() { ta.focus(); ta.select(); st.textContent = "Mensaje seleccionado. Cópialo con tu teclado."; }
+    function fallback() { ta.focus(); ta.select(); st.textContent = T("selected"); }
     try {
-      navigator.clipboard.writeText(ta.value).then(function () { st.textContent = "Mensaje copiado."; }, fallback);
+      navigator.clipboard.writeText(ta.value).then(function () { st.textContent = T("copied"); }, fallback);
     } catch (err) { fallback(); }
   });
 
-  /* Rentas */
+  /* ---------- Rentas ---------- */
   var tipo = "Todos";
   var zonas = RENTAS.map(function (r) { return r.z; }).filter(function (z, i, a) { return a.indexOf(z) === i; }).sort();
-  $("#zona").insertAdjacentHTML("beforeend", zonas.map(function (z) { return "<option>" + esc(z) + "</option>"; }).join(""));
+  var zonaOpts = zonas.map(function (z) { return '<option value="' + esc(z) + '">' + esc(z) + "</option>"; }).join("");
+  $("#zona").insertAdjacentHTML("beforeend", zonaOpts);
+  $("#sZona").insertAdjacentHTML("beforeend", zonaOpts);
   function drawRentas() {
     var z = $("#zona").value;
-    var list = RENTAS.filter(function (r) { return (tipo === "Todos" || r.tipo === tipo) && (z === "Todas" || r.z === z); });
-    $("#rentCount").textContent = list.length + (list.length === 1 ? " alojamiento" : " alojamientos");
-    $("#rentGrid").innerHTML = list.map(function (r) {
-      var label = "Renta: " + r.t + " (" + r.z + ")";
-      return '<article class="card">' + foto(r.img, r.t + ", " + r.z) +
-        '<div class="body"><span class="tag">' + esc(r.tipo) + ' · ' + esc(r.z) + '</span><h3>' + esc(r.t) + '</h3>' +
-        '<p class="meta">' + r.h + (r.h === 1 ? " habitación" : " habitaciones") + ' · hasta ' + r.g + ' personas</p>' +
-        '<div class="price"><div><strong>$' + r.p + '</strong> <span>USD por noche</span></div>' +
-        '<button type="button" class="btn small" data-add="' + esc(label) + '">Agregar</button></div></div></article>';
-    }).join("") || '<p class="meta">No hay alojamientos con ese filtro. Prueba con otra ciudad.</p>';
-    refresh();
+    var list = RENTAS.map(function (r, i) { return [r, i]; }).filter(function (x) {
+      return (tipo === "Todos" || x[0].tipo === tipo) && (z === "Todas" || x[0].z === z);
+    });
+    $("#rentCount").textContent = list.length + " " + (list.length === 1 ? T("count1") : T("countN"));
+    $("#rentGrid").innerHTML = list.map(function (x) {
+      var r = x[0], name = r.t[lang];
+      return '<article class="card">' + foto(r.img, name + ", " + r.z) +
+        '<div class="body"><span class="tag">' + esc(T(r.tipo)) + ' · ' + esc(r.z) + '</span><h3>' + esc(name) + '</h3>' +
+        '<p class="meta">' + r.h + " " + (r.h === 1 ? T("room1") : T("roomN")) + ' · ' + esc(T("upto", { n: r.g })) + '</p>' +
+        '<div class="price"><div><strong>$' + r.p + '</strong> <span>' + T("per_night") + '</span></div>' +
+        '<button type="button" class="btn small" data-add="r' + x[1] + '"></button></div></div></article>';
+    }).join("") || '<p class="meta">' + esc(T("none")) + '</p>';
   }
   $("#tipoChips").addEventListener("click", function (e) {
     var b = e.target.closest(".chip"); if (!b) return;
     tipo = b.getAttribute("data-v");
     document.querySelectorAll("#tipoChips .chip").forEach(function (c) { c.setAttribute("aria-pressed", c === b ? "true" : "false"); });
-    drawRentas();
+    drawRentas(); refresh();
   });
-  $("#zona").addEventListener("change", drawRentas);
+  $("#zona").addEventListener("change", function () { drawRentas(); refresh(); });
 
-  /* Buscador de la portada */
-  $("#sZona").insertAdjacentHTML("beforeend", zonas.map(function (z) { return "<option>" + esc(z) + "</option>"; }).join(""));
-  function fecha(v) { return new Date(v + "T00:00:00").toLocaleDateString("es", { day: "numeric", month: "long" }); }
+  /* ---------- Buscador de la portada ---------- */
+  var locales = { es: "es", en: "en-US", fr: "fr" };
+  function fecha(v) { return new Date(v + "T00:00:00").toLocaleDateString(locales[lang], { day: "numeric", month: "long" }); }
   $("#searchForm").addEventListener("submit", function (e) {
     e.preventDefault();
     $("#zona").value = $("#sZona").value;
     drawRentas();
     var a = $("#sIn").value, b = $("#sOut").value;
-    if (a && b) $("#rFechas").value = "del " + fecha(a) + " al " + fecha(b);
-    else if (a) $("#rFechas").value = "desde el " + fecha(a);
+    if (a && b) $("#rFechas").value = T("range", { a: fecha(a), b: fecha(b) });
+    else if (a) $("#rFechas").value = T("since", { a: fecha(a) });
     $("#rPers").value = $("#sPers").value;
-    buildMsg();
+    refresh();
     $("#rentas").scrollIntoView({ behavior: "smooth" });
   });
 
-  /* Tours */
-  $("#tourGrid").innerHTML = TOURS.map(function (t) {
-    var label = "Tour: " + t.t;
-    return '<article class="card">' + foto(t.img, t.t) + '<div class="tour"><div class="dur">' + t.d + '<small>' + t.u + '</small></div>' +
-      '<h3>' + esc(t.t) + '</h3><p class="meta">' + esc(t.r) + '</p>' +
-      '<div class="foot"><div class="price" style="margin:0;padding:0"><strong>$' + t.p + '</strong> <span>USD por persona</span></div>' +
-      '<button type="button" class="btn small" data-add="' + esc(label) + '">Agregar</button></div></div></article>';
-  }).join("");
+  /* ---------- Tours y paquetes ---------- */
+  function drawTours() {
+    $("#tourGrid").innerHTML = TOURS.map(function (t, i) {
+      var name = t.t[lang];
+      return '<article class="card">' + foto(t.img, name) + '<div class="tour"><div class="dur">' + t.d + '<small>' + T(t.u) + '</small></div>' +
+        '<h3>' + esc(name) + '</h3><p class="meta">' + esc(t.r[lang]) + '</p>' +
+        '<div class="foot"><div class="price" style="margin:0;padding:0"><strong>$' + t.p + '</strong> <span>' + T("per_person") + '</span></div>' +
+        '<button type="button" class="btn small" data-add="t' + i + '"></button></div></div></article>';
+    }).join("");
+  }
+  function drawPacks() {
+    $("#packGrid").innerHTML = PAQUETES.map(function (p, i) {
+      var name = p.t[lang];
+      return '<article class="card pack">' + foto(p.img, name) + '<div class="head"><h3>' + esc(name) + '</h3><span class="days">' + p.d + ' ' + T("days") + '</span></div>' +
+        '<div class="body"><ul class="route">' + p.r[lang].map(function (x) { return "<li>" + esc(x) + "</li>"; }).join("") + '</ul>' +
+        '<div class="price"><div><span>' + T("from") + '</span> <strong>$' + p.p + '</strong> <span>' + T("per_person") + '</span></div>' +
+        '<button type="button" class="btn small" data-add="p' + i + '"></button></div></div></article>';
+    }).join("");
+  }
 
-  /* Paquetes */
-  $("#packGrid").innerHTML = PAQUETES.map(function (p) {
-    var label = "Paquete: " + p.t + " (" + p.d + " días)";
-    return '<article class="card pack">' + foto(p.img, p.t) + '<div class="head"><h3>' + esc(p.t) + '</h3><span class="days">' + p.d + ' días</span></div>' +
-      '<div class="body"><ul class="route">' + p.r.map(function (x) { return "<li>" + esc(x) + "</li>"; }).join("") + '</ul>' +
-      '<div class="price"><div><span>Desde</span> <strong>$' + p.p + '</strong> <span>USD por persona</span></div>' +
-      '<button type="button" class="btn small" data-add="' + esc(label) + '">Agregar</button></div></div></article>';
-  }).join("");
-
-  /* Vuelos */
+  /* ---------- Vuelos ---------- */
   var roundTrip = true;
   function setTrip(rt) {
     roundTrip = rt;
@@ -515,22 +642,25 @@ footer .brand { color: var(--fg); font-size: 1.3rem; }
   $("#idavuelta").addEventListener("click", function () { setTrip(true); });
   $("#flightForm").addEventListener("submit", function (e) {
     e.preventDefault();
-    var o = $("#fOrigen").value.trim(), d = $("#fDestino").value, i = $("#fIda").value, v = $("#fVuelta").value, p = $("#fPax").value;
-    var txt = "Vuelo " + (roundTrip ? "ida y vuelta" : "solo ida") + ": " + o + " a " + d + ", salida " + i + (roundTrip && v ? ", regreso " + v : "") + ", " + p + (p === "1" ? " pasajero" : " pasajeros");
-    if (sel.indexOf(txt) < 0) sel.push(txt);
+    var it = { f: { rt: roundTrip, o: $("#fOrigen").value.trim(), d: $("#fDestino").value, i: $("#fIda").value, v: $("#fVuelta").value, p: $("#fPax").value } };
+    if (!isSel(itemKey(it))) sel.push(it);
     refresh();
     $("#solicitud").scrollIntoView({ behavior: "smooth" });
   });
   setTrip(true);
 
-  /* Botón Día / Noche (siempre empieza en Día) */
+  /* ---------- Botón Día / Noche (siempre empieza en Día) ---------- */
   var root = document.documentElement, tb = $("#themeBtn");
   var MOON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>';
   var SUN = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>';
+  function paintThemeBtn() {
+    var dark = root.getAttribute("data-theme") === "dark";
+    tb.innerHTML = dark ? SUN + " " + esc(T("day")) : MOON + " " + esc(T("night"));
+    tb.setAttribute("aria-label", dark ? T("to_day") : T("to_night"));
+  }
   function setTheme(t) {
     root.setAttribute("data-theme", t);
-    tb.innerHTML = t === "dark" ? SUN + " Día" : MOON + " Noche";
-    tb.setAttribute("aria-label", t === "dark" ? "Cambiar a modo día" : "Cambiar a modo noche");
+    paintThemeBtn();
     try { localStorage.setItem("fc-theme", t); } catch (e) {}
   }
   var saved = "light";
@@ -538,7 +668,25 @@ footer .brand { color: var(--fg); font-size: 1.3rem; }
   setTheme(saved === "dark" ? "dark" : "light");
   tb.addEventListener("click", function () { setTheme(root.getAttribute("data-theme") === "dark" ? "light" : "dark"); });
 
-  drawRentas();
+  /* ---------- Aplicar idioma ---------- */
+  function applyLang(l) {
+    lang = TX[l] ? l : "es";
+    root.setAttribute("lang", lang);
+    try { localStorage.setItem("fc-lang", lang); } catch (e) {}
+    document.querySelectorAll("[data-i18n]").forEach(function (el) { el.textContent = T(el.getAttribute("data-i18n")); });
+    document.querySelectorAll("[data-i18n-ph]").forEach(function (el) { el.setAttribute("placeholder", T(el.getAttribute("data-i18n-ph"))); });
+    document.querySelectorAll("[data-i18n-alt]").forEach(function (el) { el.setAttribute("alt", T(el.getAttribute("data-i18n-alt"))); });
+    document.querySelectorAll(".lang").forEach(function (b) { b.setAttribute("aria-pressed", b.getAttribute("data-lang") === lang ? "true" : "false"); });
+    paintThemeBtn();
+    drawRentas(); drawTours(); drawPacks();
+    $("#status").textContent = "";
+    refresh();
+  }
+  document.querySelectorAll(".lang").forEach(function (b) {
+    b.addEventListener("click", function () { applyLang(b.getAttribute("data-lang")); });
+  });
+
+  applyLang(lang);
 })();
 </script>
 
