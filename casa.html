@@ -142,7 +142,7 @@
       where_p: "{c}, Cuba. Te enviamos la dirección exacta al confirmar la reserva.",
       per_night: "USD por noche", checkin: "Llegada", checkout: "Salida", guests_l: "Personas", name_l: "Tu nombre", name_ph: "Nombre y apellido",
       nights1: "1 noche", nightsN: "{n} noches", total: "Total aproximado", ask: "Pedir por WhatsApp",
-      note: "No se cobra nada ahora. Te confirmamos disponibilidad por WhatsApp.", err_dates: "La salida tiene que ser después de la llegada.",
+      note: "No se cobra nada ahora. Te confirmamos la disponibilidad por correo o por teléfono.", err_dates: "La salida tiene que ser después de la llegada.",
       others: "Otros lugares que te pueden gustar", see: "Ver",
       nf_h: "No encontramos este lugar", nf_p: "Puede que ya no esté disponible.",
       sample: "Propiedad de ejemplo: el nombre, el precio y las fotos son de prueba.",
@@ -157,7 +157,7 @@
       where_p: "{c}, Cuba. We send you the exact address once your booking is confirmed.",
       per_night: "USD per night", checkin: "Check-in", checkout: "Check-out", guests_l: "Guests", name_l: "Your name", name_ph: "First and last name",
       nights1: "1 night", nightsN: "{n} nights", total: "Estimated total", ask: "Request on WhatsApp",
-      note: "You won't be charged now. We confirm availability on WhatsApp.", err_dates: "Check-out has to be after check-in.",
+      note: "You won't be charged now. We confirm availability by email or phone.", err_dates: "Check-out has to be after check-in.",
       others: "Other places you may like", see: "See",
       nf_h: "We couldn't find this place", nf_p: "It may no longer be available.",
       sample: "Sample listing: name, price and photos are for testing.",
@@ -172,7 +172,7 @@
       where_p: "{c}, Cuba. Nous vous envoyons l'adresse exacte une fois la réservation confirmée.",
       per_night: "USD par nuit", checkin: "Arrivée", checkout: "Départ", guests_l: "Personnes", name_l: "Votre nom", name_ph: "Prénom et nom",
       nights1: "1 nuit", nightsN: "{n} nuits", total: "Total estimé", ask: "Demander sur WhatsApp",
-      note: "Aucun paiement maintenant. Nous confirmons la disponibilité sur WhatsApp.", err_dates: "Le départ doit être après l'arrivée.",
+      note: "Aucun paiement maintenant. Nous confirmons la disponibilité par e-mail ou par téléphone.", err_dates: "Le départ doit être après l'arrivée.",
       others: "D'autres logements qui pourraient vous plaire", see: "Voir",
       nf_h: "Logement introuvable", nf_p: "Il n'est peut-être plus disponible.",
       sample: "Logement d'exemple : le nom, le prix et les photos sont des tests.",
@@ -213,7 +213,7 @@
     var mapUrl = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(p.ciudad + ", Cuba");
     var isSample = String(p.id).indexOf("ej") === 0;
     var sel = function (id) { var el = document.getElementById(id); return el ? el.value : ""; };
-    var keep = { a: sel("bIn"), b: sel("bOut"), g: sel("bGuests"), n: sel("bName") };
+    var keep = { a: sel("bIn"), b: sel("bOut"), g: sel("bGuests"), n: sel("bName"), t: sel("bTel"), m: sel("bMail") };
     page.innerHTML =
       '<a class="back" href="index.html#rentas">← ' + esc(T("back")) + '</a>' +
       '<h1 class="ph-title">' + esc(name) + '</h1>' +
@@ -231,9 +231,11 @@
         '<label for="bOut">' + esc(T("checkout")) + '<input id="bOut" type="date" min="' + today(1) + '"></label></div>' +
         '<label for="bGuests">' + esc(T("guests_l")) + '<input id="bGuests" type="number" min="1" max="' + (p.personas || 20) + '" value="2"></label>' +
         '<label for="bName">' + esc(T("name_l")) + '<input id="bName" type="text" autocomplete="name" placeholder="' + esc(T("name_ph")) + '"></label>' +
+        '<label for="bTel">' + esc(FC.st("phone")) + '<input id="bTel" type="tel" autocomplete="tel" placeholder="' + esc(FC.st("phone_ph")) + '"></label>' +
+        '<label for="bMail">' + esc(FC.st("mail")) + '<input id="bMail" type="email" autocomplete="email" placeholder="' + esc(FC.st("mail_ph")) + '"></label>' +
         '<div class="sum" id="bSum"></div><p class="err" id="bErr" role="status"></p>' +
-        '<a class="btn primary" id="bAsk" href="https://wa.me/" target="_blank" rel="noopener">' + esc(T("ask")) + '</a>' +
-        '<span id="bMail"></span>' +
+        '<button type="button" class="btn primary" id="bSend">' + esc(FC.st("send")) + '</button>' +
+        '<a class="btn" id="bAsk" href="https://wa.me/" target="_blank" rel="noopener">' + esc(T("ask")) + '</a>' +
         '<p class="note">' + esc(T("note")) + '</p>' +
       '</aside></div>' +
       (others.length ? '<section style="padding-top:48px"><div class="sec-head"><h2>' + esc(T("others")) + '</h2></div><div class="grid">' + others.map(function (o) {
@@ -242,10 +244,21 @@
           '<div class="body"><span class="tag">' + esc(T(o.tipo)) + ' · ' + esc(o.ciudad) + '</span><h3><a class="card-link" href="' + href + '">' + esc(on) + '</a></h3>' +
           '<div class="price"><div><strong>$' + o.precio + '</strong> <span>' + esc(T("per_night")) + '</span></div><a class="btn small" href="' + href + '">' + esc(T("see")) + '</a></div></div></article>';
       }).join("") + '</div></section>' : '');
-    if (keep.a) $("#bIn").value = keep.a; if (keep.b) $("#bOut").value = keep.b; if (keep.g) $("#bGuests").value = keep.g; if (keep.n) $("#bName").value = keep.n;
-    ["#bIn", "#bOut", "#bGuests", "#bName"].forEach(function (s) { $(s).addEventListener("input", updateBook); });
+    if (keep.a) $("#bIn").value = keep.a; if (keep.b) $("#bOut").value = keep.b; if (keep.g) $("#bGuests").value = keep.g; if (keep.n) $("#bName").value = keep.n; if (keep.t) $("#bTel").value = keep.t; if (keep.m) $("#bMail").value = keep.m;
+    ["#bIn", "#bOut", "#bGuests", "#bName", "#bTel", "#bMail"].forEach(function (s) { $(s).addEventListener("input", updateBook); });
     $("#bIn").addEventListener("change", function () { var a = $("#bIn").value; if (a) { $("#bOut").min = a; if ($("#bOut").value && $("#bOut").value <= a) $("#bOut").value = ""; } updateBook(); });
-    $("#bMail").replaceWith(FC.correoBtn(function () { updateBook(); return lastMsg; }, function () { return "ForeverCuba · " + FC.titulo(p, lang); }));
+    $("#bSend").addEventListener("click", function () {
+      var n = $("#bName"), t = $("#bTel"), m = $("#bMail"), er = $("#bErr"), btn = this;
+      if (!n.value.trim() || !t.value.trim() || !m.value.trim() || !m.checkValidity()) {
+        er.textContent = FC.st("need"); er.className = "err"; (!n.value.trim() ? n : !t.value.trim() ? t : m).focus(); return;
+      }
+      updateBook(); btn.disabled = true; er.className = "ok-msg"; er.textContent = FC.st("sending");
+      FC.enviarSolicitud({ origen: "Casa: " + FC.titulo(p, "es"), asunto: "Reserva: " + FC.titulo(p, "es") + " · " + n.value.trim(),
+        nombre: n.value.trim(), telefono: t.value.trim(), email: m.value.trim(), mensaje: lastMsg })
+        .then(function () { er.textContent = FC.st("ok"); er.className = "ok-msg"; })
+        .catch(function () { er.textContent = FC.st("err"); er.className = "err"; })
+        .then(function () { btn.disabled = false; });
+    });
     updateBook();
   }
 
@@ -264,6 +277,9 @@
     if (a && b && nights > 0) { lines.push(T("m_dates") + ": " + fmt(a) + " → " + fmt(b)); lines.push(T("m_nights") + ": " + nights); lines.push(T("m_total") + ": $" + (p.precio * nights) + " USD"); }
     if (g) lines.push(T("m_pers") + ": " + g);
     if (n) lines.push(T("m_name") + ": " + n);
+    var tel = $("#bTel") && $("#bTel").value.trim(), em = $("#bMail") && $("#bMail").value.trim();
+    if (tel) lines.push(FC.st("m_phone") + ": " + tel);
+    if (em) lines.push(FC.st("m_mail") + ": " + em);
     lines.push(T("m_thanks"));
     var base = FC.CONFIG.whatsapp ? "https://wa.me/" + FC.CONFIG.whatsapp : "https://wa.me/";
     $("#bAsk").setAttribute("href", base + "?text=" + encodeURIComponent(lines.join("\n")));

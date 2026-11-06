@@ -197,6 +197,37 @@
     }, 0);
   });
 
+  /* ---------- Enviar solicitud automáticamente: se guarda en el panel y llega por correo ---------- */
+  FC.SOLTX = {
+    es: { phone: "Tu teléfono (WhatsApp)", phone_ph: "Ej. +52 999 123 4567", mail: "Tu correo", mail_ph: "tucorreo@ejemplo.com", send: "Enviar solicitud", sending: "Enviando…",
+      ok: "¡Listo! Recibimos tu solicitud. Te contactaremos muy pronto por correo o por teléfono.", err: "No se pudo enviar. Revisa tu internet e inténtalo otra vez, o escríbenos por WhatsApp.",
+      need: "Para enviar, escribe tu nombre, tu teléfono y tu correo.", wa_alt: "Prefiero WhatsApp", m_phone: "Teléfono", m_mail: "Correo" },
+    en: { phone: "Your phone (WhatsApp)", phone_ph: "E.g. +1 305 123 4567", mail: "Your email", mail_ph: "you@example.com", send: "Send request", sending: "Sending…",
+      ok: "Done! We received your request. We'll contact you very soon by email or phone.", err: "It couldn't be sent. Check your internet and try again, or message us on WhatsApp.",
+      need: "To send, please enter your name, phone and email.", wa_alt: "I prefer WhatsApp", m_phone: "Phone", m_mail: "Email" },
+    fr: { phone: "Votre téléphone (WhatsApp)", phone_ph: "Ex. +33 6 12 34 56 78", mail: "Votre e-mail", mail_ph: "vous@exemple.com", send: "Envoyer la demande", sending: "Envoi…",
+      ok: "C'est fait ! Nous avons reçu votre demande. Nous vous contacterons très vite par e-mail ou par téléphone.", err: "L'envoi a échoué. Vérifiez votre connexion et réessayez, ou écrivez-nous sur WhatsApp.",
+      need: "Pour envoyer, indiquez votre nom, votre téléphone et votre e-mail.", wa_alt: "Je préfère WhatsApp", m_phone: "Téléphone", m_mail: "E-mail" }
+  };
+  FC.st = function (k) { var l = document.documentElement.lang; return (FC.SOLTX[l] || FC.SOLTX.es)[k]; };
+  /* d = { origen, asunto, nombre, telefono, email, mensaje } */
+  FC.enviarSolicitud = function (d) {
+    var guardar = FC.conectado() ? fetch(FC.CONFIG.url.replace(/\/$/, "") + "/rest/v1/solicitudes", {
+      method: "POST", headers: { apikey: FC.CONFIG.key, "Content-Type": "application/json", Prefer: "return=minimal" },
+      body: JSON.stringify({ origen: d.origen, nombre: d.nombre || null, telefono: d.telefono || null, email: d.email || null, mensaje: d.mensaje })
+    }).then(function (r) { if (!r.ok) throw new Error("db " + r.status); return true; }) : Promise.reject(new Error("sin base"));
+    var correo = fetch("https://formsubmit.co/ajax/" + encodeURIComponent(FC.CONFIG.email), {
+      method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" },
+      body: JSON.stringify({ _subject: d.asunto || "Nueva solicitud · ForeverCuba", _template: "box", _captcha: "false",
+        Nombre: d.nombre || "", "Teléfono": d.telefono || "", email: d.email || "", Solicitud: d.mensaje, Origen: d.origen + " · " + location.href.split("#")[0] })
+    }).then(function (r) { if (!r.ok) throw new Error("mail " + r.status); return r.json(); });
+    /* Basta con que una de las dos funcione para que la solicitud no se pierda */
+    return Promise.allSettled([guardar, correo]).then(function (res) {
+      if (res[0].status === "fulfilled" || res[1].status === "fulfilled") return true;
+      throw res[0].reason || res[1].reason;
+    });
+  };
+
   /* ---------- Autos (del panel; si no hay, la página usa su lista de ejemplo) ---------- */
   var cacheAutos = null;
   FC.cargarAutos = function () {

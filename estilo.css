@@ -450,3 +450,9 @@ header.top .wrap.topbar-in { gap: 14px; }
 .mail-pop .mail-ok:empty { display: none; }
 .book .mail-wrap, .book .mail-btn { width: 100%; margin-top: 8px; }
 .book .mail-pop { left: 0; right: 0; min-width: 0; }
+.status.ok { color: var(--teal); }
+.status.bad, .book .err { color: #C2185B; }
+.book .ok-msg { color: var(--teal); font-weight: 600; font-size: .92rem; }
+.book #bSend { width: 100%; }
+.book #bAsk { width: 100%; margin-top: 8px; }
+#evWa { margin-left: 8px; }

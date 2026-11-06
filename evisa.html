@@ -134,7 +134,7 @@
       note: "Cada viajero, incluidos bebés y niños, necesita su propia eVisa. Cada eVisa permite una entrada y una estancia turística de hasta 90 días.",
       trav_h: "Datos de los viajeros", trav: "Viajero", first: "Nombre", last: "Apellido", same: "Igual que en el pasaporte",
       contact_h: "Tus datos de contacto", c_name: "Tu nombre", c_mail: "Correo electrónico", c_phone: "Teléfono o WhatsApp", c_date: "Fecha de llegada a Cuba",
-      total: "Total", send: "Pedir mis eVisas por WhatsApp", sent_note: "Al tocar el botón se abre WhatsApp con tu pedido listo. Ahí confirmamos el precio y la forma de pago. No pedimos datos del pasaporte en esta página.",
+      total: "Total", send: "Pedir mis eVisas por WhatsApp", sent_note: "Al enviar, tu pedido nos llega al momento y te contactamos por correo o por teléfono. Si prefieres, también puedes enviarlo por WhatsApp. Ahí confirmamos el precio y la forma de pago. No pedimos datos del pasaporte en esta página.",
       side_h: "Tu eVisa en 4 pasos simples",
       s1h: "Elige tus eVisas", s1: "Indica cuántas necesitas: una por cada viajero.",
       s2h: "Escribe los datos de los viajeros", s2: "Solo nombre y apellido de cada uno, como en el pasaporte. Así de simple.",
@@ -154,7 +154,7 @@
       note: "Every traveler, including babies and children, needs their own eVisa. Each eVisa allows one entry and a tourist stay of up to 90 days.",
       trav_h: "Traveler details", trav: "Traveler", first: "First name", last: "Last name", same: "As shown on the passport",
       contact_h: "Your contact details", c_name: "Your name", c_mail: "Email", c_phone: "Phone or WhatsApp", c_date: "Arrival date in Cuba",
-      total: "Total", send: "Order my eVisas on WhatsApp", sent_note: "The button opens WhatsApp with your order ready. There we confirm the price and payment method. We don't ask for passport details on this page.",
+      total: "Total", send: "Order my eVisas on WhatsApp", sent_note: "When you send it, your order reaches us right away and we contact you by email or phone. You can also send it on WhatsApp if you prefer. We then confirm the price and payment method. We don't ask for passport details on this page.",
       side_h: "Your eVisa in 4 simple steps",
       s1h: "Choose your eVisas", s1: "Tell us how many you need: one per traveler.",
       s2h: "Enter traveler details", s2: "Just each person's first and last name, as on the passport. That simple.",
@@ -174,7 +174,7 @@
       note: "Chaque voyageur, bébés et enfants compris, a besoin de son propre eVisa. Chaque eVisa permet une entrée et un séjour touristique de 90 jours maximum.",
       trav_h: "Données des voyageurs", trav: "Voyageur", first: "Prénom", last: "Nom", same: "Comme sur le passeport",
       contact_h: "Vos coordonnées", c_name: "Votre nom", c_mail: "E-mail", c_phone: "Téléphone ou WhatsApp", c_date: "Date d'arrivée à Cuba",
-      total: "Total", send: "Commander mes eVisas sur WhatsApp", sent_note: "Le bouton ouvre WhatsApp avec votre commande prête. Nous y confirmons le prix et le mode de paiement. Nous ne demandons pas les données du passeport sur cette page.",
+      total: "Total", send: "Commander mes eVisas sur WhatsApp", sent_note: "Dès l'envoi, votre commande nous parvient et nous vous contactons par e-mail ou par téléphone. Vous pouvez aussi l'envoyer sur WhatsApp. Nous confirmons ensuite le prix et le mode de paiement. Nous ne demandons pas les données du passeport sur cette page.",
       side_h: "Votre eVisa en 4 étapes simples",
       s1h: "Choisissez vos eVisas", s1: "Indiquez combien il vous en faut : un par voyageur.",
       s2h: "Saisissez les données des voyageurs", s2: "Seulement le prénom et le nom de chacun, comme sur le passeport. C'est tout.",
@@ -217,10 +217,10 @@
         '<section class="ev-box"><h2>' + esc(T("contact_h")) + '</h2>' +
           '<div class="ev-trav"><div class="row"><label for="cName">' + esc(T("c_name")) + '<input id="cName" data-c="name" required autocomplete="name" value="' + esc(state.c.name) + '"></label>' +
           '<label for="cMail">' + esc(T("c_mail")) + '<input id="cMail" data-c="mail" type="email" required autocomplete="email" value="' + esc(state.c.mail) + '"></label></div>' +
-          '<div class="row"><label for="cPhone">' + esc(T("c_phone")) + '<input id="cPhone" data-c="phone" type="tel" autocomplete="tel" value="' + esc(state.c.phone) + '"></label>' +
+          '<div class="row"><label for="cPhone">' + esc(T("c_phone")) + '<input id="cPhone" data-c="phone" type="tel" required autocomplete="tel" value="' + esc(state.c.phone) + '"></label>' +
           '<label for="cDate">' + esc(T("c_date")) + '<input id="cDate" data-c="date" type="date" value="' + esc(state.c.date) + '"></label></div></div>' +
           '<div class="ev-sum"><span>' + esc(T("total")) + '</span><span id="evTotal">' + esc(totalTxt()) + '</span></div>' +
-          '<button class="btn primary" type="submit">' + esc(T("send")) + '</button><span id="evMail"></span><p class="meta" style="font-size:.88rem">' + esc(T("sent_note")) + '</p></section>' +
+          '<button class="btn primary" type="submit" id="evSend">' + esc(FC.st("send")) + '</button><button class="btn" type="button" id="evWa">' + esc(T("send")) + '</button><p class="status" id="evStatus" role="status"></p><p class="meta" style="font-size:.88rem">' + esc(T("sent_note")) + '</p></section>' +
       '</form>' +
       '<aside class="ev-side"><h2>' + esc(T("side_h")) + '</h2><ol>' +
         [1, 2, 3, 4].map(function (i) { return '<li><span><b>' + esc(T("s" + i + "h")) + '</b><p>' + esc(T("s" + i)) + '</p></span></li>'; }).join("") + '</ol></aside></div>' +
@@ -247,10 +247,19 @@
     }
     $("#evForm").addEventListener("submit", function (e) {
       e.preventDefault();
+      var st = $("#evStatus"), btn = $("#evSend");
+      btn.disabled = true; st.className = "status"; st.textContent = FC.st("sending");
+      FC.enviarSolicitud({ origen: "eVisa", asunto: "Pedido de eVisa (" + state.n + ") · " + state.c.name,
+        nombre: state.c.name, telefono: state.c.phone, email: state.c.mail, mensaje: evMsg() })
+        .then(function () { st.textContent = FC.st("ok"); st.className = "status ok"; })
+        .catch(function () { st.textContent = FC.st("err"); st.className = "status bad"; })
+        .then(function () { btn.disabled = false; });
+    });
+    $("#evWa").addEventListener("click", function () {
+      if (!$("#evForm").reportValidity()) return;
       var url = (FC.CONFIG.whatsapp ? "https://wa.me/" + FC.CONFIG.whatsapp : "https://wa.me/") + "?text=" + encodeURIComponent(evMsg());
       window.open(url, "_blank", "noopener");
     });
-    $("#evMail").replaceWith(FC.correoBtn(evMsg, function () { return "eVisa Cuba · ForeverCuba"; }, function () { return $("#evForm").reportValidity(); }));
   }
   var root = document.documentElement, tb = $("#themeBtn");
   var MOON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>';
