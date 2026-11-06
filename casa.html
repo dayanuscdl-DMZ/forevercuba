@@ -233,6 +233,7 @@
         '<label for="bName">' + esc(T("name_l")) + '<input id="bName" type="text" autocomplete="name" placeholder="' + esc(T("name_ph")) + '"></label>' +
         '<div class="sum" id="bSum"></div><p class="err" id="bErr" role="status"></p>' +
         '<a class="btn primary" id="bAsk" href="https://wa.me/" target="_blank" rel="noopener">' + esc(T("ask")) + '</a>' +
+        '<span id="bMail"></span>' +
         '<p class="note">' + esc(T("note")) + '</p>' +
       '</aside></div>' +
       (others.length ? '<section style="padding-top:48px"><div class="sec-head"><h2>' + esc(T("others")) + '</h2></div><div class="grid">' + others.map(function (o) {
@@ -244,9 +245,11 @@
     if (keep.a) $("#bIn").value = keep.a; if (keep.b) $("#bOut").value = keep.b; if (keep.g) $("#bGuests").value = keep.g; if (keep.n) $("#bName").value = keep.n;
     ["#bIn", "#bOut", "#bGuests", "#bName"].forEach(function (s) { $(s).addEventListener("input", updateBook); });
     $("#bIn").addEventListener("change", function () { var a = $("#bIn").value; if (a) { $("#bOut").min = a; if ($("#bOut").value && $("#bOut").value <= a) $("#bOut").value = ""; } updateBook(); });
+    $("#bMail").replaceWith(FC.correoBtn(function () { updateBook(); return lastMsg; }, function () { return "ForeverCuba · " + FC.titulo(p, lang); }));
     updateBook();
   }
 
+  var lastMsg = "";
   function fmt(v) { return new Date(v + "T00:00:00").toLocaleDateString({ es: "es", en: "en-US", fr: "fr" }[lang], { day: "numeric", month: "long", year: "numeric" }); }
   function updateBook() {
     var p = prop, a = $("#bIn").value, b = $("#bOut").value, g = $("#bGuests").value, n = $("#bName").value.trim();
@@ -264,6 +267,7 @@
     lines.push(T("m_thanks"));
     var base = FC.CONFIG.whatsapp ? "https://wa.me/" + FC.CONFIG.whatsapp : "https://wa.me/";
     $("#bAsk").setAttribute("href", base + "?text=" + encodeURIComponent(lines.join("\n")));
+    lastMsg = lines.join("\n");
   }
 
   /* Visor de fotos */

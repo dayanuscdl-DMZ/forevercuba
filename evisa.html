@@ -220,7 +220,7 @@
           '<div class="row"><label for="cPhone">' + esc(T("c_phone")) + '<input id="cPhone" data-c="phone" type="tel" autocomplete="tel" value="' + esc(state.c.phone) + '"></label>' +
           '<label for="cDate">' + esc(T("c_date")) + '<input id="cDate" data-c="date" type="date" value="' + esc(state.c.date) + '"></label></div></div>' +
           '<div class="ev-sum"><span>' + esc(T("total")) + '</span><span id="evTotal">' + esc(totalTxt()) + '</span></div>' +
-          '<button class="btn primary" type="submit">' + esc(T("send")) + '</button><p class="meta" style="font-size:.88rem">' + esc(T("sent_note")) + '</p></section>' +
+          '<button class="btn primary" type="submit">' + esc(T("send")) + '</button><span id="evMail"></span><p class="meta" style="font-size:.88rem">' + esc(T("sent_note")) + '</p></section>' +
       '</form>' +
       '<aside class="ev-side"><h2>' + esc(T("side_h")) + '</h2><ol>' +
         [1, 2, 3, 4].map(function (i) { return '<li><span><b>' + esc(T("s" + i + "h")) + '</b><p>' + esc(T("s" + i)) + '</p></span></li>'; }).join("") + '</ol></aside></div>' +
@@ -237,16 +237,20 @@
       if (t.dataset.t) state.trav[+t.dataset.t][t.dataset.k] = t.value;
       if (t.dataset.c) state.c[t.dataset.c] = t.value;
     });
-    $("#evForm").addEventListener("submit", function (e) {
-      e.preventDefault();
+    function evMsg() {
       var lines = [T("m_head"), T("m_count") + ": " + state.n, T("m_trav") + ":"];
       for (var i = 0; i < state.n; i++) lines.push("- " + (state.trav[i].f + " " + state.trav[i].l).trim());
       lines.push(T("m_contact") + ": " + state.c.name + " · " + state.c.mail + (state.c.phone ? " · " + state.c.phone : ""));
       if (state.c.date) lines.push(T("m_date") + ": " + state.c.date);
       if (PRECIO) lines.push(T("m_total") + ": $" + (PRECIO * state.n) + " USD");
-      var url = (FC.CONFIG.whatsapp ? "https://wa.me/" + FC.CONFIG.whatsapp : "https://wa.me/") + "?text=" + encodeURIComponent(lines.join("\n"));
+      return lines.join("\n");
+    }
+    $("#evForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      var url = (FC.CONFIG.whatsapp ? "https://wa.me/" + FC.CONFIG.whatsapp : "https://wa.me/") + "?text=" + encodeURIComponent(evMsg());
       window.open(url, "_blank", "noopener");
     });
+    $("#evMail").replaceWith(FC.correoBtn(evMsg, function () { return "eVisa Cuba · ForeverCuba"; }, function () { return $("#evForm").reportValidity(); }));
   }
   var root = document.documentElement, tb = $("#themeBtn");
   var MOON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>';

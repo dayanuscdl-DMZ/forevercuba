@@ -438,3 +438,15 @@ header.top .wrap.topbar-in { gap: 14px; }
 .redes .red[data-red="youtube"]:hover { color: #FF0000; }
 :root.modo-vip .redes .red { color: #D9B44A; }
 :root.modo-vip .redes { border-color: #2B251A; }
+/* Botón y menú "Enviar por email" */
+.mail-wrap { position: relative; display: inline-block; }
+.mail-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
+.mail-pop { position: absolute; z-index: 40; bottom: calc(100% + 8px); left: 0; min-width: 250px; background: var(--surface); color: var(--fg); border: 1px solid var(--line); border-radius: 14px; padding: 12px; box-shadow: 0 18px 40px rgba(0,0,0,.18); display: grid; gap: 6px; }
+.mail-pop[hidden] { display: none; }
+.mail-pop p { margin: 0 0 4px; font-size: .85rem; font-weight: 700; color: var(--muted); }
+.mail-pop a, .mail-pop .mail-copy { display: block; width: 100%; text-align: left; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--line); background: none; color: var(--fg); font: inherit; font-weight: 600; text-decoration: none; cursor: pointer; }
+.mail-pop a:hover, .mail-pop .mail-copy:hover { border-color: var(--coral); color: var(--coral); }
+.mail-pop .mail-ok { margin: 4px 0 0; font-weight: 600; color: var(--teal); }
+.mail-pop .mail-ok:empty { display: none; }
+.book .mail-wrap, .book .mail-btn { width: 100%; margin-top: 8px; }
+.book .mail-pop { left: 0; right: 0; min-width: 0; }

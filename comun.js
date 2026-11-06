@@ -7,7 +7,9 @@
      whatsapp: número de ForeverCuba, solo dígitos con código de país. Ej: "5219991234567" */
   FC.CONFIG = { url: "https://lqomoocnhunwreljczhd.supabase.co", key: "sb_publishable_WxclDke7-EPNZxl3PL2Qmw_uf5p3lGq", whatsapp: "",
     /* Redes sociales: pega aquí el enlace de cada perfil */
-    redes: { facebook: "", instagram: "", youtube: "" } };
+    redes: { facebook: "", instagram: "", youtube: "" },
+    /* Correo donde llegan las solicitudes enviadas por email */
+    email: "180dayan@gmail.com" };
 
   function U(id) { return "https://images.unsplash.com/" + id + "?w=1400&q=70&auto=format&fit=crop"; }
   FC.FALLBACK = "img/fachadas.jpg";
@@ -150,6 +152,49 @@
   document.querySelectorAll("a.red[data-red]").forEach(function (a) {
     var u = FC.CONFIG.redes && FC.CONFIG.redes[a.getAttribute("data-red")];
     if (u) a.href = u;
+  });
+
+  /* ---------- Enviar por email (para quien no tiene WhatsApp en la computadora) ---------- */
+  var MAILTX = {
+    es: { btn: "Enviar por email", pick: "¿Con qué correo lo envías?", gmail: "Gmail", outlook: "Outlook / Hotmail", app: "Mi app de correo", copy: "Copiar el mensaje", copied: "Mensaje copiado. Pégalo en un correo y envíalo a {e}", subj: "Solicitud de viaje · ForeverCuba" },
+    en: { btn: "Send by email", pick: "Which email do you use?", gmail: "Gmail", outlook: "Outlook / Hotmail", app: "My email app", copy: "Copy the message", copied: "Message copied. Paste it into an email and send it to {e}", subj: "Trip request · ForeverCuba" },
+    fr: { btn: "Envoyer par e-mail", pick: "Avec quelle messagerie ?", gmail: "Gmail", outlook: "Outlook / Hotmail", app: "Mon application e-mail", copy: "Copier le message", copied: "Message copié. Collez-le dans un e-mail et envoyez-le à {e}", subj: "Demande de voyage · ForeverCuba" }
+  };
+  function mt(k) { var l = document.documentElement.lang; return (MAILTX[l] || MAILTX.es)[k]; }
+  var MAIL_ICO = '<svg viewBox="0 0 24 24" aria-hidden="true" style="width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6.5 12 13l8.5-6.5"/></svg>';
+  /* Crea el botón "Enviar por email". cuerpo(): texto del mensaje. antes(): si devuelve false, no se abre. */
+  FC.correoBtn = function (cuerpo, asunto, antes) {
+    var wrap = document.createElement("span"); wrap.className = "mail-wrap";
+    wrap.innerHTML = '<button type="button" class="btn mail-btn" aria-haspopup="true" aria-expanded="false">' + MAIL_ICO + '<span class="mail-t"></span></button><div class="mail-pop" hidden></div>';
+    var btn = wrap.querySelector(".mail-btn"), pop = wrap.querySelector(".mail-pop");
+    wrap.querySelector(".mail-t").textContent = mt("btn");
+    btn.addEventListener("click", function (e) {
+      e.preventDefault(); e.stopPropagation();
+      if (!pop.hidden) { pop.hidden = true; btn.setAttribute("aria-expanded", "false"); return; }
+      if (antes && antes() === false) return;
+      var to = FC.CONFIG.email, s = encodeURIComponent((asunto && asunto()) || mt("subj")), b = encodeURIComponent(cuerpo() || "");
+      pop.innerHTML = '<p>' + FC.esc(mt("pick")) + '</p>' +
+        '<a href="https://mail.google.com/mail/?view=cm&fs=1&to=' + encodeURIComponent(to) + '&su=' + s + '&body=' + b + '" target="_blank" rel="noopener">' + FC.esc(mt("gmail")) + '</a>' +
+        '<a href="https://outlook.live.com/mail/0/deeplink/compose?to=' + encodeURIComponent(to) + '&subject=' + s + '&body=' + b + '" target="_blank" rel="noopener">' + FC.esc(mt("outlook")) + '</a>' +
+        '<a href="mailto:' + to + '?subject=' + s + '&body=' + b + '">' + FC.esc(mt("app")) + '</a>' +
+        '<button type="button" class="mail-copy">' + FC.esc(mt("copy")) + '</button><p class="mail-ok" role="status"></p>';
+      pop.querySelector(".mail-copy").addEventListener("click", function (ev) {
+        ev.stopPropagation();
+        var txt = cuerpo() || "", ok = pop.querySelector(".mail-ok");
+        var done = function () { ok.textContent = mt("copied").replace("{e}", to); };
+        if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(done, done); else done();
+      });
+      pop.hidden = false; btn.setAttribute("aria-expanded", "true");
+    });
+    return wrap;
+  };
+  document.addEventListener("click", function (e) {
+    document.querySelectorAll(".mail-pop:not([hidden])").forEach(function (p) {
+      if (!p.parentNode.contains(e.target)) { p.hidden = true; p.parentNode.querySelector(".mail-btn").setAttribute("aria-expanded", "false"); }
+    });
+    if (e.target.closest && e.target.closest(".lang")) setTimeout(function () {
+      document.querySelectorAll(".mail-t").forEach(function (t) { t.textContent = mt("btn"); });
+    }, 0);
   });
 
   /* ---------- Autos (del panel; si no hay, la página usa su lista de ejemplo) ---------- */

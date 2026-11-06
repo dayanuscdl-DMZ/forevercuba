@@ -277,7 +277,7 @@
   <section id="solicitud">
     <div class="sec-head">
       <h2 data-i18n="req_h2">Mi solicitud</h2>
-      <p data-i18n="req_p">Aquí queda lo que elegiste. Revisa el mensaje y envíalo por WhatsApp.</p>
+      <p data-i18n="req_p">Aquí queda lo que elegiste. Revisa el mensaje y envíalo por WhatsApp o por email.</p>
     </div>
     <div class="request">
       <div>
@@ -302,6 +302,7 @@
         <textarea id="msg" readonly aria-label="WhatsApp"></textarea>
         <div class="actions">
           <a class="btn primary" id="waLink" href="https://wa.me/" target="_blank" rel="noopener" data-i18n="send">Enviar por WhatsApp</a>
+          <span id="mailSlot"></span>
           <button class="btn" type="button" id="copyBtn" data-i18n="copy">Copiar mensaje</button>
         </div>
         <p class="status" id="status" role="status"></p>
@@ -345,7 +346,7 @@
       oneway: "Solo ida", round: "Ida y vuelta", f_from: "Salgo desde", f_from_ph: "Ciudad o aeropuerto", f_to: "Voy a",
       f_dep: "Fecha de ida", f_ret: "Fecha de regreso", f_pax: "Pasajeros", f_btn: "Agregar vuelo a mi solicitud",
       f_note: "Los precios de vuelos cambian a diario, por eso te cotizamos al momento.",
-      req_h2: "Mi solicitud", req_p: "Aquí queda lo que elegiste. Revisa el mensaje y envíalo por WhatsApp.",
+      req_h2: "Mi solicitud", req_p: "Aquí queda lo que elegiste. Revisa el mensaje y envíalo por WhatsApp o por email.",
       picked_h: "Lo que elegiste", empty: "Todavía no elegiste nada. Usa el botón Agregar en cualquier tarjeta.",
       name: "Tu nombre", name_ph: "Nombre y apellido", dates: "Fechas del viaje", dates_ph: "Ej. del 10 al 20 de enero",
       msg_h: "Mensaje listo para enviar", send: "Enviar por WhatsApp", copy: "Copiar mensaje",
@@ -375,7 +376,7 @@
       oneway: "One way", round: "Round trip", f_from: "Flying from", f_from_ph: "City or airport", f_to: "Flying to",
       f_dep: "Departure date", f_ret: "Return date", f_pax: "Passengers", f_btn: "Add flight to my request",
       f_note: "Flight prices change every day, so we quote you on the spot.",
-      req_h2: "My request", req_p: "Everything you picked is here. Check the message and send it on WhatsApp.",
+      req_h2: "My request", req_p: "Everything you picked is here. Check the message and send it on WhatsApp or by email.",
       picked_h: "Your picks", empty: "Nothing picked yet. Use the Add button on any card.",
       name: "Your name", name_ph: "First and last name", dates: "Travel dates", dates_ph: "E.g. January 10 to 20",
       msg_h: "Message ready to send", send: "Send on WhatsApp", copy: "Copy message",
@@ -405,7 +406,7 @@
       oneway: "Aller simple", round: "Aller-retour", f_from: "Je pars de", f_from_ph: "Ville ou aéroport", f_to: "Je vais à",
       f_dep: "Date de départ", f_ret: "Date de retour", f_pax: "Passagers", f_btn: "Ajouter le vol à ma demande",
       f_note: "Les prix des vols changent chaque jour, nous vous faisons donc un devis sur le moment.",
-      req_h2: "Ma demande", req_p: "Tout ce que vous avez choisi est ici. Vérifiez le message et envoyez-le sur WhatsApp.",
+      req_h2: "Ma demande", req_p: "Tout ce que vous avez choisi est ici. Vérifiez le message et envoyez-le sur WhatsApp ou par e-mail.",
       picked_h: "Vos choix", empty: "Rien de choisi pour l'instant. Utilisez le bouton Ajouter sur une carte.",
       name: "Votre nom", name_ph: "Prénom et nom", dates: "Dates du voyage", dates_ph: "Ex. du 10 au 20 janvier",
       msg_h: "Message prêt à envoyer", send: "Envoyer sur WhatsApp", copy: "Copier le message",
@@ -647,6 +648,7 @@
   });
   ["#rNombre", "#rFechas", "#rPers"].forEach(function (s) { $(s).addEventListener("input", buildMsg); });
 
+  $("#mailSlot").replaceWith(FC.correoBtn(function () { buildMsg(); return $("#msg").value; }));
   $("#copyBtn").addEventListener("click", function () {
     var ta = $("#msg"), st = $("#status");
     function fallback() { ta.focus(); ta.select(); st.textContent = T("selected"); }
