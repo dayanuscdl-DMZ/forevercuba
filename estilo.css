@@ -301,3 +301,5 @@ body.es-inicio #packGrid > :nth-child(n+7), body.es-inicio #provGrid > :nth-chil
 .ver-todos { display: flex; justify-content: center; margin: 22px 0 4px; }
 .ver-todos[hidden] { display: none; }
 .ver-todos .btn { border: 1.5px solid currentColor; border-radius: 999px; padding: 12px 26px; font-weight: 600; text-decoration: none; }
+/* Buscador con dormitorios y baños: 7 campos */
+@media (min-width: 1000px) { .search { grid-template-columns: 1.3fr 1.1fr 1.1fr .8fr .9fr .9fr 1.2fr; } }

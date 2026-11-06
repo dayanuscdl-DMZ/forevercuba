@@ -74,6 +74,12 @@
     <label for="sPers"><span data-i18n="s_pers">Personas</span>
       <input id="sPers" type="number" min="1" max="20" value="2">
     </label>
+    <label for="sDorm"><span data-i18n="s_dorm">Dormitorios</span>
+      <select id="sDorm"><option value="0" data-i18n="any">Cualquiera</option><option value="1">1+</option><option value="2">2+</option><option value="3">3+</option><option value="4">4+</option></select>
+    </label>
+    <label for="sBanos"><span data-i18n="s_banos">Baños</span>
+      <select id="sBanos"><option value="0" data-i18n="any">Cualquiera</option><option value="1">1+</option><option value="2">2+</option><option value="3">3+</option></select>
+    </label>
     <button class="btn primary" type="submit" data-i18n="s_btn">Buscar casas</button>
   </form>
 
@@ -92,6 +98,12 @@
       </div>
       <label style="display:flex;align-items:center;gap:8px;"><span data-i18n="city">Ciudad</span>
         <select id="zona"><option value="Todas" data-i18n="city_all">Todas</option></select>
+      </label>
+      <label style="display:flex;align-items:center;gap:8px;"><span data-i18n="s_dorm">Dormitorios</span>
+        <select id="fDorm"><option value="0" data-i18n="any">Cualquiera</option><option value="1">1+</option><option value="2">2+</option><option value="3">3+</option><option value="4">4+</option></select>
+      </label>
+      <label style="display:flex;align-items:center;gap:8px;"><span data-i18n="s_banos">Baños</span>
+        <select id="fBanos"><option value="0" data-i18n="any">Cualquiera</option><option value="1">1+</option><option value="2">2+</option><option value="3">3+</option></select>
       </label>
     </div>
     <p class="count" id="rentCount"></p>
@@ -278,7 +290,7 @@
       rent_h2: "Casas y apartamentos", rent_p: "Alojamientos para estancias cortas o largas, con anfitriones locales.",
       chip_all: "Todos", chip_house: "Casas", chip_apt: "Apartamentos", city: "Ciudad", city_all: "Todas",
       count1: "alojamiento", countN: "alojamientos", none: "No hay alojamientos con ese filtro. Prueba con otra ciudad.",
-      Casa: "Casa", Apartamento: "Apartamento", room1: "habitación", roomN: "habitaciones", upto: "hasta {n} personas",
+      Casa: "Casa", Apartamento: "Apartamento", room1: "dormitorio", roomN: "dormitorios", upto: "hasta {n} personas",
       per_night: "USD por noche", see_house: "Ver la casa", per_person: "USD por persona", from: "Desde", add: "Agregar", added: "Agregado",
       tours_h2: "Tours", tours_p: "Excursiones de medio día y día completo, con guía y transporte.", hours: "horas", dayu: "día",
       pack_h2: "Paquetes turísticos", pack_p: "Viajes armados con alojamiento, traslados y visitas. Los ajustamos a tus fechas.", days: "días",
@@ -359,9 +371,9 @@
   };
 
   var VX = {
-    es: { see_all: "Ver todos", nav_vip: "Servicio VIP", nav_prov: "Provincias", fbar4: "Descarga GPS gratis", fbar3: "eVisa Cuba", fbar2: "Consejos antes de viajar", fbar: "Nuestros lugares Forever", fbar_sub: "Restaurantes, bares y rincones elegidos por nuestro equipo", prov_h2: "Explora Cuba por provincias", prov_p: "Historia, lugares para visitar y fotos de cada rincón de la isla.", prov_more: "Conocer", prov_cap: "Capital", map_h2: "Mapa de Cuba", map_p: "Las 15 provincias, el municipio especial Isla de la Juventud y las ciudades y playas donde te podemos ayudar. Toca un punto para ver más.", map_air: "Aeropuerto internacional", map_city: "Ciudad o playa", map_hint: "Usa + para acercar y ver los nombres de las ciudades", map_houses: "Ver casas aquí", map_fly: "Volar aquí", vip_kicker: "ForeverCuba VIP", vip_h2: "Servicio VIP", vip_p: "Viaja sin preocuparte de nada. Atención personal antes y durante tu viaje, con servicios privados a tu medida.", quote: "Precio a consultar" },
-    en: { see_all: "See all", nav_vip: "VIP service", nav_prov: "Provinces", fbar4: "Free GPS download", fbar3: "Cuba eVisa", fbar2: "Tips before you travel", fbar: "Our Forever places", fbar_sub: "Restaurants, bars and spots picked by our team", prov_h2: "Explore Cuba by province", prov_p: "History, places to visit and photos from every corner of the island.", prov_more: "Discover", prov_cap: "Capital", map_h2: "Map of Cuba", map_p: "The 15 provinces, the special municipality of Isla de la Juventud, and the cities and beaches where we can help. Tap a point to see more.", map_air: "International airport", map_city: "City or beach", map_hint: "Zoom in with + to see city names", map_houses: "See stays here", map_fly: "Fly here", vip_kicker: "ForeverCuba VIP", vip_h2: "VIP service", vip_p: "Travel without a worry. Personal attention before and during your trip, with private services tailored to you.", quote: "Price on request" },
-    fr: { see_all: "Voir tout", nav_vip: "Service VIP", nav_prov: "Provinces", fbar4: "GPS gratuit", fbar3: "eVisa Cuba", fbar2: "Conseils avant de partir", fbar: "Nos lieux Forever", fbar_sub: "Restaurants, bars et coins choisis par notre équipe", prov_h2: "Explorez Cuba par province", prov_p: "Histoire, lieux à visiter et photos de chaque coin de l'île.", prov_more: "Découvrir", prov_cap: "Chef-lieu", map_h2: "Carte de Cuba", map_p: "Les 15 provinces, la municipalité spéciale de l'île de la Jeunesse, et les villes et plages où nous pouvons vous aider. Touchez un point pour en savoir plus.", map_air: "Aéroport international", map_city: "Ville ou plage", map_hint: "Zoomez avec + pour voir le nom des villes", map_houses: "Voir les logements ici", map_fly: "Prendre un vol ici", vip_kicker: "ForeverCuba VIP", vip_h2: "Service VIP", vip_p: "Voyagez l'esprit tranquille. Une attention personnelle avant et pendant votre voyage, avec des services privés sur mesure.", quote: "Prix sur demande" }
+    es: { s_dorm: "Dormitorios", s_banos: "Baños", any: "Cualquiera", bath1: "baño", bathN: "baños", see_all: "Ver todos", nav_vip: "Servicio VIP", nav_prov: "Provincias", fbar4: "Descarga GPS gratis", fbar3: "eVisa Cuba", fbar2: "Consejos antes de viajar", fbar: "Nuestros lugares Forever", fbar_sub: "Restaurantes, bares y rincones elegidos por nuestro equipo", prov_h2: "Explora Cuba por provincias", prov_p: "Historia, lugares para visitar y fotos de cada rincón de la isla.", prov_more: "Conocer", prov_cap: "Capital", map_h2: "Mapa de Cuba", map_p: "Las 15 provincias, el municipio especial Isla de la Juventud y las ciudades y playas donde te podemos ayudar. Toca un punto para ver más.", map_air: "Aeropuerto internacional", map_city: "Ciudad o playa", map_hint: "Usa + para acercar y ver los nombres de las ciudades", map_houses: "Ver casas aquí", map_fly: "Volar aquí", vip_kicker: "ForeverCuba VIP", vip_h2: "Servicio VIP", vip_p: "Viaja sin preocuparte de nada. Atención personal antes y durante tu viaje, con servicios privados a tu medida.", quote: "Precio a consultar" },
+    en: { s_dorm: "Bedrooms", s_banos: "Bathrooms", any: "Any", bath1: "bath", bathN: "baths", see_all: "See all", nav_vip: "VIP service", nav_prov: "Provinces", fbar4: "Free GPS download", fbar3: "Cuba eVisa", fbar2: "Tips before you travel", fbar: "Our Forever places", fbar_sub: "Restaurants, bars and spots picked by our team", prov_h2: "Explore Cuba by province", prov_p: "History, places to visit and photos from every corner of the island.", prov_more: "Discover", prov_cap: "Capital", map_h2: "Map of Cuba", map_p: "The 15 provinces, the special municipality of Isla de la Juventud, and the cities and beaches where we can help. Tap a point to see more.", map_air: "International airport", map_city: "City or beach", map_hint: "Zoom in with + to see city names", map_houses: "See stays here", map_fly: "Fly here", vip_kicker: "ForeverCuba VIP", vip_h2: "VIP service", vip_p: "Travel without a worry. Personal attention before and during your trip, with private services tailored to you.", quote: "Price on request" },
+    fr: { s_dorm: "Chambres", s_banos: "Salles de bain", any: "Peu importe", bath1: "salle de bain", bathN: "salles de bain", see_all: "Voir tout", nav_vip: "Service VIP", nav_prov: "Provinces", fbar4: "GPS gratuit", fbar3: "eVisa Cuba", fbar2: "Conseils avant de partir", fbar: "Nos lieux Forever", fbar_sub: "Restaurants, bars et coins choisis par notre équipe", prov_h2: "Explorez Cuba par province", prov_p: "Histoire, lieux à visiter et photos de chaque coin de l'île.", prov_more: "Découvrir", prov_cap: "Chef-lieu", map_h2: "Carte de Cuba", map_p: "Les 15 provinces, la municipalité spéciale de l'île de la Jeunesse, et les villes et plages où nous pouvons vous aider. Touchez un point pour en savoir plus.", map_air: "Aéroport international", map_city: "Ville ou plage", map_hint: "Zoomez avec + pour voir le nom des villes", map_houses: "Voir les logements ici", map_fly: "Prendre un vol ici", vip_kicker: "ForeverCuba VIP", vip_h2: "Service VIP", vip_p: "Voyagez l'esprit tranquille. Une attention personnelle avant et pendant votre voyage, avec des services privés sur mesure.", quote: "Prix sur demande" }
   };
   Object.keys(VX).forEach(function (l) { Object.keys(VX[l]).forEach(function (k) { TX[l][k] = VX[l][k]; }); });
   var ICONS = {
@@ -605,9 +617,10 @@
   }
   buildZonas();
   function drawRentas() {
-    var z = $("#zona").value;
+    var z = $("#zona").value, minD = +$("#fDorm").value, minB = +$("#fBanos").value;
     var list = RENTAS.filter(function (r) {
-      return (tipo === "Todos" || r.tipo === tipo) && (z === "Todas" || r.ciudad === z);
+      return (tipo === "Todos" || r.tipo === tipo) && (z === "Todas" || r.ciudad === z) &&
+        (+r.habitaciones || 0) >= minD && (+r.banos || 0) >= minB;
     });
     $("#rentCount").textContent = list.length + " " + (list.length === 1 ? T("count1") : T("countN"));
     $("#rentGrid").innerHTML = list.map(function (r) {
@@ -615,7 +628,7 @@
       return '<article class="card">' +
         '<a class="card-link" href="' + href + '"><img class="photo" src="' + esc(FC.foto(r)) + '" alt="' + esc(name + ", " + r.ciudad) + '" loading="lazy" onerror="this.onerror=null;this.src=\'' + FC.FALLBACK + '\'"></a>' +
         '<div class="body"><span class="tag">' + esc(T(r.tipo)) + ' · ' + esc(r.ciudad) + '</span><h3><a class="card-link" href="' + href + '">' + esc(name) + '</a></h3>' +
-        '<p class="meta">' + r.habitaciones + " " + (r.habitaciones == 1 ? T("room1") : T("roomN")) + ' · ' + esc(T("upto", { n: r.personas })) + '</p>' +
+        '<p class="meta">' + r.habitaciones + " " + (r.habitaciones == 1 ? T("room1") : T("roomN")) + ' · ' + (r.banos || 0) + " " + (r.banos == 1 ? T("bath1") : T("bathN")) + ' · ' + esc(T("upto", { n: r.personas })) + '</p>' +
         '<a class="see-more" href="' + href + '">' + esc(T("see_house")) + ' →</a>' +
         '<div class="price"><div><strong>$' + r.precio + '</strong> <span>' + T("per_night") + '</span></div>' +
         '<button type="button" class="btn small" data-add="r:' + esc(r.id) + '"></button></div></div></article>';
@@ -628,6 +641,7 @@
     drawRentas(); refresh();
   });
   $("#zona").addEventListener("change", function () { drawRentas(); refresh(); });
+  ["#fDorm", "#fBanos"].forEach(function (s) { $(s).addEventListener("change", function () { drawRentas(); refresh(); }); });
 
   /* ---------- Buscador de la portada ---------- */
   var locales = { es: "es", en: "en-US", fr: "fr" };
@@ -635,6 +649,8 @@
   $("#searchForm").addEventListener("submit", function (e) {
     e.preventDefault();
     $("#zona").value = $("#sZona").value;
+    $("#fDorm").value = $("#sDorm").value;
+    $("#fBanos").value = $("#sBanos").value;
     drawRentas();
     var a = $("#sIn").value, b = $("#sOut").value;
     if (a && b) $("#rFechas").value = T("range", { a: fecha(a), b: fecha(b) });
