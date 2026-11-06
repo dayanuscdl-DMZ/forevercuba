@@ -210,3 +210,5 @@ a.card-link:has(img):hover { text-decoration: none; }
 .leaflet-tooltip.city-label::before { display: none; }
 .leaflet-popup-content { font-family: "Figtree", system-ui, sans-serif; color: #222; }
 .leaflet-popup-content .btn { color: #222; border-color: #222; }
+.leaflet-tooltip.prov-label { background: transparent; border: 0; box-shadow: none; color: #6B3E4D; font: 800 10px/1.1 "Figtree", system-ui, sans-serif; letter-spacing: .08em; text-transform: uppercase; text-shadow: 0 0 3px #fff, 0 0 3px #fff, 0 0 2px #fff; white-space: nowrap; }
+.leaflet-tooltip.prov-label::before { display: none; }
