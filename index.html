@@ -899,16 +899,25 @@
   Object.keys(GRIDS).forEach(function (id) { var g = document.getElementById(id); if (g) new MutationObserver(verTodos).observe(g, { childList: true }); });
   window.addEventListener("hashchange", verTodos);
   verTodos();
-  /* Video VIP en blanco y negro: solo se descarga al abrir Servicio VIP */
+  /* Portada VIP: primero la foto del Capitolio y, 10 segundos después, el video del chofer y el Mercedes (en blanco y negro) */
+  var vipTimer = null;
   function vipVideo(on) {
     var vid = document.getElementById("vipVideo"); if (!vid) return;
-    if (!on) { vid.pause(); return; }
+    clearTimeout(vipTimer);
+    if (!on) { vid.pause(); vid.classList.remove("listo"); return; }
     if (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     if (!vid.getAttribute("src")) {
+      vid.preload = "auto";
       vid.src = innerWidth < 760 ? vid.getAttribute("data-src-movil") : vid.getAttribute("data-src");
-      vid.addEventListener("playing", function () { vid.classList.add("listo"); });
+      vid.load();
     }
-    var p = vid.play(); if (p && p.catch) p.catch(function () {});
+    vid.classList.remove("listo");
+    vipTimer = setTimeout(function () {
+      try { vid.currentTime = 0; } catch (e) {}
+      var p = vid.play();
+      var mostrar = function () { vid.classList.add("listo"); };
+      if (p && p.then) p.then(mostrar).catch(function () {}); else mostrar();
+    }, 10000);
   }
   function go(id) { if (location.hash === "#" + id) route(); else location.hash = id; }
   window.addEventListener("hashchange", route);
