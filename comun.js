@@ -144,5 +144,16 @@
     return cacheLug;
   };
 
+  /* Modo VIP: lo que se abre desde Servicio VIP se ve en negro y dorado. El logo lo apaga. */
+  FC.vipActivo = function () { try { return sessionStorage.getItem("fc-vip") === "1"; } catch (e) { return false; } };
+  FC.vip = function (on) {
+    try { if (on) sessionStorage.setItem("fc-vip", "1"); else sessionStorage.removeItem("fc-vip"); } catch (e) {}
+    document.documentElement.classList.toggle("modo-vip", !!on);
+  };
+  if (FC.vipActivo()) document.documentElement.classList.add("modo-vip");
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest && e.target.closest("a.brand");
+    if (a) { try { sessionStorage.removeItem("fc-vip"); } catch (err) {} }
+  }, true);
   window.FC = FC;
 })();
