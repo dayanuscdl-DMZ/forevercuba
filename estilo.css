@@ -304,8 +304,7 @@ body.es-inicio #packGrid > :nth-child(n+7), body.es-inicio #provGrid > :nth-chil
 /* Buscador con dormitorios y baños: 7 campos */
 @media (min-width: 1000px) { .search { grid-template-columns: 1.3fr 1.1fr 1.1fr .8fr .9fr .9fr 1.2fr; } }
 /* Garantía de las casas: paneles solares y comodidades */
-.garantia { display: flex; align-items: center; gap: 14px; margin: -6px 0 22px; padding: 14px 18px; border-radius: 14px; background: #FFF8E1; border: 1.5px solid #F5C542; color: #5A4300; }
-.garantia svg { flex: none; width: 34px; height: 34px; fill: none; stroke: #E0A100; stroke-width: 2; stroke-linecap: round; }
-.garantia strong { display: block; font-size: 1.02rem; text-transform: uppercase; letter-spacing: .03em; }
-.garantia span { font-size: .95rem; }
+.garantia { display: flex; align-items: flex-start; gap: 10px; margin: -8px 0 20px; padding: 10px 14px; border-radius: 12px; background: #FFF8E1; border: 1px solid #F5C542; color: #5A4300; }
+.garantia svg { flex: none; width: 20px; height: 20px; margin-top: 1px; fill: none; stroke: #E0A100; stroke-width: 2; stroke-linecap: round; }
+.garantia p { margin: 0; font-size: .86rem; line-height: 1.5; }
 :root[data-theme="dark"] .garantia { background: #2A2410; border-color: #8A6D12; color: #F3DFA0; }
