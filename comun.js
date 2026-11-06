@@ -97,7 +97,7 @@
     if (cache) return cache;
     if (!FC.conectado()) { cache = Promise.resolve(FC.EJEMPLOS); return cache; }
     var q = FC.CONFIG.url.replace(/\/$/, "") + "/rest/v1/propiedades?select=*&publicado=eq.true&order=orden.asc,creado.desc";
-    cache = fetch(q, { headers: { apikey: FC.CONFIG.key, Authorization: "Bearer " + FC.CONFIG.key } })
+    cache = fetch(q, { headers: { apikey: FC.CONFIG.key } })
       .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
       .then(function (rows) { return rows && rows.length ? rows : FC.EJEMPLOS; })
       .catch(function () { return FC.EJEMPLOS; });
@@ -123,6 +123,26 @@
   FC.guardarIdioma = function (l) { try { localStorage.setItem("fc-lang", l); } catch (e) {} };
 
   FC.esc = function (s) { return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); };
+
+  /* ---------- Nuestros Lugares Forever ---------- */
+  FC.LUG_CATS = {
+    restaurante: { es: "Restaurantes", en: "Restaurants", fr: "Restaurants", c: "#E31C5F", i: '<path d="M7 3v7a2 2 0 0 0 4 0V3"/><path d="M9 10v11"/><path d="M17 3c-1.7 1.2-2.5 3.4-2.5 6.5h2.5V21"/>' },
+    bar: { es: "Bares", en: "Bars", fr: "Bars", c: "#C9A227", i: '<path d="M5 4h14l-7 8z"/><path d="M12 12v8M8 20h8"/>' },
+    cafe: { es: "Cafés", en: "Cafés", fr: "Cafés", c: "#8A5A3C", i: '<path d="M4 9h13v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5z"/><path d="M17 10h1.5a2.5 2.5 0 0 1 0 5H17"/><path d="M8 3v3M12 3v3"/>' },
+    musica: { es: "Música y noche", en: "Music & nightlife", fr: "Musique et soirées", c: "#6B4FBB", i: '<path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/>' },
+    experiencia: { es: "Experiencias", en: "Experiences", fr: "Expériences", c: "#0B7A75", i: '<path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3 6.1 20.6l1.3-6.6L2.5 9.4l6.6-.8z"/>' }
+  };
+  var cacheLug = null;
+  FC.cargarLugares = function (ejemplos) {
+    if (cacheLug) return cacheLug;
+    if (!FC.conectado()) { cacheLug = Promise.resolve(ejemplos); return cacheLug; }
+    var q = FC.CONFIG.url.replace(/\/$/, "") + "/rest/v1/lugares?select=*&publicado=eq.true&order=orden.asc,creado.desc";
+    cacheLug = fetch(q, { headers: { apikey: FC.CONFIG.key } })
+      .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
+      .then(function (rows) { return rows && rows.length ? rows : ejemplos; })
+      .catch(function () { return ejemplos; });
+    return cacheLug;
+  };
 
   window.FC = FC;
 })();

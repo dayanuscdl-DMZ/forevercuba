@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="es" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Nuestros lugares Forever · ForeverCuba</title>
+<meta name="description" content="Restaurantes, bares, cafés y lugares de música en Cuba elegidos por el equipo de ForeverCuba.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="estilo.css">
+<style>
+.lg-hero { padding-top: 36px; max-width: 760px; }
+.lg-hero h1 { font-size: clamp(2.1rem, 5.5vw, 3.6rem); letter-spacing: -.01em; line-height: 1.05; margin-block: 8px 12px; }
+.lg-hero p.lead { font-size: 1.12rem; color: var(--muted); max-width: 58ch; }
+.lg-filters { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; margin-top: 26px; }
+.lg-filters select { width: auto; }
+.lg-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); gap: 18px; margin-top: 20px; }
+.lg-card { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 2px 14px rgba(0, 0, 0, .06); }
+.lg-pic { position: relative; aspect-ratio: 16 / 10; display: grid; place-items: center; overflow: hidden; }
+.lg-pic img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.lg-pic svg { width: 56px; height: 56px; fill: none; stroke: #fff; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; opacity: .95; }
+.lg-badge { position: absolute; top: 12px; left: 12px; background: rgba(255, 255, 255, .94); color: #222; font-size: .74rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; padding: 4px 10px; border-radius: 999px; }
+.lg-body { padding: 16px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+.lg-body h3 { font-size: 1.15rem; }
+.lg-body .meta { font-weight: 600; }
+.lg-tip { background: var(--teal-soft); border-radius: 12px; padding: 10px 12px; font-size: .92rem; }
+.lg-tip b { color: var(--coral); }
+.lg-acts { margin-top: auto; padding-top: 6px; display: flex; gap: 8px; flex-wrap: wrap; }
+.lg-empty { padding: 30px; text-align: center; color: var(--muted); }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="topbar"><div class="wrap topbar-in">
+    <div class="langs" role="group" aria-label="Idioma / Language / Langue">
+      <button type="button" class="lang" data-lang="es" aria-label="Español"><svg viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="20" fill="#AA151B"/><rect y="5" width="30" height="10" fill="#F1BF00"/></svg></button>
+      <button type="button" class="lang" data-lang="en" aria-label="English"><svg viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="20" fill="#FFFFFF"/><g fill="#B22234"><rect y="0" width="30" height="1.54"/><rect y="3.08" width="30" height="1.54"/><rect y="6.15" width="30" height="1.54"/><rect y="9.23" width="30" height="1.54"/><rect y="12.31" width="30" height="1.54"/><rect y="15.38" width="30" height="1.54"/><rect y="18.46" width="30" height="1.54"/></g><rect width="12" height="10.77" fill="#3C3B6E"/><g fill="#FFFFFF"><circle cx="2.4" cy="2.2" r=".7"/><circle cx="6" cy="2.2" r=".7"/><circle cx="9.6" cy="2.2" r=".7"/><circle cx="4.2" cy="5.4" r=".7"/><circle cx="7.8" cy="5.4" r=".7"/><circle cx="2.4" cy="8.6" r=".7"/><circle cx="6" cy="8.6" r=".7"/><circle cx="9.6" cy="8.6" r=".7"/></g></svg></button>
+      <button type="button" class="lang" data-lang="fr" aria-label="Français"><svg viewBox="0 0 30 20" aria-hidden="true"><rect width="10" height="20" fill="#002395"/><rect x="10" width="10" height="20" fill="#FFFFFF"/><rect x="20" width="10" height="20" fill="#ED2939"/></svg></button>
+    </div>
+  </div></div>
+  <div class="wrap">
+    <a class="brand" href="index.html"><svg class="cuba-map" viewBox="-1 0 109 36" aria-hidden="true"><path d="M0.5 14.4 L6.0 13.0 L11.0 11.0 L16.0 7.5 L22.0 5.5 L26.5 1.5 L34.0 2.0 L38.0 1.5 L44.0 3.0 L50.0 4.0 L57.0 7.0 L64.0 9.0 L72.0 14.0 L78.0 16.5 L85.0 20.5 L93.0 22.0 L100.0 26.0 L107.0 30.5 L105.0 32.5 L98.0 34.0 L92.0 33.5 L85.0 34.0 L78.0 34.2 L73.0 34.5 L76.0 30.0 L79.0 27.0 L72.0 26.0 L67.0 21.0 L62.0 17.5 L54.0 16.0 L46.0 15.0 L41.0 12.5 L35.0 11.5 L31.0 10.0 L27.0 7.5 L20.0 10.5 L14.0 13.0 L7.0 15.0Z"/><ellipse cx="22" cy="17" rx="3.6" ry="2.4"/></svg><span class="word">Forever<span>Cuba</span></span></a>
+    <nav aria-label="Menu">
+      <a href="index.html#rentas" data-i18n="nav_rent">Casas y apartamentos</a>
+      <a href="index.html#autos" data-i18n="nav_cars">Renta de autos</a>
+      <a href="index.html#tours" data-i18n="nav_tours">Tours</a>
+      <a href="index.html#paquetes" data-i18n="nav_pack">Paquetes</a>
+      <a href="index.html#vuelos" data-i18n="nav_fly">Vuelos</a>
+      <a href="index.html#provincias" data-i18n="nav_prov">Provincias</a>
+      <a href="index.html#vip" class="nav-vip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3 6.1 20.6l1.3-6.6L2.5 9.4l6.6-.8z"/></svg><span data-i18n="nav_vip">Servicio VIP</span></a>
+      <button type="button" class="theme-btn" id="themeBtn"></button>
+    </nav>
+  </div>
+  <div class="forever-bar"><div class="wrap"><a href="lugares.html" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3 6.1 20.6l1.3-6.6L2.5 9.4l6.6-.8z"/></svg><span class="fbar-t" data-i18n="fbar">Nuestros lugares Forever</span><span class="fbar-sub" data-i18n="fbar_sub">Restaurantes, bares y rincones elegidos por nuestro equipo</span><span aria-hidden="true">→</span></a></div></div>
+</header>
+
+<main class="wrap" id="page">
+  <div class="lg-hero">
+    <p class="eyebrow" data-i18n="eyebrow">Elegidos por el equipo ForeverCuba</p>
+    <h1 data-i18n="h1">Nuestros lugares Forever</h1>
+    <p class="lead" data-i18n="lead">Los sitios donde comemos, brindamos y bailamos cuando estamos en Cuba. Los visitamos nosotros mismos y te los recomendamos.</p>
+  </div>
+  <p class="sample" id="lgSample" hidden data-i18n="sample">Lista de ejemplo: muy pronto el equipo publicará aquí sus lugares favoritos.</p>
+  <div class="lg-filters">
+    <div class="chips" id="lgChips" role="group"></div>
+    <label style="display:flex;align-items:center;gap:8px"><span data-i18n="city">Ciudad</span><select id="lgCity"></select></label>
+  </div>
+  <div class="lg-grid" id="lgGrid"><p class="lg-empty">…</p></div>
+</main>
+
+<footer class="wrap">
+  <a class="brand" href="index.html"><svg class="cuba-map" viewBox="-1 0 109 36" aria-hidden="true"><path d="M0.5 14.4 L6.0 13.0 L11.0 11.0 L16.0 7.5 L22.0 5.5 L26.5 1.5 L34.0 2.0 L38.0 1.5 L44.0 3.0 L50.0 4.0 L57.0 7.0 L64.0 9.0 L72.0 14.0 L78.0 16.5 L85.0 20.5 L93.0 22.0 L100.0 26.0 L107.0 30.5 L105.0 32.5 L98.0 34.0 L92.0 33.5 L85.0 34.0 L78.0 34.2 L73.0 34.5 L76.0 30.0 L79.0 27.0 L72.0 26.0 L67.0 21.0 L62.0 17.5 L54.0 16.0 L46.0 15.0 L41.0 12.5 L35.0 11.5 L31.0 10.0 L27.0 7.5 L20.0 10.5 L14.0 13.0 L7.0 15.0Z"/><ellipse cx="22" cy="17" rx="3.6" ry="2.4"/></svg><span class="word">Forever<span>Cuba</span></span></a>
+  <p data-i18n="foot">Rentas, tours, paquetes y vuelos a Cuba.</p>
+</footer>
+
+<script src="comun.js"></script>
+<script>
+(function () {
+  var TX = {
+    es: { nav_rent: "Casas y apartamentos", nav_cars: "Renta de autos", nav_tours: "Tours", nav_pack: "Paquetes", nav_fly: "Vuelos", nav_prov: "Provincias", nav_vip: "Servicio VIP",
+      fbar: "Nuestros lugares Forever", fbar_sub: "Restaurantes, bares y rincones elegidos por nuestro equipo",
+      night: "Noche", day: "Día", to_night: "Cambiar a modo noche", to_day: "Cambiar a modo día", foot: "Rentas, tours, paquetes y vuelos a Cuba.", close: "Cerrar",
+      eyebrow: "Elegidos por el equipo ForeverCuba", h1: "Nuestros lugares Forever",
+      lead: "Los sitios donde comemos, brindamos y bailamos cuando estamos en Cuba. Los visitamos nosotros mismos y te los recomendamos.",
+      sample: "Lista de ejemplo: muy pronto el equipo publicará aquí sus lugares favoritos.", all: "Todos", city: "Ciudad", all_cities: "Todas",
+      tip: "Nuestro consejo:", map: "Ver en el mapa", ask: "Preguntar por WhatsApp", none: "No hay lugares con ese filtro todavía.",
+      m_ask: "Hola ForeverCuba, quiero información sobre {p} ({c})." },
+    en: { nav_rent: "Houses & apartments", nav_cars: "Car rental", nav_tours: "Tours", nav_pack: "Packages", nav_fly: "Flights", nav_prov: "Provinces", nav_vip: "VIP service",
+      fbar: "Our Forever places", fbar_sub: "Restaurants, bars and spots picked by our team",
+      night: "Night", day: "Day", to_night: "Switch to night mode", to_day: "Switch to day mode", foot: "Stays, tours, packages and flights to Cuba.", close: "Close",
+      eyebrow: "Picked by the ForeverCuba team", h1: "Our Forever places",
+      lead: "The places where we eat, toast and dance when we're in Cuba. We've been there ourselves and we recommend them.",
+      sample: "Sample list: our team will publish their favorite places here very soon.", all: "All", city: "City", all_cities: "All",
+      tip: "Our tip:", map: "Show on map", ask: "Ask on WhatsApp", none: "No places match this filter yet.",
+      m_ask: "Hi ForeverCuba, I'd like information about {p} ({c})." },
+    fr: { nav_rent: "Maisons et appartements", nav_cars: "Location de voitures", nav_tours: "Excursions", nav_pack: "Forfaits", nav_fly: "Vols", nav_prov: "Provinces", nav_vip: "Service VIP",
+      fbar: "Nos lieux Forever", fbar_sub: "Restaurants, bars et coins choisis par notre équipe",
+      night: "Nuit", day: "Jour", to_night: "Passer en mode nuit", to_day: "Passer en mode jour", foot: "Logements, excursions, forfaits et vols vers Cuba.", close: "Fermer",
+      eyebrow: "Choisis par l'équipe ForeverCuba", h1: "Nos lieux Forever",
+      lead: "Les endroits où nous mangeons, trinquons et dansons quand nous sommes à Cuba. Nous les avons testés et nous vous les recommandons.",
+      sample: "Liste d'exemple : notre équipe publiera très bientôt ici ses lieux préférés.", all: "Tous", city: "Ville", all_cities: "Toutes",
+      tip: "Notre conseil :", map: "Voir sur la carte", ask: "Demander sur WhatsApp", none: "Aucun lieu ne correspond encore à ce filtre.",
+      m_ask: "Bonjour ForeverCuba, je souhaite des informations sur {p} ({c})." }
+  };
+  function L3(es, en, fr) { return { es: es, en: en, fr: fr }; }
+  var EJEMPLOS = [
+    { id: "x1", nombre: "La Guarida", categoria: "restaurante", ciudad: "La Habana",
+      d: L3("Uno de los paladares más famosos de Cuba, en una mansión antigua de Centro Habana con una escalera inolvidable.", "One of Cuba's most famous paladares, in an old Centro Habana mansion with an unforgettable staircase.", "L'un des paladares les plus célèbres de Cuba, dans une ancienne demeure de Centro Habana à l'escalier inoubliable."),
+      t: L3("Reserva con tiempo y sube a la terraza antes de cenar.", "Book ahead and go up to the rooftop before dinner.", "Réservez à l'avance et montez sur la terrasse avant le dîner.") },
+    { id: "x2", nombre: "El Cocinero", categoria: "restaurante", ciudad: "La Habana",
+      d: L3("Restaurante en una antigua fábrica del Vedado, con terraza en lo alto junto a una chimenea de ladrillo.", "A restaurant in an old Vedado factory, with a rooftop terrace next to a brick chimney.", "Restaurant dans une ancienne usine du Vedado, avec une terrasse en hauteur près d'une cheminée en brique."),
+      t: L3("Combínalo con una noche en la Fábrica de Arte, que está al lado.", "Pair it with a night at the Fábrica de Arte next door.", "À combiner avec une soirée à la Fábrica de Arte, juste à côté.") },
+    { id: "x3", nombre: "El Floridita", categoria: "bar", ciudad: "La Habana",
+      d: L3("La cuna del daiquirí y uno de los bares favoritos de Ernest Hemingway, en la calle Obispo.", "The birthplace of the daiquiri and one of Ernest Hemingway's favorite bars, on Obispo Street.", "Le berceau du daïquiri et l'un des bars préférés d'Ernest Hemingway, rue Obispo."),
+      t: L3("Ve temprano en la tarde para encontrar sitio en la barra.", "Go early in the afternoon to get a spot at the bar.", "Allez-y en début d'après-midi pour avoir une place au comptoir.") },
+    { id: "x4", nombre: "La Bodeguita del Medio", categoria: "bar", ciudad: "La Habana",
+      d: L3("Bar clásico de La Habana Vieja, famoso por su mojito y por las firmas de visitantes en sus paredes.", "A classic Old Havana bar, famous for its mojito and the visitors' signatures on its walls.", "Bar classique de la Vieille Havane, célèbre pour son mojito et les signatures des visiteurs sur ses murs."),
+      t: L3("Pide el mojito y escucha la música en vivo.", "Order the mojito and enjoy the live music.", "Commandez le mojito et profitez de la musique live.") },
+    { id: "x5", nombre: "O'Reilly 304", categoria: "bar", ciudad: "La Habana",
+      d: L3("Pequeño y animado, conocido por sus gin tonics gigantes y su comida creativa.", "Small and lively, known for its giant gin and tonics and creative food.", "Petit et animé, connu pour ses gin tonics géants et sa cuisine créative."),
+      t: L3("Ideal para empezar la noche en La Habana Vieja.", "Perfect to start the night in Old Havana.", "Parfait pour commencer la soirée dans la Vieille Havane.") },
+    { id: "x6", nombre: "Jardín del Hotel Nacional", categoria: "bar", ciudad: "La Habana",
+      d: L3("Los jardines del histórico Hotel Nacional, con vista al Malecón y al mar.", "The gardens of the historic Hotel Nacional, overlooking the Malecón and the sea.", "Les jardins de l'historique Hôtel Nacional, avec vue sur le Malecón et la mer."),
+      t: L3("Ven al atardecer y pide un cóctel en los sillones del jardín.", "Come at sunset and order a cocktail in the garden armchairs.", "Venez au coucher du soleil et commandez un cocktail dans les fauteuils du jardin.") },
+    { id: "x7", nombre: "Café El Escorial", categoria: "cafe", ciudad: "La Habana",
+      d: L3("Café en la Plaza Vieja donde tuestan su propio café cubano.", "A café on Plaza Vieja that roasts its own Cuban coffee.", "Un café de la Plaza Vieja qui torréfie son propre café cubain."),
+      t: L3("Siéntate afuera y mira la vida de la plaza.", "Sit outside and watch life on the square.", "Installez-vous dehors et regardez la vie de la place.") },
+    { id: "x8", nombre: "Fábrica de Arte Cubano", categoria: "musica", ciudad: "La Habana",
+      d: L3("Galería, conciertos, cine y baile en una antigua fábrica del Vedado. El lugar más moderno de La Habana.", "Gallery, concerts, cinema and dancing in an old Vedado factory. Havana's trendiest spot.", "Galerie, concerts, cinéma et danse dans une ancienne usine du Vedado. Le lieu le plus branché de La Havane."),
+      t: L3("Abre solo algunos días de la semana: pregúntanos antes de ir.", "It only opens some days of the week: ask us before you go.", "Ouvert seulement certains jours de la semaine : demandez-nous avant d'y aller.") },
+    { id: "x9", nombre: "Tropicana", categoria: "musica", ciudad: "La Habana",
+      d: L3("El cabaret más famoso de Cuba, con espectáculo al aire libre bajo los árboles desde 1939.", "Cuba's most famous cabaret, with an open-air show under the trees since 1939.", "Le cabaret le plus célèbre de Cuba, avec un spectacle en plein air sous les arbres depuis 1939."),
+      t: L3("Te ayudamos a reservar con traslado incluido.", "We can help you book with transfer included.", "Nous pouvons vous aider à réserver avec le transfert inclus.") },
+    { id: "x10", nombre: "Casa de la Música de Trinidad", categoria: "musica", ciudad: "Trinidad",
+      d: L3("Música en vivo y salsa al aire libre en la escalinata junto a la Plaza Mayor.", "Live music and open-air salsa on the steps next to Plaza Mayor.", "Musique live et salsa en plein air sur l'escalier près de la Plaza Mayor."),
+      t: L3("Llega después de cenar, cuando empieza el baile.", "Arrive after dinner, when the dancing starts.", "Arrivez après le dîner, quand la danse commence.") },
+    { id: "x11", nombre: "Finca Agroecológica El Paraíso", categoria: "restaurante", ciudad: "Viñales",
+      d: L3("Almuerzo criollo con productos de su propia finca y una de las mejores vistas del valle.", "A Creole lunch with produce from their own farm and one of the best views of the valley.", "Déjeuner créole avec les produits de leur ferme et l'une des plus belles vues sur la vallée."),
+      t: L3("Prueba su cóctel antiestrés de la casa.", "Try their house anti-stress cocktail.", "Goûtez leur cocktail maison anti-stress.") },
+    { id: "x12", nombre: "Casa de la Trova", categoria: "musica", ciudad: "Santiago de Cuba",
+      d: L3("En la calle Heredia, el lugar para escuchar son y trova tradicional en vivo.", "On Heredia Street, the place to hear traditional son and trova live.", "Rue Heredia, l'endroit pour écouter du son et de la trova traditionnels en live."),
+      t: L3("Las noches del fin de semana son las más animadas.", "Weekend nights are the liveliest.", "Les soirées du week-end sont les plus animées.") },
+    { id: "x13", nombre: "Terraza del Palacio de Valle", categoria: "bar", ciudad: "Cienfuegos",
+      d: L3("Un palacio de estilo morisco en Punta Gorda, con terraza en lo alto frente a la bahía.", "A Moorish-style palace in Punta Gorda with a rooftop terrace facing the bay.", "Un palais de style mauresque à Punta Gorda, avec une terrasse en hauteur face à la baie."),
+      t: L3("Sube al atardecer: la vista de la bahía es increíble.", "Go up at sunset: the view of the bay is amazing.", "Montez au coucher du soleil : la vue sur la baie est superbe.") },
+    { id: "x14", nombre: "Mansión Xanadú", categoria: "experiencia", ciudad: "Varadero",
+      d: L3("La antigua mansión de la familia Du Pont, con un bar en el último piso y vista a la playa.", "The former Du Pont family mansion, with a top-floor bar overlooking the beach.", "L'ancienne demeure de la famille Du Pont, avec un bar au dernier étage et vue sur la plage."),
+      t: L3("Toma algo en el mirador antes del atardecer.", "Have a drink on the lookout before sunset.", "Prenez un verre au belvédère avant le coucher du soleil.") }
+  ];
+  var lang = FC.idioma(), esc = FC.esc, LIST = EJEMPLOS, cat = "all", isSample = true;
+  function $(s) { return document.querySelector(s); }
+  function T(k, v) { var s = (TX[lang] && TX[lang][k]) || TX.es[k] || k; if (v) Object.keys(v).forEach(function (x) { s = s.replace("{" + x + "}", v[x]); }); return s; }
+  function txt(p, f) { if (p[f] && typeof p[f] === "object") return p[f][lang] || p[f].es; return p[f + "_" + lang] || p[f + "_es"] || ""; }
+  function svg(p) { return '<svg viewBox="0 0 24 24" aria-hidden="true">' + p + '</svg>'; }
+
+  function draw() {
+    var C = FC.LUG_CATS;
+    $("#lgChips").innerHTML = ['all'].concat(Object.keys(C)).map(function (k) {
+      return '<button type="button" class="chip" data-cat="' + k + '" aria-pressed="' + (cat === k) + '">' + esc(k === "all" ? T("all") : C[k][lang]) + '</button>';
+    }).join("");
+    var sel = $("#lgCity"), keep = sel.value || "Todas";
+    var cities = LIST.map(function (p) { return p.ciudad; }).filter(function (c, i, a) { return c && a.indexOf(c) === i; }).sort();
+    sel.innerHTML = '<option value="Todas">' + esc(T("all_cities")) + '</option>' + cities.map(function (c) { return '<option>' + esc(c) + '</option>'; }).join("");
+    sel.value = cities.indexOf(keep) >= 0 ? keep : "Todas";
+    var list = LIST.filter(function (p) { return (cat === "all" || p.categoria === cat) && (sel.value === "Todas" || p.ciudad === sel.value); });
+    $("#lgGrid").innerHTML = list.map(function (p) {
+      var c = C[p.categoria] || C.experiencia, d = isSample ? txt(p, "d") : txt(p, "desc"), t = isSample ? txt(p, "t") : txt(p, "tip");
+      var map = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(p.nombre + ", " + (p.direccion ? p.direccion + ", " : "") + p.ciudad + ", Cuba");
+      var wa = (FC.CONFIG.whatsapp ? "https://wa.me/" + FC.CONFIG.whatsapp : "https://wa.me/") + "?text=" + encodeURIComponent(T("m_ask", { p: p.nombre, c: p.ciudad }));
+      var pic = p.foto ? '<img src="' + esc(p.foto) + '" alt="' + esc(p.nombre) + '" loading="lazy">' : svg(c.i);
+      return '<article class="lg-card"><div class="lg-pic" style="background:linear-gradient(135deg,' + c.c + ',' + c.c + 'B3)">' + pic +
+        '<span class="lg-badge">' + esc(c[lang]) + '</span></div><div class="lg-body"><h3>' + esc(p.nombre) + '</h3>' +
+        '<p class="meta">' + esc(p.ciudad) + (p.direccion ? ' · ' + esc(p.direccion) : '') + '</p><p>' + esc(d) + '</p>' +
+        (t ? '<p class="lg-tip"><b>' + esc(T("tip")) + '</b> ' + esc(t) + '</p>' : '') +
+        '<div class="lg-acts"><a class="btn small" href="' + map + '" target="_blank" rel="noopener">' + esc(T("map")) + '</a><a class="btn small" href="' + wa + '" target="_blank" rel="noopener">' + esc(T("ask")) + '</a></div></div></article>';
+    }).join("") || '<p class="lg-empty">' + esc(T("none")) + '</p>';
+    $("#lgSample").hidden = !isSample;
+  }
+  $("#lgChips").addEventListener("click", function (e) { var b = e.target.closest("[data-cat]"); if (!b) return; cat = b.getAttribute("data-cat"); draw(); });
+  $("#lgCity").addEventListener("change", draw);
+
+  /* Día / Noche */
+  var root = document.documentElement, tb = $("#themeBtn");
+  var MOON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>';
+  var SUN = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>';
+  function paintTheme() { var d = root.getAttribute("data-theme") === "dark"; tb.innerHTML = d ? SUN + " " + esc(T("day")) : MOON + " " + esc(T("night")); tb.setAttribute("aria-label", d ? T("to_day") : T("to_night")); }
+  function setTheme(t) { root.setAttribute("data-theme", t); paintTheme(); try { localStorage.setItem("fc-theme", t); } catch (e) {} }
+  var st = "light"; try { st = localStorage.getItem("fc-theme") || "light"; } catch (e) {}
+  setTheme(st === "dark" ? "dark" : "light");
+  tb.addEventListener("click", function () { setTheme(root.getAttribute("data-theme") === "dark" ? "light" : "dark"); });
+
+  /* Idioma */
+  function applyLang(l) {
+    lang = TX[l] ? l : "es"; root.setAttribute("lang", lang); FC.guardarIdioma(lang);
+    document.querySelectorAll("[data-i18n]").forEach(function (el) { el.textContent = T(el.getAttribute("data-i18n")); });
+    document.querySelectorAll(".lang").forEach(function (b) { b.setAttribute("aria-pressed", b.getAttribute("data-lang") === lang ? "true" : "false"); });
+    paintTheme(); draw();
+  }
+  document.querySelectorAll(".lang").forEach(function (b) { b.addEventListener("click", function () { applyLang(b.getAttribute("data-lang")); }); });
+  applyLang(lang);
+
+  FC.cargarLugares(EJEMPLOS).then(function (list) { isSample = list === EJEMPLOS; LIST = list; draw(); });
+})();
+</script>
+</body>
+</html>

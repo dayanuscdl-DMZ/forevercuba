@@ -81,7 +81,7 @@ details[open] summary { margin-bottom: 12px; }
   function $(s, r) { return (r || document).querySelector(s); }
   if (!FC.conectado()) { app.innerHTML = '<div class="panel"><div class="box"><h1>Panel sin conectar</h1><p>Falta poner los datos de Supabase en el archivo comun.js.</p></div></div>'; return; }
   var sb = supabase.createClient(FC.CONFIG.url, FC.CONFIG.key);
-  var user = null, props = [], editing = null, photos = [], pendingDelete = null;
+  var user = null, props = [], editing = null, photos = [], pendingDelete = null, tab = "props", lugares = [];
   var CIUDADES = ["Habana Vieja", "Centro Habana", "Vedado", "Miramar", "Playa", "Varadero", "Viñales", "Trinidad", "Cienfuegos", "Santa Clara", "Camagüey", "Santiago de Cuba", "Holguín", "Baracoa", "Cayo Coco", "Cayo Santa María"];
 
   /* ---------- Entrar ---------- */
@@ -126,7 +126,12 @@ details[open] summary { margin-bottom: 12px; }
       props = r.data || []; showList(note);
     });
   }
+  function tabs() {
+    return '<div class="chips" role="tablist" style="margin-bottom:4px"><button type="button" class="chip" data-act="tab" data-tab="props" aria-pressed="' + (tab === "props") + '">Casas y apartamentos</button>' +
+      '<button type="button" class="chip" data-act="tab" data-tab="lugares" aria-pressed="' + (tab === "lugares") + '">★ Nuestros lugares Forever</button></div>';
+  }
   function showList(note) {
+    if (tab === "lugares") { loadLugares(note); return; }
     editing = null;
     var items = props.map(function (p) {
       var del = pendingDelete === p.id ? '<div class="confirm" style="grid-column:1/-1">¿Borrar "' + esc(p.titulo_es) + '" para siempre? <button class="btn small" data-act="del-yes" data-id="' + p.id + '">Sí, borrar</button><button class="btn small" data-act="del-no">No</button></div>' : '';
@@ -137,7 +142,7 @@ details[open] summary { margin-bottom: 12px; }
         '<button class="btn small" data-act="toggle" data-id="' + p.id + '">' + (p.publicado ? 'Ocultar' : 'Publicar') + '</button>' +
         '<button class="btn small" data-act="del" data-id="' + p.id + '">Borrar</button></div>' + del + '</div>';
     }).join("");
-    app.innerHTML = '<div class="panel">' + (note ? '<p class="msg">' + esc(note) + '</p>' : '') +
+    app.innerHTML = '<div class="panel">' + tabs() + (note ? '<p class="msg">' + esc(note) + '</p>' : '') +
       '<div class="box"><div class="row-head"><h1>Casas y apartamentos</h1><button class="btn primary" data-act="new">+ Agregar propiedad</button></div>' +
       (props.length ? '<div class="list">' + items + '</div>' : '<p class="help" style="font-size:1rem">Todavía no hay propiedades. Mientras tanto la página muestra las de ejemplo. Toca <b>Agregar propiedad</b> para subir la primera; en cuanto haya una publicada, las de ejemplo desaparecen.</p>') +
       '</div>' + teamBox() + '</div>';
@@ -274,11 +279,91 @@ details[open] summary { margin-bottom: 12px; }
     });
   }
 
+  /* ---------- Nuestros lugares Forever ---------- */
+  var CATS = { restaurante: "Restaurante", bar: "Bar", cafe: "Café", musica: "Música y noche", experiencia: "Experiencia" };
+  var lugFoto = null, lugEditing = null;
+  function loadLugares(note) {
+    sb.from("lugares").select("*").order("orden").order("creado", { ascending: false }).then(function (r) {
+      if (r.error) { app.innerHTML = '<div class="panel">' + tabs() + '<p class="msg bad">Error al cargar: ' + esc(r.error.message) + '</p></div>'; return; }
+      lugares = r.data || []; showLugares(note);
+    });
+  }
+  function showLugares(note) {
+    lugEditing = null;
+    var items = lugares.map(function (p) {
+      var del = pendingDelete === p.id ? '<div class="confirm" style="grid-column:1/-1">¿Borrar "' + esc(p.nombre) + '" para siempre? <button class="btn small" data-act="ldel-yes" data-id="' + p.id + '">Sí, borrar</button><button class="btn small" data-act="ldel-no">No</button></div>' : '';
+      return '<div class="item"><img src="' + esc(p.foto || FC.FALLBACK) + '" alt="">' +
+        '<div><h3>' + esc(p.nombre) + '</h3><p class="meta">' + esc(CATS[p.categoria] || p.categoria) + ' · ' + esc(p.ciudad) + '</p>' +
+        '<span class="pill ' + (p.publicado ? 'on">Publicado' : 'off">Oculto') + '</span></div>' +
+        '<div class="acts"><button class="btn small" data-act="ledit" data-id="' + p.id + '">Editar</button>' +
+        '<button class="btn small" data-act="ltoggle" data-id="' + p.id + '">' + (p.publicado ? 'Ocultar' : 'Publicar') + '</button>' +
+        '<button class="btn small" data-act="ldel" data-id="' + p.id + '">Borrar</button></div>' + del + '</div>';
+    }).join("");
+    app.innerHTML = '<div class="panel">' + tabs() + (note ? '<p class="msg">' + esc(note) + '</p>' : '') +
+      '<div class="box"><div class="row-head"><h1>Nuestros lugares Forever</h1><div class="inline"><a class="btn small" href="lugares.html" target="_blank">Ver página</a><button class="btn primary" data-act="lnew">+ Agregar lugar</button></div></div>' +
+      '<p class="help" style="font-size:1rem">Restaurantes, bares, cafés y lugares que el equipo recomienda. Aparecen en la página "Nuestros lugares Forever".</p>' +
+      (lugares.length ? '<div class="list">' + items + '</div>' : '<p class="help" style="font-size:1rem">Todavía no hay lugares. Mientras tanto la página muestra una lista de ejemplo; en cuanto publiques el primero, la de ejemplo desaparece.</p>') +
+      '</div></div>';
+  }
+  function showLugarForm(p) {
+    lugEditing = p ? p.id : "new";
+    p = p || { nombre: "", categoria: "restaurante", ciudad: "", direccion: "", desc_es: "", tip_es: "", desc_en: "", tip_en: "", desc_fr: "", tip_fr: "", foto: null, publicado: true };
+    lugFoto = p.foto ? { url: p.foto } : null;
+    app.innerHTML = '<div class="panel"><div class="box"><div class="row-head"><h1>' + (lugEditing === "new" ? "Agregar lugar" : "Editar lugar") + '</h1><button class="btn small" data-act="lback">← Volver</button></div>' +
+      '<form class="form" id="lf">' +
+      '<label for="lNombre">Nombre del lugar<input id="lNombre" required value="' + esc(p.nombre) + '" placeholder="Ej. La Guarida"></label>' +
+      '<div class="g2"><label for="lCat">Tipo<select id="lCat">' + Object.keys(CATS).map(function (k) { return '<option value="' + k + '">' + CATS[k] + '</option>'; }).join("") + '</select></label>' +
+      '<label for="lCiudad">Ciudad<input id="lCiudad" list="ciudades2" required value="' + esc(p.ciudad) + '" placeholder="Ej. La Habana"><datalist id="ciudades2">' + ["La Habana", "Varadero", "Viñales", "Trinidad", "Cienfuegos", "Santa Clara", "Camagüey", "Holguín", "Santiago de Cuba", "Baracoa"].map(function (c) { return '<option value="' + c + '">'; }).join("") + '</datalist></label></div>' +
+      '<label for="lDir">Dirección (opcional)<input id="lDir" value="' + esc(p.direccion || "") + '" placeholder="Ej. Concordia 418, Centro Habana"></label>' +
+      '<label for="lDesc">Descripción<textarea id="lDesc" placeholder="Cómo es el lugar y por qué lo recomiendan">' + esc(p.desc_es || "") + '</textarea></label>' +
+      '<label for="lTip">Nuestro consejo (opcional)<input id="lTip" value="' + esc(p.tip_es || "") + '" placeholder="Ej. Reserva con tiempo y sube a la terraza"></label>' +
+      '<details' + (p.desc_en || p.desc_fr ? ' open' : '') + '><summary>Inglés y francés (opcional)</summary><div class="form"><p class="help">Si lo dejas vacío, se muestra el texto en español.</p>' +
+        '<label for="lDescEn">Descripción en inglés<textarea id="lDescEn">' + esc(p.desc_en || "") + '</textarea></label><label for="lTipEn">Consejo en inglés<input id="lTipEn" value="' + esc(p.tip_en || "") + '"></label>' +
+        '<label for="lDescFr">Descripción en francés<textarea id="lDescFr">' + esc(p.desc_fr || "") + '</textarea></label><label for="lTipFr">Consejo en francés<input id="lTipFr" value="' + esc(p.tip_fr || "") + '"></label></div></details>' +
+      '<div><p style="font-weight:600;margin-bottom:8px">Foto</p><div class="photos" id="lph"></div>' +
+        '<label class="drop" for="lFoto" style="margin-top:10px;display:block;cursor:pointer">Toca aquí para elegir una foto<input id="lFoto" type="file" accept="image/*" hidden></label></div>' +
+      '<label style="display:flex;align-items:center;gap:10px;font-weight:600"><input id="lPub" type="checkbox" style="width:auto"' + (p.publicado ? ' checked' : '') + '> Publicado (se ve en la página)</label>' +
+      '<div class="save-bar"><button class="btn primary" type="submit" id="lSave">Guardar</button><button class="btn" type="button" data-act="lback">Cancelar</button><span class="help" id="lMsg" role="status"></span></div>' +
+      '</form></div></div>';
+    $("#lCat").value = p.categoria;
+    drawLugFoto();
+    $("#lFoto").addEventListener("change", function (e) { var f = e.target.files[0]; if (f) { lugFoto = { file: f, preview: URL.createObjectURL(f) }; drawLugFoto(); } e.target.value = ""; });
+    $("#lf").addEventListener("submit", saveLugar);
+    window.scrollTo(0, 0);
+  }
+  function drawLugFoto() {
+    $("#lph").innerHTML = lugFoto ? '<div class="ph"><img src="' + esc(lugFoto.preview || lugFoto.url) + '" alt=""><div class="tools"><span></span><button type="button" data-act="lph-del" aria-label="Quitar foto">✕</button><span></span></div></div>' : '';
+  }
+  function saveLugar(e) {
+    e.preventDefault();
+    var btn = $("#lSave"), msg = $("#lMsg"); btn.disabled = true; msg.textContent = lugFoto && lugFoto.file ? "Subiendo foto…" : "Guardando…";
+    var up = lugFoto && lugFoto.file ? upload(lugFoto, 0, "lugares/" + Date.now()) : Promise.resolve(lugFoto ? lugFoto.url : null);
+    up.then(function (url) {
+      var row = { nombre: $("#lNombre").value.trim(), categoria: $("#lCat").value, ciudad: $("#lCiudad").value.trim(), direccion: $("#lDir").value.trim() || null,
+        desc_es: $("#lDesc").value.trim() || null, tip_es: $("#lTip").value.trim() || null,
+        desc_en: $("#lDescEn").value.trim() || null, tip_en: $("#lTipEn").value.trim() || null,
+        desc_fr: $("#lDescFr").value.trim() || null, tip_fr: $("#lTipFr").value.trim() || null,
+        foto: url, publicado: $("#lPub").checked };
+      var q = lugEditing === "new" ? sb.from("lugares").insert(row) : sb.from("lugares").update(row).eq("id", lugEditing);
+      return q.then(function (r) { if (r.error) throw r.error; loadLugares('Guardado: "' + row.nombre + '".'); });
+    }).catch(function (err) { btn.disabled = false; msg.textContent = "No se pudo guardar: " + (err.message || err) + ". Inténtalo otra vez."; });
+  }
+
   /* ---------- Botones ---------- */
   document.addEventListener("click", function (e) {
     var b = e.target.closest("[data-act]"); if (!b) return;
     var act = b.getAttribute("data-act"), id = b.getAttribute("data-id"), i = +b.getAttribute("data-i");
     var p = props.filter(function (x) { return x.id === id; })[0];
+    var lp = lugares.filter(function (x) { return x.id === id; })[0];
+    if (act === "tab") { tab = b.getAttribute("data-tab"); pendingDelete = null; showList(); return; }
+    if (act === "lnew") return showLugarForm(null);
+    if (act === "ledit") return showLugarForm(lp);
+    if (act === "lback") { pendingDelete = null; return showLugares(); }
+    if (act === "ltoggle") return sb.from("lugares").update({ publicado: !lp.publicado }).eq("id", id).then(function () { loadLugares(lp.publicado ? "Lugar oculto." : "Lugar publicado."); });
+    if (act === "ldel") { pendingDelete = id; return showLugares(); }
+    if (act === "ldel-no") { pendingDelete = null; return showLugares(); }
+    if (act === "ldel-yes") { pendingDelete = null; return sb.from("lugares").delete().eq("id", id).then(function (r) { loadLugares(r.error ? "No se pudo borrar: " + r.error.message : "Lugar borrado."); }); }
+    if (act === "lph-del") { lugFoto = null; return drawLugFoto(); }
     if (act === "new") showForm(null);
     else if (act === "edit") showForm(p);
     else if (act === "back") { pendingDelete = null; showList(); }

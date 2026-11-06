@@ -258,3 +258,13 @@ header.top nav a[aria-current="page"] { background: var(--teal-soft); box-shadow
 }
 /* Títulos en mayúscula */
 h1, h2 { text-transform: uppercase; letter-spacing: .01em; }
+/* Franja fija: Nuestros lugares Forever */
+.forever-bar { background: var(--vip-bg); border-top: 1px solid var(--vip-line); }
+.forever-bar .wrap { display: flex; justify-content: center; }
+.forever-bar a { display: inline-flex; align-items: center; flex-wrap: wrap; justify-content: center; gap: 4px 12px; padding-block: 9px; color: var(--gold); text-decoration: none; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; font-size: .9rem; text-align: center; }
+.forever-bar a:hover .fbar-t { text-decoration: underline; }
+.forever-bar svg { width: 16px; height: 16px; fill: var(--gold); flex: none; }
+.forever-bar .fbar-sub { color: var(--vip-muted); font-weight: 600; letter-spacing: .02em; text-transform: none; font-size: .85rem; }
+@media (max-width: 600px) { .forever-bar .fbar-sub { display: none; } .forever-bar a { font-size: .8rem; letter-spacing: .1em; } }
+@media (max-width: 800px) { .forever-bar { position: sticky; top: 0; z-index: 11; } }
+header.top .forever-bar .wrap { justify-content: center; flex-wrap: nowrap; padding-block: 0; }
