@@ -273,3 +273,12 @@ header.top .forever-bar .wrap { justify-content: center; flex-wrap: nowrap; padd
 .forever-bar a { color: #FFFFFF; }
 .forever-bar svg { fill: #FFFFFF; }
 .forever-bar .fbar-sub { color: #FFF3E0; }
+/* Franja Forever: claro con rosa (opción 5) */
+.forever-bar { background: #FFF0F4; border-top: 2px solid #E31C5F; border-bottom: 2px solid #E31C5F; }
+.forever-bar a { color: #E31C5F; }
+.forever-bar svg { fill: #E31C5F; }
+.forever-bar .fbar-sub { color: #6A6A6A; }
+:root[data-theme="dark"] .forever-bar { background: #2A1620; border-color: #FF5A7F; }
+:root[data-theme="dark"] .forever-bar a { color: #FF5A7F; }
+:root[data-theme="dark"] .forever-bar svg { fill: #FF5A7F; }
+:root[data-theme="dark"] .forever-bar .fbar-sub { color: #C9B5BC; }
