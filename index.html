@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <link rel="stylesheet" href="estilo.css">
 </head>
 <body>
@@ -159,6 +160,17 @@
     </form>
   </section>
 
+  <section id="mapa">
+    <div class="sec-head">
+      <h2 data-i18n="map_h2">Mapa de Cuba</h2>
+      <p data-i18n="map_p">Las ciudades y playas donde te podemos ayudar. Toca un punto para ver más.</p>
+    </div>
+    <div class="map-wrap">
+      <div id="cubaMap" role="region" aria-label="Mapa de Cuba"></div>
+      <div class="map-legend"><span><i class="dot air"></i><span data-i18n="map_air">Aeropuerto internacional</span></span><span><i class="dot city"></i><span data-i18n="map_city">Ciudad o playa</span></span></div>
+    </div>
+  </section>
+
   <section id="vip" class="vip">
     <div class="vip-inner">
       <div class="sec-head">
@@ -213,6 +225,7 @@
   <p data-i18n="foot">Rentas, tours, paquetes y vuelos a Cuba.</p>
 </footer>
 
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="comun.js"></script>
 <script>
 (function () {
@@ -314,9 +327,9 @@
   };
 
   var VX = {
-    es: { nav_vip: "Servicio VIP", vip_kicker: "ForeverCuba VIP", vip_h2: "Servicio VIP", vip_p: "Viaja sin preocuparte de nada. Atención personal antes y durante tu viaje, con servicios privados a tu medida.", quote: "Precio a consultar" },
-    en: { nav_vip: "VIP service", vip_kicker: "ForeverCuba VIP", vip_h2: "VIP service", vip_p: "Travel without a worry. Personal attention before and during your trip, with private services tailored to you.", quote: "Price on request" },
-    fr: { nav_vip: "Service VIP", vip_kicker: "ForeverCuba VIP", vip_h2: "Service VIP", vip_p: "Voyagez l'esprit tranquille. Une attention personnelle avant et pendant votre voyage, avec des services privés sur mesure.", quote: "Prix sur demande" }
+    es: { nav_vip: "Servicio VIP", map_h2: "Mapa de Cuba", map_p: "Las ciudades y playas donde te podemos ayudar. Toca un punto para ver más.", map_air: "Aeropuerto internacional", map_city: "Ciudad o playa", map_houses: "Ver casas aquí", map_fly: "Volar aquí", vip_kicker: "ForeverCuba VIP", vip_h2: "Servicio VIP", vip_p: "Viaja sin preocuparte de nada. Atención personal antes y durante tu viaje, con servicios privados a tu medida.", quote: "Precio a consultar" },
+    en: { nav_vip: "VIP service", map_h2: "Map of Cuba", map_p: "The cities and beaches where we can help you. Tap a point to see more.", map_air: "International airport", map_city: "City or beach", map_houses: "See stays here", map_fly: "Fly here", vip_kicker: "ForeverCuba VIP", vip_h2: "VIP service", vip_p: "Travel without a worry. Personal attention before and during your trip, with private services tailored to you.", quote: "Price on request" },
+    fr: { nav_vip: "Service VIP", map_h2: "Carte de Cuba", map_p: "Les villes et plages où nous pouvons vous aider. Touchez un point pour en savoir plus.", map_air: "Aéroport international", map_city: "Ville ou plage", map_houses: "Voir les logements ici", map_fly: "Prendre un vol ici", vip_kicker: "ForeverCuba VIP", vip_h2: "Service VIP", vip_p: "Voyagez l'esprit tranquille. Une attention personnelle avant et pendant votre voyage, avec des services privés sur mesure.", quote: "Prix sur demande" }
   };
   Object.keys(VX).forEach(function (l) { Object.keys(VX[l]).forEach(function (k) { TX[l][k] = VX[l][k]; }); });
   var ICONS = {
@@ -604,6 +617,57 @@
   setTheme(saved === "dark" ? "dark" : "light");
   tb.addEventListener("click", function () { setTheme(root.getAttribute("data-theme") === "dark" ? "light" : "dark"); });
 
+
+  /* ---------- Mapa de Cuba ---------- */
+  var CIUDADES = [
+    ["La Habana", 23.1136, -82.3666, "HAV", ["Habana Vieja", "Centro Habana", "Vedado", "Miramar", "Playa", "La Habana"]],
+    ["Pinar del Río", 22.4175, -83.6981], ["Viñales", 22.6167, -83.7150, null, ["Viñales"]], ["Artemisa", 22.8133, -82.7639],
+    ["San José de las Lajas", 22.9614, -82.1511], ["Matanzas", 23.0411, -81.5775], ["Varadero", 23.1540, -81.2513, "VRA", ["Varadero"]],
+    ["Cienfuegos", 22.1461, -80.4356, null, ["Cienfuegos"]], ["Santa Clara", 22.4069, -79.9647, "SNU", ["Santa Clara"]], ["Cayo Santa María", 22.6600, -78.9700, null, ["Cayo Santa María"]],
+    ["Trinidad", 21.8022, -79.9842, null, ["Trinidad"]], ["Sancti Spíritus", 21.9297, -79.4425], ["Ciego de Ávila", 21.8400, -78.7619],
+    ["Cayo Coco", 22.5300, -78.4300, "CCC", ["Cayo Coco"]], ["Camagüey", 21.3808, -77.9169, "CMW", ["Camagüey"]], ["Las Tunas", 20.9617, -76.9511],
+    ["Holguín", 20.8872, -76.2631, "HOG", ["Holguín"]], ["Guardalavaca", 21.1200, -75.8300], ["Bayamo", 20.3797, -76.6433],
+    ["Santiago de Cuba", 20.0247, -75.8219, "SCU", ["Santiago de Cuba"]], ["Guantánamo", 20.1453, -75.2061], ["Baracoa", 20.3464, -74.4958, null, ["Baracoa"]],
+    ["Nueva Gerona", 21.8833, -82.8000], ["Cayo Largo", 21.6170, -81.5500]
+  ];
+  var cubaMap = null, cubaMarkers = [];
+  function popupHtml(c) {
+    var has = RENTAS.some(function (r) { return (c[4] || []).indexOf(r.ciudad) >= 0; });
+    var dest = Array.prototype.filter.call($("#fDestino").options, function (o) { return c[3] && o.value.indexOf("(" + c[3] + ")") >= 0; })[0];
+    return '<strong style="font-size:1rem">' + esc(c[0]) + '</strong>' + (c[3] ? '<br><span>✈ ' + esc(T("map_air")) + ' (' + c[3] + ')</span>' : '') +
+      ((has || dest) ? '<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px">' +
+        (has ? '<button type="button" class="btn small" data-map-city="' + esc(c[0]) + '">' + esc(T("map_houses")) + '</button>' : '') +
+        (dest ? '<button type="button" class="btn small" data-map-fly="' + esc(dest.value) + '">' + esc(T("map_fly")) + '</button>' : '') + '</div>' : '');
+  }
+  function drawMap() {
+    if (!window.L || !$("#cubaMap")) return;
+    if (!cubaMap) {
+      cubaMap = L.map("cubaMap", { scrollWheelZoom: false, zoomSnap: 0.25 });
+      L.tileLayer("https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png", {
+        maxZoom: 18, subdomains: "abcd",
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>'
+      }).addTo(cubaMap);
+      cubaMap.fitBounds([[19.75, -85.0], [23.3, -74.1]]);
+      CIUDADES.forEach(function (c) {
+        var air = !!c[3];
+        var m = L.circleMarker([c[1], c[2]], { radius: air ? 8 : 6, color: "#fff", weight: 2, fillColor: air ? "#C9A227" : "#E31C5F", fillOpacity: 1 }).addTo(cubaMap);
+        m.bindTooltip(c[0], { permanent: true, direction: "top", offset: [0, -6], className: "city-label" });
+        m._fc = c; cubaMarkers.push(m);
+      });
+    }
+    cubaMarkers.forEach(function (m) { m.unbindPopup(); m.bindPopup(popupHtml(m._fc)); });
+  }
+  document.addEventListener("click", function (e) {
+    var c = e.target.closest("[data-map-city]"), f = e.target.closest("[data-map-fly]");
+    if (c) {
+      var city = CIUDADES.filter(function (x) { return x[0] === c.getAttribute("data-map-city"); })[0];
+      var match = RENTAS.filter(function (r) { return (city[4] || []).indexOf(r.ciudad) >= 0; })[0];
+      if (match) { $("#zona").value = (city[4].length > 1) ? "Todas" : match.ciudad; drawRentas(); refresh(); }
+      $("#rentas").scrollIntoView({ behavior: "smooth" });
+    }
+    if (f) { $("#fDestino").value = f.getAttribute("data-map-fly"); $("#vuelos").scrollIntoView({ behavior: "smooth" }); }
+  });
+
   /* ---------- Aplicar idioma ---------- */
   function applyLang(l) {
     lang = TX[l] ? l : "es";
@@ -614,7 +678,7 @@
     document.querySelectorAll("[data-i18n-alt]").forEach(function (el) { el.setAttribute("alt", T(el.getAttribute("data-i18n-alt"))); });
     document.querySelectorAll(".lang").forEach(function (b) { b.setAttribute("aria-pressed", b.getAttribute("data-lang") === lang ? "true" : "false"); });
     paintThemeBtn();
-    drawRentas(); drawCars(); drawTours(); drawPacks(); drawVip();
+    drawRentas(); drawCars(); drawTours(); drawPacks(); drawVip(); drawMap();
     $("#status").textContent = "";
     refresh();
   }

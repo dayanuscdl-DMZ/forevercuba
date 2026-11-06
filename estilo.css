@@ -200,3 +200,13 @@ header.top .wrap.topbar-in { display: flex; justify-content: flex-end; align-ite
 a.card-link:has(img):hover { text-decoration: none; }
 .see-more { font-weight: 700; font-size: .9rem; color: var(--coral); text-decoration: none; }
 .see-more:hover { text-decoration: underline; }
+.map-wrap { position: relative; border-radius: 20px; overflow: hidden; border: 1px solid var(--line); box-shadow: 0 2px 14px rgba(0, 0, 0, .08); }
+#cubaMap { height: clamp(340px, 52vw, 520px); width: 100%; background: #AAD3DF; z-index: 0; }
+.map-legend { display: flex; flex-wrap: wrap; gap: 8px 18px; padding: 10px 14px; background: var(--surface); border-top: 1px solid var(--line); font-size: .88rem; font-weight: 600; }
+.map-legend > span { display: inline-flex; align-items: center; gap: 8px; }
+.dot { width: 12px; height: 12px; border-radius: 50%; display: inline-block; border: 2px solid #fff; box-shadow: 0 0 0 1px rgba(0,0,0,.2); }
+.dot.air { background: #C9A227; } .dot.city { background: #E31C5F; }
+.leaflet-tooltip.city-label { background: rgba(255,255,255,.92); border: 0; box-shadow: 0 1px 3px rgba(0,0,0,.25); color: #222; font: 700 11px/1.2 "Figtree", system-ui, sans-serif; padding: 2px 6px; border-radius: 6px; }
+.leaflet-tooltip.city-label::before { display: none; }
+.leaflet-popup-content { font-family: "Figtree", system-ui, sans-serif; color: #222; }
+.leaflet-popup-content .btn { color: #222; border-color: #222; }
