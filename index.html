@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="ForeverCuba: renta de casas y apartamentos en Cuba, tours, paquetes turísticos, vuelos y servicio VIP. Houses, tours, packages, flights and VIP service in Cuba.">
+<meta name="description" content="ForeverCuba: renta de casas, apartamentos y autos en Cuba, tours, paquetes turísticos, vuelos y servicio VIP. Houses, car rental, tours, packages, flights and VIP service in Cuba.">
 <style>html{color-scheme:light}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 <title>ForeverCuba</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -195,6 +195,11 @@ section { scroll-margin-top: 140px; }
 .vip-card .btn { border-color: var(--gold); color: var(--vip-fg); }
 .vip-card .btn:hover { background: var(--vip-chip); }
 .vip-card .btn.added { background: var(--gold); border-color: var(--gold); color: #1A1406; }
+.topbar { border-bottom: 1px solid var(--line); }
+header.top .wrap.topbar-in { display: flex; justify-content: flex-end; align-items: center; padding-block: 4px; }
+#carGrid { grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr)); }
+.feats { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.feats li { font-size: .82rem; font-weight: 600; padding: 3px 10px; border-radius: 999px; background: var(--teal-soft); color: var(--fg); }
 .langs { display: inline-flex; gap: 4px; }
 .lang { font: inherit; font-size: .78rem; font-weight: 700; letter-spacing: .04em; display: inline-flex; align-items: center; gap: 5px; padding: 4px 6px; border-radius: 8px; border: 1.5px solid transparent; background: transparent; color: var(--fg); cursor: pointer; }
 .lang svg { width: 26px; height: 18px; border-radius: 2px; box-shadow: 0 0 0 1px var(--line); flex: none; }
@@ -206,19 +211,22 @@ section { scroll-margin-top: 140px; }
 
 
 <header class="top">
-  <div class="wrap">
-    <a class="brand" href="#inicio"><svg class="cuba-map" viewBox="-1 0 109 36" aria-hidden="true"><path d="M0.5 14.4 L6.0 13.0 L11.0 11.0 L16.0 7.5 L22.0 5.5 L26.5 1.5 L34.0 2.0 L38.0 1.5 L44.0 3.0 L50.0 4.0 L57.0 7.0 L64.0 9.0 L72.0 14.0 L78.0 16.5 L85.0 20.5 L93.0 22.0 L100.0 26.0 L107.0 30.5 L105.0 32.5 L98.0 34.0 L92.0 33.5 L85.0 34.0 L78.0 34.2 L73.0 34.5 L76.0 30.0 L79.0 27.0 L72.0 26.0 L67.0 21.0 L62.0 17.5 L54.0 16.0 L46.0 15.0 L41.0 12.5 L35.0 11.5 L31.0 10.0 L27.0 7.5 L20.0 10.5 L14.0 13.0 L7.0 15.0Z"/><ellipse cx="22" cy="17" rx="3.6" ry="2.4"/></svg><span class="word">Forever<span>Cuba</span></span></a>
-    <nav aria-label="Menu">
-      <a href="#rentas" data-i18n="nav_rent">Casas y apartamentos</a>
-      <a href="#tours" data-i18n="nav_tours">Tours</a>
-      <a href="#paquetes" data-i18n="nav_pack">Paquetes</a>
-      <a href="#vuelos" data-i18n="nav_fly">Vuelos</a>
-      <a href="#vip" class="nav-vip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3 6.1 20.6l1.3-6.6L2.5 9.4l6.6-.8z"/></svg><span data-i18n="nav_vip">Servicio VIP</span></a>
-      <div class="langs" role="group" aria-label="Idioma / Language / Langue">
+  <div class="topbar"><div class="wrap topbar-in">
+    <div class="langs" role="group" aria-label="Idioma / Language / Langue">
         <button type="button" class="lang" data-lang="es" aria-label="Español"><svg viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="20" fill="#AA151B"/><rect y="5" width="30" height="10" fill="#F1BF00"/></svg></button>
         <button type="button" class="lang" data-lang="en" aria-label="English"><svg viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="20" fill="#FFFFFF"/><g fill="#B22234"><rect y="0" width="30" height="1.54"/><rect y="3.08" width="30" height="1.54"/><rect y="6.15" width="30" height="1.54"/><rect y="9.23" width="30" height="1.54"/><rect y="12.31" width="30" height="1.54"/><rect y="15.38" width="30" height="1.54"/><rect y="18.46" width="30" height="1.54"/></g><rect width="12" height="10.77" fill="#3C3B6E"/><g fill="#FFFFFF"><circle cx="2.4" cy="2.2" r=".7"/><circle cx="6" cy="2.2" r=".7"/><circle cx="9.6" cy="2.2" r=".7"/><circle cx="4.2" cy="5.4" r=".7"/><circle cx="7.8" cy="5.4" r=".7"/><circle cx="2.4" cy="8.6" r=".7"/><circle cx="6" cy="8.6" r=".7"/><circle cx="9.6" cy="8.6" r=".7"/></g></svg></button>
         <button type="button" class="lang" data-lang="fr" aria-label="Français"><svg viewBox="0 0 30 20" aria-hidden="true"><rect width="10" height="20" fill="#002395"/><rect x="10" width="10" height="20" fill="#FFFFFF"/><rect x="20" width="10" height="20" fill="#ED2939"/></svg></button>
       </div>
+  </div></div>
+  <div class="wrap">
+    <a class="brand" href="#inicio"><svg class="cuba-map" viewBox="-1 0 109 36" aria-hidden="true"><path d="M0.5 14.4 L6.0 13.0 L11.0 11.0 L16.0 7.5 L22.0 5.5 L26.5 1.5 L34.0 2.0 L38.0 1.5 L44.0 3.0 L50.0 4.0 L57.0 7.0 L64.0 9.0 L72.0 14.0 L78.0 16.5 L85.0 20.5 L93.0 22.0 L100.0 26.0 L107.0 30.5 L105.0 32.5 L98.0 34.0 L92.0 33.5 L85.0 34.0 L78.0 34.2 L73.0 34.5 L76.0 30.0 L79.0 27.0 L72.0 26.0 L67.0 21.0 L62.0 17.5 L54.0 16.0 L46.0 15.0 L41.0 12.5 L35.0 11.5 L31.0 10.0 L27.0 7.5 L20.0 10.5 L14.0 13.0 L7.0 15.0Z"/><ellipse cx="22" cy="17" rx="3.6" ry="2.4"/></svg><span class="word">Forever<span>Cuba</span></span></a>
+    <nav aria-label="Menu">
+      <a href="#rentas" data-i18n="nav_rent">Casas y apartamentos</a>
+      <a href="#autos" data-i18n="nav_cars">Renta de autos</a>
+      <a href="#tours" data-i18n="nav_tours">Tours</a>
+      <a href="#paquetes" data-i18n="nav_pack">Paquetes</a>
+      <a href="#vuelos" data-i18n="nav_fly">Vuelos</a>
+      <a href="#vip" class="nav-vip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3 6.1 20.6l1.3-6.6L2.5 9.4l6.6-.8z"/></svg><span data-i18n="nav_vip">Servicio VIP</span></a>
       <button type="button" class="theme-btn" id="themeBtn"></button>
       <a class="cta" href="#solicitud"><span data-i18n="nav_req">Mi solicitud</span> (<span id="navCount">0</span>)</a>
     </nav>
@@ -274,6 +282,14 @@ section { scroll-margin-top: 140px; }
     </div>
     <p class="count" id="rentCount"></p>
     <div class="grid" id="rentGrid"></div>
+  </section>
+
+  <section id="autos">
+    <div class="sec-head">
+      <h2 data-i18n="cars_h2">Renta de autos</h2>
+      <p data-i18n="cars_p">Muévete por Cuba a tu ritmo. Te entregamos el auto en el aeropuerto o en tu alojamiento.</p>
+    </div>
+    <div class="grid" id="carGrid"></div>
   </section>
 
   <section id="tours">
@@ -523,6 +539,30 @@ section { scroll-margin-top: 140px; }
     }).join("");
   }
 
+  var CX = {
+    es: { nav_cars: "Renta de autos", cars_h2: "Renta de autos", cars_p: "Muévete por Cuba a tu ritmo. Te entregamos el auto en el aeropuerto o en tu alojamiento.", per_day: "USD por día", l_car: "Auto", seats: "{n} personas", auto: "Automático", manual: "Manual", ac: "Aire acondicionado", driver: "Con chofer", bags: "{n} maletas" },
+    en: { nav_cars: "Car rental", cars_h2: "Car rental", cars_p: "Get around Cuba at your own pace. We deliver the car at the airport or at your stay.", per_day: "USD per day", l_car: "Car", seats: "{n} seats", auto: "Automatic", manual: "Manual", ac: "Air conditioning", driver: "With driver", bags: "{n} bags" },
+    fr: { nav_cars: "Location de voitures", cars_h2: "Location de voitures", cars_p: "Parcourez Cuba à votre rythme. Nous livrons la voiture à l'aéroport ou à votre logement.", per_day: "USD par jour", l_car: "Voiture", seats: "{n} places", auto: "Automatique", manual: "Manuelle", ac: "Climatisation", driver: "Avec chauffeur", bags: "{n} valises" }
+  };
+  Object.keys(CX).forEach(function (l) { Object.keys(CX[l]).forEach(function (k) { TX[l][k] = CX[l][k]; }); });
+  var AUTOS = [
+    { t: { es: "Auto clásico convertible", en: "Classic convertible", fr: "Décapotable ancienne" }, cat: { es: "Clásico", en: "Classic", fr: "Classique" }, n: 4, b: 2, f: ["driver", "manual"], p: 150, img: "auto-rojo" },
+    { t: { es: "Auto económico", en: "Economy car", fr: "Voiture économique" }, cat: { es: "Económico", en: "Economy", fr: "Économique" }, n: 4, b: 2, f: ["manual", "ac"], p: 60, img: "calle-auto", web: "photo-1764883318002-96cd4911bbd2" },
+    { t: { es: "SUV cómodo", en: "Comfortable SUV", fr: "SUV confortable" }, cat: { es: "SUV", en: "SUV", fr: "SUV" }, n: 5, b: 4, f: ["auto", "ac"], p: 95, img: "capitolio-auto", web: "photo-1661655335629-4056d80caa0a" },
+    { t: { es: "Minivan para grupos", en: "Minivan for groups", fr: "Minivan pour groupes" }, cat: { es: "Familiar", en: "Family", fr: "Familial" }, n: 7, b: 5, f: ["auto", "ac"], p: 120, img: "fachadas", web: "photo-1675311149330-ff19be4aa6be" }
+  ];
+  function drawCars() {
+    $("#carGrid").innerHTML = AUTOS.map(function (c, i) {
+      var name = c.t[lang];
+      var feats = ['<li>' + esc(T("seats", { n: c.n })) + '</li>', '<li>' + esc(T("bags", { n: c.b })) + '</li>'].concat(c.f.map(function (k) { return '<li>' + esc(T(k)) + '</li>'; })).join("");
+      return '<article class="card">' + foto(c.img, name, c.web) +
+        '<div class="body"><span class="tag">' + esc(c.cat[lang]) + '</span><h3>' + esc(name) + '</h3>' +
+        '<ul class="feats">' + feats + '</ul>' +
+        '<div class="price"><div><span>' + T("from") + '</span> <strong>$' + c.p + '</strong> <span>' + T("per_day") + '</span></div>' +
+        '<button type="button" class="btn small" data-add="c' + i + '"></button></div></div></article>';
+    }).join("");
+  }
+
   /* ---------- Ofertas (cada texto en es / en / fr) ---------- */
   var RENTAS = [
     { t: { es: "Casa colonial con patio interior", en: "Colonial house with inner courtyard", fr: "Maison coloniale avec patio intérieur" }, z: "Habana Vieja", tipo: "Casa", h: 3, g: 6, p: 55, img: "calle-auto", web: "photo-1692197116258-128882f1182b" },
@@ -598,6 +638,7 @@ section { scroll-margin-top: 140px; }
     if (it[0] === "r") { var r = RENTAS[n]; return T("l_rent") + ": " + r.t[lang] + " (" + r.z + ")"; }
     if (it[0] === "t") return T("l_tour") + ": " + TOURS[n].t[lang];
     if (it[0] === "v") return "VIP: " + VIP[n].t[lang];
+    if (it[0] === "c") return T("l_car") + ": " + AUTOS[n].t[lang];
     var p = PAQUETES[n]; return T("l_pack") + ": " + p.t[lang] + " (" + p.d + " " + T("days") + ")";
   }
   function isSel(k) { return sel.some(function (it) { return itemKey(it) === k; }); }
@@ -764,7 +805,7 @@ section { scroll-margin-top: 140px; }
     document.querySelectorAll("[data-i18n-alt]").forEach(function (el) { el.setAttribute("alt", T(el.getAttribute("data-i18n-alt"))); });
     document.querySelectorAll(".lang").forEach(function (b) { b.setAttribute("aria-pressed", b.getAttribute("data-lang") === lang ? "true" : "false"); });
     paintThemeBtn();
-    drawRentas(); drawTours(); drawPacks(); drawVip();
+    drawRentas(); drawCars(); drawTours(); drawPacks(); drawVip();
     $("#status").textContent = "";
     refresh();
   }
