@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="ForeverCuba: renta de casas y apartamentos en Cuba, tours, paquetes turísticos y vuelos. Houses, tours, packages and flights to Cuba.">
+<meta name="description" content="ForeverCuba: renta de casas y apartamentos en Cuba, tours, paquetes turísticos, vuelos y servicio VIP. Houses, tours, packages, flights and VIP service in Cuba.">
 <style>html{color-scheme:light}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 <title>ForeverCuba</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -23,13 +23,20 @@
   --on-coral: #FFFFFF;
   --sun: #F0B429;
   --ink: #222222;
+  --gold: #C9A227;
+  --gold-ink: #8A6A00;
+  --vip-bg: #17140F;
+  --vip-fg: #F7F3EA;
+  --vip-muted: #BDB4A2;
+  --vip-line: #3A3326;
+  --vip-chip: #2A2418;
   --font-display: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-body: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 :root[data-theme="dark"] {
   --bg: #121212; --surface: #1E1E1E; --fg: #F7F7F7; --muted: #B0B0B0; --line: #3A3A3A;
   --teal: #FF5A5F; --teal-soft: #2A2A2A; --coral: #FF5A5F; --on-coral: #1B0F0B; --sun: #F0B429; --ink: #0A0A0A;
-  color-scheme: dark;
+  --gold-ink: #E2C35A; --vip-bg: #1E1A13; color-scheme: dark;
 }
 * { box-sizing: border-box; }
 body {
@@ -157,7 +164,10 @@ textarea { min-height: 200px; resize: vertical; line-height: 1.5; }
 footer { margin-top: 64px; border-top: 1px solid var(--line); padding-block: 28px 40px; color: var(--muted); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 24px; }
 footer .brand { color: var(--fg); font-size: 1.3rem; }
 
+section { scroll-margin-top: 140px; }
 @media (max-width: 800px) {
+  header.top { position: static; }
+  section { scroll-margin-top: 12px; }
   .hero { grid-template-columns: minmax(0, 1fr); }
   .hero-photo { aspect-ratio: 4 / 3; }
   .request { grid-template-columns: minmax(0, 1fr); }
@@ -166,6 +176,25 @@ footer .brand { color: var(--fg); font-size: 1.3rem; }
   .card { transition: transform .15s ease; }
   .card:hover { transform: translateY(-3px); }
 }
+.nav-vip { display: inline-flex; align-items: center; gap: 6px; color: var(--gold-ink) !important; }
+.nav-vip svg { width: 14px; height: 14px; fill: var(--gold); }
+.vip { padding-top: 64px; }
+.vip-inner { background: var(--vip-bg); color: var(--vip-fg); border-radius: 28px; padding: clamp(22px, 4vw, 44px); }
+.vip .sec-head p { color: var(--vip-muted); }
+.vip .sec-head h2 { color: var(--vip-fg); }
+.vip-kicker { display: inline-flex; align-items: center; gap: 8px; color: var(--gold) !important; font-weight: 800; font-size: .85rem; letter-spacing: .14em; text-transform: uppercase; margin-bottom: 8px !important; }
+.vip-kicker svg { width: 16px; height: 16px; fill: var(--gold); }
+.vip-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 16px; }
+.vip-card { border: 1px solid var(--vip-line); border-radius: 18px; padding: 20px; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.vip-card .ico { width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; background: var(--vip-chip); }
+.vip-card .ico svg { width: 24px; height: 24px; fill: none; stroke: var(--gold); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.vip-card h3 { font-size: 1.1rem; color: var(--vip-fg); }
+.vip-card p { color: var(--vip-muted); font-size: .95rem; }
+.vip-card .foot { margin-top: auto; padding-top: 10px; display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+.vip-card .quote { color: var(--gold); font-weight: 700; font-size: .92rem; }
+.vip-card .btn { border-color: var(--gold); color: var(--vip-fg); }
+.vip-card .btn:hover { background: var(--vip-chip); }
+.vip-card .btn.added { background: var(--gold); border-color: var(--gold); color: #1A1406; }
 .langs { display: inline-flex; gap: 4px; }
 .lang { font: inherit; font-size: .78rem; font-weight: 700; letter-spacing: .04em; display: inline-flex; align-items: center; gap: 5px; padding: 4px 6px; border-radius: 8px; border: 1.5px solid transparent; background: transparent; color: var(--fg); cursor: pointer; }
 .lang svg { width: 26px; height: 18px; border-radius: 2px; box-shadow: 0 0 0 1px var(--line); flex: none; }
@@ -184,6 +213,7 @@ footer .brand { color: var(--fg); font-size: 1.3rem; }
       <a href="#tours" data-i18n="nav_tours">Tours</a>
       <a href="#paquetes" data-i18n="nav_pack">Paquetes</a>
       <a href="#vuelos" data-i18n="nav_fly">Vuelos</a>
+      <a href="#vip" class="nav-vip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3 6.1 20.6l1.3-6.6L2.5 9.4l6.6-.8z"/></svg><span data-i18n="nav_vip">Servicio VIP</span></a>
       <div class="langs" role="group" aria-label="Idioma / Language / Langue">
         <button type="button" class="lang" data-lang="es" aria-label="Español"><svg viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="20" fill="#AA151B"/><rect y="5" width="30" height="10" fill="#F1BF00"/></svg></button>
         <button type="button" class="lang" data-lang="en" aria-label="English"><svg viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="20" fill="#FFFFFF"/><g fill="#B22234"><rect y="0" width="30" height="1.54"/><rect y="3.08" width="30" height="1.54"/><rect y="6.15" width="30" height="1.54"/><rect y="9.23" width="30" height="1.54"/><rect y="12.31" width="30" height="1.54"/><rect y="15.38" width="30" height="1.54"/><rect y="18.46" width="30" height="1.54"/></g><rect width="12" height="10.77" fill="#3C3B6E"/><g fill="#FFFFFF"><circle cx="2.4" cy="2.2" r=".7"/><circle cx="6" cy="2.2" r=".7"/><circle cx="9.6" cy="2.2" r=".7"/><circle cx="4.2" cy="5.4" r=".7"/><circle cx="7.8" cy="5.4" r=".7"/><circle cx="2.4" cy="8.6" r=".7"/><circle cx="6" cy="8.6" r=".7"/><circle cx="9.6" cy="8.6" r=".7"/></g></svg></button>
@@ -301,6 +331,19 @@ footer .brand { color: var(--fg); font-size: 1.3rem; }
         <span class="note" data-i18n="f_note">Los precios de vuelos cambian a diario, por eso te cotizamos al momento.</span>
       </div>
     </form>
+  </section>
+
+  <section id="vip" class="vip">
+    <div class="vip-inner">
+      <div class="sec-head">
+        <div>
+          <p class="vip-kicker"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3 6.1 20.6l1.3-6.6L2.5 9.4l6.6-.8z"/></svg><span data-i18n="vip_kicker">ForeverCuba VIP</span></p>
+          <h2 data-i18n="vip_h2">Servicio VIP</h2>
+        </div>
+        <p data-i18n="vip_p">Viaja sin preocuparte de nada. Atención personal antes y durante tu viaje, con servicios privados a tu medida.</p>
+      </div>
+      <div class="vip-grid" id="vipGrid"></div>
+    </div>
   </section>
 
   <section id="solicitud">
@@ -443,6 +486,43 @@ footer .brand { color: var(--fg); font-size: 1.3rem; }
     }
   };
 
+  var VX = {
+    es: { nav_vip: "Servicio VIP", vip_kicker: "ForeverCuba VIP", vip_h2: "Servicio VIP", vip_p: "Viaja sin preocuparte de nada. Atención personal antes y durante tu viaje, con servicios privados a tu medida.", quote: "Precio a consultar" },
+    en: { nav_vip: "VIP service", vip_kicker: "ForeverCuba VIP", vip_h2: "VIP service", vip_p: "Travel without a worry. Personal attention before and during your trip, with private services tailored to you.", quote: "Price on request" },
+    fr: { nav_vip: "Service VIP", vip_kicker: "ForeverCuba VIP", vip_h2: "Service VIP", vip_p: "Voyagez l'esprit tranquille. Une attention personnelle avant et pendant votre voyage, avec des services privés sur mesure.", quote: "Prix sur demande" }
+  };
+  Object.keys(VX).forEach(function (l) { Object.keys(VX[l]).forEach(function (k) { TX[l][k] = VX[l][k]; }); });
+  var ICONS = {
+    plane: '<path d="M2.5 13.5l19-8-5.5 15-3.5-6.5z"/><path d="M12.5 14l9-8.5"/>',
+    car: '<path d="M3 16v-4l2.2-5h13.6L21 12v4z"/><circle cx="7.5" cy="16.5" r="1.8"/><circle cx="16.5" cy="16.5" r="1.8"/><path d="M3 12h18"/>',
+    guide: '<path d="M12 21.5s6.5-6 6.5-11.5a6.5 6.5 0 0 0-13 0c0 5.5 6.5 11.5 6.5 11.5z"/><circle cx="12" cy="10" r="2.4"/>',
+    boat: '<path d="M3 17.5h18l-2.5 3.5h-13z"/><path d="M12 3v13"/><path d="M12 4l6.5 10.5H12"/>',
+    chef: '<path d="M7 3v7a2 2 0 0 0 4 0V3"/><path d="M9 10v11"/><path d="M17 3c-1.7 1.2-2.5 3.4-2.5 6.5h2.5V21"/>',
+    star: '<path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3 6.1 20.6l1.3-6.6L2.5 9.4l6.6-.8z"/>'
+  };
+  var VIP = [
+    { i: "plane", t: { es: "Traslado VIP del aeropuerto", en: "VIP airport transfer", fr: "Transfert VIP depuis l'aéroport" },
+      r: { es: "Te esperamos en el aeropuerto con tu nombre y te llevamos en auto privado o clásico hasta tu alojamiento.", en: "We meet you at the airport with your name and drive you to your stay in a private or classic car.", fr: "Nous vous accueillons à l'aéroport avec votre nom et vous conduisons à votre logement en voiture privée ou ancienne." } },
+    { i: "car", t: { es: "Chofer privado", en: "Private driver", fr: "Chauffeur privé" },
+      r: { es: "Auto con chofer a tu disposición por día, para moverte por la ciudad o recorrer la isla a tu ritmo.", en: "A car and driver at your disposal by the day, to get around the city or tour the island at your pace.", fr: "Une voiture avec chauffeur à votre disposition à la journée, en ville ou à travers l'île, à votre rythme." } },
+    { i: "guide", t: { es: "Guía personal bilingüe", en: "Personal bilingual guide", fr: "Guide personnel bilingue" },
+      r: { es: "Un guía solo para ti y tu grupo, con el plan que tú elijas: historia, música, comida o naturaleza.", en: "A guide just for you and your group, with the plan you choose: history, music, food or nature.", fr: "Un guide rien que pour vous et votre groupe, avec le programme de votre choix : histoire, musique, cuisine ou nature." } },
+    { i: "boat", t: { es: "Catamarán o yate privado", en: "Private catamaran or yacht", fr: "Catamaran ou yacht privé" },
+      r: { es: "Un día en el mar con tripulación, snorkel, comida y bebidas incluidas.", en: "A day at sea with crew, snorkeling, food and drinks included.", fr: "Une journée en mer avec équipage, snorkeling, repas et boissons inclus." } },
+    { i: "chef", t: { es: "Chef privado", en: "Private chef", fr: "Chef privé" },
+      r: { es: "Cena cubana preparada en tu casa por un chef local, con ingredientes frescos del mercado.", en: "A Cuban dinner cooked at your place by a local chef with fresh market ingredients.", fr: "Un dîner cubain préparé chez vous par un chef local, avec des produits frais du marché." } },
+    { i: "star", t: { es: "Reservas exclusivas", en: "Exclusive reservations", fr: "Réservations exclusives" },
+      r: { es: "Mesas en Tropicana, los mejores paladares y clubes de música, sin filas y sin preocupaciones.", en: "Tables at Tropicana, the best paladares and music clubs, no lines and no worries.", fr: "Des tables au Tropicana, dans les meilleurs paladares et clubs de musique, sans file d'attente." } }
+  ];
+  function drawVip() {
+    $("#vipGrid").innerHTML = VIP.map(function (v, i) {
+      return '<article class="vip-card"><span class="ico"><svg viewBox="0 0 24 24" aria-hidden="true">' + ICONS[v.i] + '</svg></span>' +
+        '<h3>' + esc(v.t[lang]) + '</h3><p>' + esc(v.r[lang]) + '</p>' +
+        '<div class="foot"><span class="quote">' + esc(T("quote")) + '</span>' +
+        '<button type="button" class="btn small" data-add="v' + i + '"></button></div></article>';
+    }).join("");
+  }
+
   /* ---------- Ofertas (cada texto en es / en / fr) ---------- */
   var RENTAS = [
     { t: { es: "Casa colonial con patio interior", en: "Colonial house with inner courtyard", fr: "Maison coloniale avec patio intérieur" }, z: "Habana Vieja", tipo: "Casa", h: 3, g: 6, p: 55, img: "calle-auto", web: "photo-1692197116258-128882f1182b" },
@@ -517,6 +597,7 @@ footer .brand { color: var(--fg); font-size: 1.3rem; }
     var n = +it.slice(1);
     if (it[0] === "r") { var r = RENTAS[n]; return T("l_rent") + ": " + r.t[lang] + " (" + r.z + ")"; }
     if (it[0] === "t") return T("l_tour") + ": " + TOURS[n].t[lang];
+    if (it[0] === "v") return "VIP: " + VIP[n].t[lang];
     var p = PAQUETES[n]; return T("l_pack") + ": " + p.t[lang] + " (" + p.d + " " + T("days") + ")";
   }
   function isSel(k) { return sel.some(function (it) { return itemKey(it) === k; }); }
@@ -683,7 +764,7 @@ footer .brand { color: var(--fg); font-size: 1.3rem; }
     document.querySelectorAll("[data-i18n-alt]").forEach(function (el) { el.setAttribute("alt", T(el.getAttribute("data-i18n-alt"))); });
     document.querySelectorAll(".lang").forEach(function (b) { b.setAttribute("aria-pressed", b.getAttribute("data-lang") === lang ? "true" : "false"); });
     paintThemeBtn();
-    drawRentas(); drawTours(); drawPacks();
+    drawRentas(); drawTours(); drawPacks(); drawVip();
     $("#status").textContent = "";
     refresh();
   }
