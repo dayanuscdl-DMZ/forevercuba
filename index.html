@@ -899,7 +899,7 @@
   Object.keys(GRIDS).forEach(function (id) { var g = document.getElementById(id); if (g) new MutationObserver(verTodos).observe(g, { childList: true }); });
   window.addEventListener("hashchange", verTodos);
   verTodos();
-  /* Portada VIP: primero la foto del Capitolio y, 10 segundos después, el video del chofer y el Mercedes (en blanco y negro) */
+  /* Portada VIP: primero la foto del Capitolio y, 4 segundos después, el video del chofer y el Mercedes (en blanco y negro) */
   var vipTimer = null;
   function vipVideo(on) {
     var vid = document.getElementById("vipVideo"); if (!vid) return;
@@ -917,7 +917,7 @@
       var p = vid.play();
       var mostrar = function () { vid.classList.add("listo"); };
       if (p && p.then) p.then(mostrar).catch(function () {}); else mostrar();
-    }, 10000);
+    }, 4000);
   }
   function go(id) { if (location.hash === "#" + id) route(); else location.hash = id; }
   window.addEventListener("hashchange", route);
