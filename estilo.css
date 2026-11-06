@@ -201,7 +201,10 @@ a.card-link:has(img):hover { text-decoration: none; }
 .see-more { font-weight: 700; font-size: .9rem; color: var(--coral); text-decoration: none; }
 .see-more:hover { text-decoration: underline; }
 .map-wrap { position: relative; border-radius: 20px; overflow: hidden; border: 1px solid var(--line); box-shadow: 0 2px 14px rgba(0, 0, 0, .08); }
-#cubaMap { height: clamp(340px, 52vw, 520px); width: 100%; background: #AAD3DF; z-index: 0; }
+#cubaMap { height: clamp(320px, 50vw, 520px); width: 100%; background: linear-gradient(180deg, #CFE9F4, #B7DCEC); z-index: 0; }
+#cubaMap.far .leaflet-tooltip.city-label { display: none; }
+.map-hint { color: var(--muted); font-weight: 500; margin-left: auto; }
+.leaflet-tooltip.prov-label { font-size: 11px; }
 .map-legend { display: flex; flex-wrap: wrap; gap: 8px 18px; padding: 10px 14px; background: var(--surface); border-top: 1px solid var(--line); font-size: .88rem; font-weight: 600; }
 .map-legend > span { display: inline-flex; align-items: center; gap: 8px; }
 .dot { width: 12px; height: 12px; border-radius: 50%; display: inline-block; border: 2px solid #fff; box-shadow: 0 0 0 1px rgba(0,0,0,.2); }
