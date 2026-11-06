@@ -5,7 +5,9 @@
   /* ---------- Configuración ----------
      url y key: los da Supabase (Project Settings > API). La "anon key" es pública, se puede poner aquí.
      whatsapp: número de ForeverCuba, solo dígitos con código de país. Ej: "5219991234567" */
-  FC.CONFIG = { url: "https://lqomoocnhunwreljczhd.supabase.co", key: "sb_publishable_WxclDke7-EPNZxl3PL2Qmw_uf5p3lGq", whatsapp: "" };
+  FC.CONFIG = { url: "https://lqomoocnhunwreljczhd.supabase.co", key: "sb_publishable_WxclDke7-EPNZxl3PL2Qmw_uf5p3lGq", whatsapp: "",
+    /* Redes sociales: pega aquí el enlace de cada perfil */
+    redes: { facebook: "", instagram: "", youtube: "" } };
 
   function U(id) { return "https://images.unsplash.com/" + id + "?w=1400&q=70&auto=format&fit=crop"; }
   FC.FALLBACK = "img/fachadas.jpg";
@@ -143,6 +145,12 @@
       .catch(function () { return ejemplos; });
     return cacheLug;
   };
+
+  /* Enlaces de redes sociales (arriba, antes de las banderas) */
+  document.querySelectorAll("a.red[data-red]").forEach(function (a) {
+    var u = FC.CONFIG.redes && FC.CONFIG.redes[a.getAttribute("data-red")];
+    if (u) a.href = u;
+  });
 
   /* ---------- Autos (del panel; si no hay, la página usa su lista de ejemplo) ---------- */
   var cacheAutos = null;
