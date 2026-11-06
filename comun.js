@@ -9,7 +9,9 @@
     /* Redes sociales: pega aquí el enlace de cada perfil */
     redes: { facebook: "", instagram: "", youtube: "" },
     /* Correo donde llegan las solicitudes enviadas por email */
-    email: "180dayan@gmail.com" };
+    email: "180dayan@gmail.com",
+    /* Clave de Web3Forms (gratis en web3forms.com) para que cada solicitud llegue al correo */
+    web3forms: "" };
 
   function U(id) { return "https://images.unsplash.com/" + id + "?w=1400&q=70&auto=format&fit=crop"; }
   FC.FALLBACK = "img/fachadas.jpg";
@@ -216,11 +218,18 @@
       method: "POST", headers: { apikey: FC.CONFIG.key, "Content-Type": "application/json", Prefer: "return=minimal" },
       body: JSON.stringify({ origen: d.origen, nombre: d.nombre || null, telefono: d.telefono || null, email: d.email || null, mensaje: d.mensaje })
     }).then(function (r) { if (!r.ok) throw new Error("db " + r.status); return true; }) : Promise.reject(new Error("sin base"));
-    var correo = fetch("https://formsubmit.co/ajax/" + encodeURIComponent(FC.CONFIG.email), {
-      method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" },
-      body: JSON.stringify({ _subject: d.asunto || "Nueva solicitud · ForeverCuba", _template: "box", _captcha: "false",
-        Nombre: d.nombre || "", "Teléfono": d.telefono || "", email: d.email || "", Solicitud: d.mensaje, Origen: d.origen + " · " + location.href.split("#")[0] })
-    }).then(function (r) { if (!r.ok) throw new Error("mail " + r.status); return r.json(); });
+    var datos = { Nombre: d.nombre || "", "Teléfono": d.telefono || "", Correo: d.email || "", Solicitud: d.mensaje, Origen: d.origen + " · " + location.href.split("#")[0] };
+    var ctl = window.AbortController ? new AbortController() : null;
+    if (ctl) setTimeout(function () { ctl.abort(); }, 12000);
+    var correo = FC.CONFIG.web3forms
+      ? fetch("https://api.web3forms.com/submit", {
+          method: "POST", signal: ctl && ctl.signal, headers: { "Content-Type": "application/json", Accept: "application/json" },
+          body: JSON.stringify(Object.assign({ access_key: FC.CONFIG.web3forms, subject: d.asunto || "Nueva solicitud · ForeverCuba", from_name: "ForeverCuba (página web)", replyto: d.email || undefined }, datos))
+        }).then(function (r) { return r.json(); }).then(function (x) { if (!x.success) throw new Error(x.message || "web3forms"); return x; })
+      : fetch("https://formsubmit.co/ajax/" + encodeURIComponent(FC.CONFIG.email), {
+          method: "POST", signal: ctl && ctl.signal, headers: { "Content-Type": "application/json", Accept: "application/json" },
+          body: JSON.stringify(Object.assign({ _subject: d.asunto || "Nueva solicitud · ForeverCuba", _template: "box", _captcha: "false", _replyto: d.email || "" }, datos))
+        }).then(function (r) { if (!r.ok) throw new Error("mail " + r.status); return r.json(); });
     /* Basta con que una de las dos funcione para que la solicitud no se pierda */
     return Promise.allSettled([guardar, correo]).then(function (res) {
       if (res[0].status === "fulfilled" || res[1].status === "fulfilled") return true;
