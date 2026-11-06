@@ -39,7 +39,7 @@
 </header>
 
 <main class="wrap" id="inicio">
-  <div class="hero">
+  <div class="hero home-only">
     <div>
       <p class="eyebrow" data-i18n="eyebrow">Renta, recorre y vuela</p>
       <h1 data-i18n="h1">Cuba entera, en un solo lugar.</h1>
@@ -52,7 +52,7 @@
     <div class="hero-photo"><img src="img/portada.jpg" data-i18n-alt="hero_alt" alt="Fachadas de colores y autos clásicos en el Paseo del Prado, La Habana"></div>
   </div>
 
-  <form class="search" id="searchForm">
+  <form class="search home-only" id="searchForm">
     <label for="sZona"><span data-i18n="s_where">Dónde</span>
       <select id="sZona"><option value="Todas" data-i18n="s_all">Toda Cuba</option></select>
     </label>
@@ -68,7 +68,7 @@
     <button class="btn primary" type="submit" data-i18n="s_btn">Buscar casas</button>
   </form>
 
-  <p class="sample" data-i18n="sample">Versión de muestra. Los nombres, precios y fotos de las casas son ejemplos de prueba, no propiedades reales.</p>
+  <p class="sample" id="sampleNote" data-i18n="sample">Versión de muestra. Los nombres, precios y fotos de las casas son ejemplos de prueba, no propiedades reales.</p>
 
   <section id="rentas">
     <div class="sec-head">
@@ -94,6 +94,19 @@
       <h2 data-i18n="cars_h2">Renta de autos</h2>
       <p data-i18n="cars_p">Muévete por Cuba a tu ritmo. Te entregamos el auto en el aeropuerto o en tu alojamiento.</p>
     </div>
+    <form class="car-bar" id="carForm">
+      <label for="cLoc"><span data-i18n="c_loc">Recogida en</span>
+        <select id="cLoc"></select>
+      </label>
+      <label for="cIn"><span data-i18n="c_in">Fecha de recogida</span><input id="cIn" type="date"></label>
+      <label for="cOut"><span data-i18n="c_out">Fecha de devolución</span><input id="cOut" type="date"></label>
+      <div class="chips" id="carChips" role="group">
+        <button type="button" class="chip" data-tr="all" aria-pressed="true" data-i18n="c_all">Todos</button>
+        <button type="button" class="chip" data-tr="manual" aria-pressed="false" data-i18n="manual">Manual</button>
+        <button type="button" class="chip" data-tr="auto" aria-pressed="false" data-i18n="auto">Automático</button>
+      </div>
+    </form>
+    <p class="car-note" data-i18n="c_note">Todos incluyen seguro, kilometraje ilimitado y aire acondicionado. Precios por día de referencia; te confirmamos el precio final y la disponibilidad por WhatsApp.</p>
     <div class="grid" id="carGrid"></div>
   </section>
 
@@ -374,28 +387,81 @@
   }
 
   var CX = {
-    es: { nav_cars: "Renta de autos", cars_h2: "Renta de autos", cars_p: "Muévete por Cuba a tu ritmo. Te entregamos el auto en el aeropuerto o en tu alojamiento.", per_day: "USD por día", l_car: "Auto", seats: "{n} personas", auto: "Automático", manual: "Manual", ac: "Aire acondicionado", driver: "Con chofer", bags: "{n} maletas" },
-    en: { nav_cars: "Car rental", cars_h2: "Car rental", cars_p: "Get around Cuba at your own pace. We deliver the car at the airport or at your stay.", per_day: "USD per day", l_car: "Car", seats: "{n} seats", auto: "Automatic", manual: "Manual", ac: "Air conditioning", driver: "With driver", bags: "{n} bags" },
-    fr: { nav_cars: "Location de voitures", cars_h2: "Location de voitures", cars_p: "Parcourez Cuba à votre rythme. Nous livrons la voiture à l'aéroport ou à votre logement.", per_day: "USD par jour", l_car: "Voiture", seats: "{n} places", auto: "Automatique", manual: "Manuelle", ac: "Climatisation", driver: "Avec chauffeur", bags: "{n} valises" }
+    es: { nav_cars: "Renta de autos", cars_h2: "Renta de autos", cars_p: "Muévete por Cuba a tu ritmo. Te entregamos el auto en el aeropuerto, en tu hotel o en tu casa.", per_day: "USD por día", l_car: "Auto", seats: "{n} personas", doors: "{n} puertas", bags: "{n} maletas", auto: "Automático", manual: "Manual", driver: "Con chofer",
+      c_loc: "Recogida en", c_in: "Fecha de recogida", c_out: "Fecha de devolución", c_all: "Todos", c_days1: "1 día", c_daysN: "{n} días", c_total: "Total", c_none: "No hay autos con ese filtro.",
+      c_note: "Todos incluyen seguro, kilometraje ilimitado y aire acondicionado. Precios por día de referencia; te confirmamos el precio final y la disponibilidad por WhatsApp.", c_pick: "recogida en {l}" },
+    en: { nav_cars: "Car rental", cars_h2: "Car rental", cars_p: "Get around Cuba at your own pace. We deliver the car at the airport, your hotel or your house.", per_day: "USD per day", l_car: "Car", seats: "{n} seats", doors: "{n} doors", bags: "{n} bags", auto: "Automatic", manual: "Manual", driver: "With driver",
+      c_loc: "Pick-up at", c_in: "Pick-up date", c_out: "Return date", c_all: "All", c_days1: "1 day", c_daysN: "{n} days", c_total: "Total", c_none: "No cars match this filter.",
+      c_note: "All include insurance, unlimited mileage and air conditioning. Reference daily prices; we confirm the final price and availability on WhatsApp.", c_pick: "pick-up at {l}" },
+    fr: { nav_cars: "Location de voitures", cars_h2: "Location de voitures", cars_p: "Parcourez Cuba à votre rythme. Nous livrons la voiture à l'aéroport, à votre hôtel ou à votre logement.", per_day: "USD par jour", l_car: "Voiture", seats: "{n} places", doors: "{n} portes", bags: "{n} valises", auto: "Automatique", manual: "Manuelle", driver: "Avec chauffeur",
+      c_loc: "Prise en charge à", c_in: "Date de prise en charge", c_out: "Date de retour", c_all: "Toutes", c_days1: "1 jour", c_daysN: "{n} jours", c_total: "Total", c_none: "Aucune voiture ne correspond à ce filtre.",
+      c_note: "Toutes incluent l'assurance, le kilométrage illimité et la climatisation. Prix journaliers indicatifs ; nous confirmons le prix final et la disponibilité sur WhatsApp.", c_pick: "prise en charge à {l}" }
   };
   Object.keys(CX).forEach(function (l) { Object.keys(CX[l]).forEach(function (k) { TX[l][k] = CX[l][k]; }); });
+  var CAR_LOCS = ["Aeropuerto de La Habana", "La Habana", "Varadero", "Viñales", "Cienfuegos", "Trinidad", "Santa Clara", "Cayo Coco", "Camagüey", "Holguín", "Santiago de Cuba"];
+  function CN(es, en, fr) { return { es: es, en: en, fr: fr }; }
   var AUTOS = [
-    { t: { es: "Auto clásico convertible", en: "Classic convertible", fr: "Décapotable ancienne" }, cat: { es: "Clásico", en: "Classic", fr: "Classique" }, n: 4, b: 2, f: ["driver", "manual"], p: 150, img: "auto-rojo" },
-    { t: { es: "Auto económico", en: "Economy car", fr: "Voiture économique" }, cat: { es: "Económico", en: "Economy", fr: "Économique" }, n: 4, b: 2, f: ["manual", "ac"], p: 60, img: "calle-auto", web: "photo-1764883318002-96cd4911bbd2" },
-    { t: { es: "SUV cómodo", en: "Comfortable SUV", fr: "SUV confortable" }, cat: { es: "SUV", en: "SUV", fr: "SUV" }, n: 5, b: 4, f: ["auto", "ac"], p: 95, img: "capitolio-auto", web: "photo-1661655335629-4056d80caa0a" },
-    { t: { es: "Minivan para grupos", en: "Minivan for groups", fr: "Minivan pour groupes" }, cat: { es: "Familiar", en: "Family", fr: "Familial" }, n: 7, b: 5, f: ["auto", "ac"], p: 120, img: "fachadas", web: "photo-1675311149330-ff19be4aa6be" }
+    { t: CN("Económico manual", "Economy manual", "Économique manuelle"), m: "Hyundai Grand i10, Kia Picanto", s: 4, d: 5, b: 3, tr: "manual", p: 80, img: "calle-auto", web: "photo-1628066961967-de52104e87a4" },
+    { t: CN("Económico automático", "Economy automatic", "Économique automatique"), m: "Hyundai Grand i10, Kia Picanto", s: 4, d: 5, b: 3, tr: "auto", p: 88, img: "calle-auto", web: "photo-1629005559534-e71542e2a24a" },
+    { t: CN("Medio manual", "Midsize manual", "Intermédiaire manuelle"), m: "Dongfeng Aeolus", s: 4, d: 4, b: 4, tr: "manual", p: 103, img: "capitolio-auto", web: "photo-1633359064754-804ba55e733f" },
+    { t: CN("Medio automático", "Midsize automatic", "Intermédiaire automatique"), m: "Dongfeng Aeolus, Hyundai Accent", s: 4, d: 4, b: 4, tr: "auto", p: 109, img: "capitolio-auto", web: "photo-1633359064754-804ba55e733f" },
+    { t: CN("Camioneta todoterreno 4x4", "4x4 pickup truck", "Pick-up tout-terrain 4x4"), m: "Dongfeng Rich 6", s: 5, d: 4, b: 5, tr: "manual", p: 140, img: "vinales", web: "photo-1551830820-330a71b99659" },
+    { t: CN("Jeep estándar automático", "Standard SUV automatic", "SUV standard automatique"), m: "Hyundai Cantus", s: 4, d: 5, b: 4, tr: "auto", p: 140, img: "fachadas", web: "photo-1575090536203-2a6193126514" },
+    { t: CN("Estándar (categoría C)", "Standard (category C)", "Standard (catégorie C)"), m: "Mercedes-Benz B180", s: 4, d: 5, b: 4, tr: "auto", p: 154, img: "fachadas", web: "photo-1615228939096-9ead6c74008e" },
+    { t: CN("Alto estándar (categoría D)", "Premium (category D)", "Supérieure (catégorie D)"), m: "Hyundai Elantra", s: 4, d: 5, b: 4, tr: "auto", p: 183, img: "fachadas", web: "photo-1645145214095-84fca73e0cc5" },
+    { t: CN("Jeep (categoría G)", "SUV (category G)", "SUV (catégorie G)"), m: "Hyundai Santa Fe", s: 4, d: 5, b: 4, tr: "auto", p: 224, img: "fachadas", web: "photo-1646728502468-06d9c7b3c2c2" },
+    { t: CN("Minivan (categoría H)", "Minivan (category H)", "Minivan (catégorie H)"), m: "Maxus G10", s: 6, d: 4, b: 5, tr: "auto", p: 292, img: "fachadas", web: "photo-1675311149330-ff19be4aa6be" },
+    { t: CN("Auto clásico convertible con chofer", "Classic convertible with driver", "Décapotable ancienne avec chauffeur"), m: "", s: 4, d: 2, b: 2, tr: "driver", p: 150, img: "auto-rojo" }
   ];
-  function drawCars() {
-    $("#carGrid").innerHTML = AUTOS.map(function (c, i) {
-      var name = c.t[lang];
-      var feats = ['<li>' + esc(T("seats", { n: c.n })) + '</li>', '<li>' + esc(T("bags", { n: c.b })) + '</li>'].concat(c.f.map(function (k) { return '<li>' + esc(T(k)) + '</li>'; })).join("");
-      return '<article class="card">' + foto(c.img, name, c.web) +
-        '<div class="body"><span class="tag">' + esc(c.cat[lang]) + '</span><h3>' + esc(name) + '</h3>' +
-        '<ul class="feats">' + feats + '</ul>' +
-        '<div class="price"><div><span>' + T("from") + '</span> <strong>$' + c.p + '</strong> <span>' + T("per_day") + '</span></div>' +
-        '<button type="button" class="btn small" data-add="c' + i + '"></button></div></div></article>';
-    }).join("");
+  var carTr = "all";
+  var CI = {
+    seat: '<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><circle cx="17" cy="9" r="2.5"/><path d="M16 14a5 5 0 0 1 6 5"/>',
+    door: '<path d="M5 21V4a1 1 0 0 1 1-1h9l4 5v13z"/><path d="M5 11h14M14 15h2"/>',
+    bag: '<rect x="4" y="7" width="16" height="13" rx="2"/><path d="M9 7V4h6v3"/>',
+    gear: '<circle cx="6" cy="6" r="2"/><circle cx="12" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="6" cy="18" r="2"/><circle cx="12" cy="18" r="2"/><path d="M6 8v8M12 8v8M18 8v4H6"/>'
+  };
+  function ci(k) { return '<svg viewBox="0 0 24 24" aria-hidden="true">' + CI[k] + '</svg>'; }
+  function carDays() {
+    var a = $("#cIn").value, b = $("#cOut").value;
+    if (!a || !b) return 0;
+    var d = Math.round((new Date(b) - new Date(a)) / 86400000);
+    return d > 0 ? d : 0;
   }
+  function carLabel(i) {
+    var c = AUTOS[i], days = carDays(), s = T("l_car") + ": " + c.t[lang] + (c.m ? " (" + c.m + ")" : "");
+    s += ", " + T("c_pick", { l: $("#cLoc").value });
+    if (days) s += ", " + $("#cIn").value + " → " + $("#cOut").value + " (" + (days === 1 ? T("c_days1") : T("c_daysN", { n: days })) + ")";
+    return s;
+  }
+  function drawCars() {
+    var loc = $("#cLoc"), keep = loc.value;
+    loc.innerHTML = CAR_LOCS.map(function (l) { return '<option>' + esc(l) + '</option>'; }).join("");
+    if (keep) loc.value = keep;
+    var days = carDays();
+    var list = AUTOS.map(function (c, i) { return [c, i]; }).filter(function (x) { return carTr === "all" || x[0].tr === carTr; });
+    $("#carGrid").innerHTML = list.map(function (x) {
+      var c = x[0], i = x[1], name = c.t[lang];
+      var feats = '<li>' + ci("seat") + esc(T("seats", { n: c.s })) + '</li>' + (c.tr !== "driver" ? '<li>' + ci("door") + esc(T("doors", { n: c.d })) + '</li>' : '') +
+        '<li>' + ci("bag") + esc(T("bags", { n: c.b })) + '</li><li>' + ci("gear") + esc(T(c.tr)) + '</li>';
+      return '<article class="card car">' + foto(c.img, name, c.web) +
+        '<div class="body"><h3>' + esc(name) + '</h3>' + (c.m ? '<p class="meta">' + esc(c.m) + ' ' + esc({ es: "o similar", en: "or similar", fr: "ou similaire" }[lang]) + '</p>' : '') +
+        '<ul class="feats car-feats">' + feats + '</ul>' +
+        '<div class="price"><div><strong>$' + c.p + '</strong> <span>' + T("per_day") + '</span>' +
+        (days ? '<div class="car-total">' + esc(T("c_total")) + ' ' + esc(days === 1 ? T("c_days1") : T("c_daysN", { n: days })) + ': <b>$' + (c.p * days) + '</b></div>' : '') + '</div>' +
+        '<button type="button" class="btn small" data-add="c' + i + '"></button></div></div></article>';
+    }).join("") || '<p class="meta">' + esc(T("c_none")) + '</p>';
+  }
+  $("#carChips").addEventListener("click", function (e) {
+    var b = e.target.closest(".chip"); if (!b) return;
+    carTr = b.getAttribute("data-tr");
+    document.querySelectorAll("#carChips .chip").forEach(function (c) { c.setAttribute("aria-pressed", c === b ? "true" : "false"); });
+    drawCars(); refresh();
+  });
+  ["#cLoc", "#cIn", "#cOut"].forEach(function (s) { $(s).addEventListener("change", function () {
+    if (s === "#cIn" && $("#cIn").value) { $("#cOut").min = $("#cIn").value; if ($("#cOut").value && $("#cOut").value <= $("#cIn").value) $("#cOut").value = ""; }
+    drawCars(); refresh();
+  }); });
+  $("#carForm").addEventListener("submit", function (e) { e.preventDefault(); });
 
   /* ---------- Ofertas (cada texto en es / en / fr) ---------- */
   var RENTAS = FC.EJEMPLOS.slice();
@@ -461,7 +527,7 @@
     var n = +it.slice(1);
     if (it[0] === "t") return T("l_tour") + ": " + TOURS[n].t[lang];
     if (it[0] === "v") return "VIP: " + VIP[n].t[lang];
-    if (it[0] === "c") return T("l_car") + ": " + AUTOS[n].t[lang];
+    if (it[0] === "c") return carLabel(n);
     var p = PAQUETES[n]; return T("l_pack") + ": " + p.t[lang] + " (" + p.d + " " + T("days") + ")";
   }
   function isSel(k) { return sel.some(function (it) { return itemKey(it) === k; }); }
@@ -566,7 +632,7 @@
     else if (a) $("#rFechas").value = T("since", { a: fecha(a) });
     $("#rPers").value = $("#sPers").value;
     refresh();
-    $("#rentas").scrollIntoView({ behavior: "smooth" });
+    go("rentas");
   });
 
   /* ---------- Tours y paquetes ---------- */
@@ -604,7 +670,7 @@
     var it = { f: { rt: roundTrip, o: $("#fOrigen").value.trim(), d: $("#fDestino").value, i: $("#fIda").value, v: $("#fVuelta").value, p: $("#fPax").value } };
     if (!isSel(itemKey(it))) sel.push(it);
     refresh();
-    $("#solicitud").scrollIntoView({ behavior: "smooth" });
+    go("solicitud");
   });
   setTrip(true);
 
@@ -700,9 +766,9 @@
       var city = CIUDADES.filter(function (x) { return x[0] === c.getAttribute("data-map-city"); })[0];
       var match = RENTAS.filter(function (r) { return (city[4] || []).indexOf(r.ciudad) >= 0; })[0];
       if (match) { $("#zona").value = (city[4].length > 1) ? "Todas" : match.ciudad; drawRentas(); refresh(); }
-      $("#rentas").scrollIntoView({ behavior: "smooth" });
+      go("rentas");
     }
-    if (f) { $("#fDestino").value = f.getAttribute("data-map-fly"); $("#vuelos").scrollIntoView({ behavior: "smooth" }); }
+    if (f) { $("#fDestino").value = f.getAttribute("data-map-fly"); go("vuelos"); }
   });
 
   /* ---------- Aplicar idioma ---------- */
@@ -724,6 +790,23 @@
   });
 
   applyLang(lang);
+
+  /* ---------- Menú: cada opción muestra solo su sección ---------- */
+  var VIEWS = { rentas: ["rentas", "sampleNote"], autos: ["autos"], tours: ["tours"], paquetes: ["paquetes"], vuelos: ["vuelos", "mapa"],
+    mapa: ["mapa"], provincias: ["provincias", "mapa"], vip: ["vip"], solicitud: ["solicitud"] };
+  function route() {
+    var v = location.hash.slice(1), show = VIEWS[v];
+    document.querySelectorAll(".home-only").forEach(function (el) { el.hidden = !!show; });
+    document.querySelectorAll("main > section, #sampleNote").forEach(function (el) { el.hidden = show ? show.indexOf(el.id) < 0 : false; });
+    document.querySelectorAll("header.top nav a").forEach(function (a) {
+      if (show && a.getAttribute("href") === "#" + v) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current");
+    });
+    if (show) window.scrollTo(0, 0);
+    if (cubaMap && !$("#mapa").hidden) setTimeout(function () { cubaMap.invalidateSize(); cubaMap.fitBounds([[19.75, -85.0], [23.3, -74.1]]); }, 0);
+  }
+  function go(id) { if (location.hash === "#" + id) route(); else location.hash = id; }
+  window.addEventListener("hashchange", route);
+  route();
 
   /* Propiedades reales del panel (si ya está conectado) */
   if (FC.conectado()) {
