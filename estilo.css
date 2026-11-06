@@ -268,3 +268,8 @@ h1, h2 { text-transform: uppercase; letter-spacing: .01em; }
 @media (max-width: 600px) { .forever-bar .fbar-sub { display: none; } .forever-bar a { font-size: .8rem; letter-spacing: .1em; } }
 @media (max-width: 800px) { .forever-bar { position: sticky; top: 0; z-index: 11; } }
 header.top .forever-bar .wrap { justify-content: center; flex-wrap: nowrap; padding-block: 0; }
+/* Franja Forever: degradado atardecer (opción 6) */
+.forever-bar { background: linear-gradient(90deg, #E31C5F, #F07B3F, #F0B429); border-top: 0; }
+.forever-bar a { color: #FFFFFF; }
+.forever-bar svg { fill: #FFFFFF; }
+.forever-bar .fbar-sub { color: #FFF3E0; }
