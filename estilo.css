@@ -294,3 +294,4 @@ header.top .forever-bar nav a { padding: 9px 0; font-size: .9rem; letter-spacing
 @media (max-width: 600px) { .forever-bar .fbar-sep { display: none; } }
 .forever-bar .fbar-links svg { fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 .forever-bar .fbar-links a[href="lugares.html"] svg { fill: currentColor; stroke: none; }
+@media (min-width: 601px) and (max-width: 1100px) { header.top .forever-bar nav a { font-size: .78rem; letter-spacing: .08em; } .forever-bar .fbar-links { gap: 0 14px; } }
