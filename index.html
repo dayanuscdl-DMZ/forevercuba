@@ -30,6 +30,7 @@
       <a href="#tours" data-i18n="nav_tours">Tours</a>
       <a href="#paquetes" data-i18n="nav_pack">Paquetes</a>
       <a href="#vuelos" data-i18n="nav_fly">Vuelos</a>
+      <a href="#provincias" data-i18n="nav_prov">Provincias</a>
       <a href="#vip" class="nav-vip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3 6.1 20.6l1.3-6.6L2.5 9.4l6.6-.8z"/></svg><span data-i18n="nav_vip">Servicio VIP</span></a>
       <button type="button" class="theme-btn" id="themeBtn"></button>
       <a class="cta" href="#solicitud"><span data-i18n="nav_req">Mi solicitud</span> (<span id="navCount">0</span>)</a>
@@ -171,6 +172,14 @@
     </div>
   </section>
 
+  <section id="provincias">
+    <div class="sec-head">
+      <h2 data-i18n="prov_h2">Explora Cuba por provincias</h2>
+      <p data-i18n="prov_p">Historia, lugares para visitar y fotos de cada rincón de la isla.</p>
+    </div>
+    <div class="prov-grid" id="provGrid"></div>
+  </section>
+
   <section id="vip" class="vip">
     <div class="vip-inner">
       <div class="sec-head">
@@ -227,6 +236,7 @@
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="comun.js"></script>
+<script src="provincias-info.js"></script>
 <script>
 (function () {
   // Cambia este número por el WhatsApp de ForeverCuba (solo dígitos, con código de país). Ej: "5219991234567"
@@ -327,9 +337,9 @@
   };
 
   var VX = {
-    es: { nav_vip: "Servicio VIP", map_h2: "Mapa de Cuba", map_p: "Las 15 provincias, el municipio especial Isla de la Juventud y las ciudades y playas donde te podemos ayudar. Toca un punto para ver más.", map_air: "Aeropuerto internacional", map_city: "Ciudad o playa", map_hint: "Usa + para acercar y ver los nombres de las ciudades", map_houses: "Ver casas aquí", map_fly: "Volar aquí", vip_kicker: "ForeverCuba VIP", vip_h2: "Servicio VIP", vip_p: "Viaja sin preocuparte de nada. Atención personal antes y durante tu viaje, con servicios privados a tu medida.", quote: "Precio a consultar" },
-    en: { nav_vip: "VIP service", map_h2: "Map of Cuba", map_p: "The 15 provinces, the special municipality of Isla de la Juventud, and the cities and beaches where we can help. Tap a point to see more.", map_air: "International airport", map_city: "City or beach", map_hint: "Zoom in with + to see city names", map_houses: "See stays here", map_fly: "Fly here", vip_kicker: "ForeverCuba VIP", vip_h2: "VIP service", vip_p: "Travel without a worry. Personal attention before and during your trip, with private services tailored to you.", quote: "Price on request" },
-    fr: { nav_vip: "Service VIP", map_h2: "Carte de Cuba", map_p: "Les 15 provinces, la municipalité spéciale de l'île de la Jeunesse, et les villes et plages où nous pouvons vous aider. Touchez un point pour en savoir plus.", map_air: "Aéroport international", map_city: "Ville ou plage", map_hint: "Zoomez avec + pour voir le nom des villes", map_houses: "Voir les logements ici", map_fly: "Prendre un vol ici", vip_kicker: "ForeverCuba VIP", vip_h2: "Service VIP", vip_p: "Voyagez l'esprit tranquille. Une attention personnelle avant et pendant votre voyage, avec des services privés sur mesure.", quote: "Prix sur demande" }
+    es: { nav_vip: "Servicio VIP", nav_prov: "Provincias", prov_h2: "Explora Cuba por provincias", prov_p: "Historia, lugares para visitar y fotos de cada rincón de la isla.", prov_more: "Conocer", prov_cap: "Capital", map_h2: "Mapa de Cuba", map_p: "Las 15 provincias, el municipio especial Isla de la Juventud y las ciudades y playas donde te podemos ayudar. Toca un punto para ver más.", map_air: "Aeropuerto internacional", map_city: "Ciudad o playa", map_hint: "Usa + para acercar y ver los nombres de las ciudades", map_houses: "Ver casas aquí", map_fly: "Volar aquí", vip_kicker: "ForeverCuba VIP", vip_h2: "Servicio VIP", vip_p: "Viaja sin preocuparte de nada. Atención personal antes y durante tu viaje, con servicios privados a tu medida.", quote: "Precio a consultar" },
+    en: { nav_vip: "VIP service", nav_prov: "Provinces", prov_h2: "Explore Cuba by province", prov_p: "History, places to visit and photos from every corner of the island.", prov_more: "Discover", prov_cap: "Capital", map_h2: "Map of Cuba", map_p: "The 15 provinces, the special municipality of Isla de la Juventud, and the cities and beaches where we can help. Tap a point to see more.", map_air: "International airport", map_city: "City or beach", map_hint: "Zoom in with + to see city names", map_houses: "See stays here", map_fly: "Fly here", vip_kicker: "ForeverCuba VIP", vip_h2: "VIP service", vip_p: "Travel without a worry. Personal attention before and during your trip, with private services tailored to you.", quote: "Price on request" },
+    fr: { nav_vip: "Service VIP", nav_prov: "Provinces", prov_h2: "Explorez Cuba par province", prov_p: "Histoire, lieux à visiter et photos de chaque coin de l'île.", prov_more: "Découvrir", prov_cap: "Chef-lieu", map_h2: "Carte de Cuba", map_p: "Les 15 provinces, la municipalité spéciale de l'île de la Jeunesse, et les villes et plages où nous pouvons vous aider. Touchez un point pour en savoir plus.", map_air: "Aéroport international", map_city: "Ville ou plage", map_hint: "Zoomez avec + pour voir le nom des villes", map_houses: "Voir les logements ici", map_fly: "Prendre un vol ici", vip_kicker: "ForeverCuba VIP", vip_h2: "Service VIP", vip_p: "Voyagez l'esprit tranquille. Une attention personnelle avant et pendant votre voyage, avec des services privés sur mesure.", quote: "Prix sur demande" }
   };
   Object.keys(VX).forEach(function (l) { Object.keys(VX[l]).forEach(function (k) { TX[l][k] = VX[l][k]; }); });
   var ICONS = {
@@ -618,6 +628,18 @@
   tb.addEventListener("click", function () { setTheme(root.getAttribute("data-theme") === "dark" ? "light" : "dark"); });
 
 
+
+  /* ---------- Provincias ---------- */
+  function drawProvs() {
+    var P = window.FC_PROV || [];
+    $("#provGrid").innerHTML = P.map(function (p) {
+      var L_ = p[lang] || p.es, href = "provincia.html?p=" + p.s;
+      var pic = p.fotos.length ? '<img src="' + esc(p.fotos[0]) + '" alt="' + esc(p.n) + '" loading="lazy" onerror="this.remove()">' : '';
+      return '<a class="prov-card" href="' + href + '"><div class="prov-pic">' + pic + '<span>' + esc(p.n) + '</span></div>' +
+        '<div class="prov-body"><p class="meta">' + esc(T("prov_cap")) + ': ' + esc(p.cap) + '</p><p>' + esc(L_.lead) + '</p><span class="see-more">' + esc(T("prov_more")) + ' ' + esc(p.n) + ' →</span></div></a>';
+    }).join("");
+  }
+
   /* ---------- Mapa de Cuba ---------- */
   var CIUDADES = [
     ["La Habana", 23.1136, -82.3666, "HAV", ["Habana Vieja", "Centro Habana", "Vedado", "Miramar", "Playa", "La Habana"]],
@@ -657,6 +679,7 @@
           onEachFeature: function (f, layer) {
             layer.on("mouseover", function () { layer.setStyle({ fillOpacity: 0.75 }); });
             layer.on("mouseout", function () { layer.setStyle({ fillOpacity: 0.95 }); });
+            layer.on("click", function () { var o = (window.FC_PROV || []).filter(function (x) { return x.geo === f.properties.n; })[0]; if (o) location.href = "provincia.html?p=" + o.s; });
             L.tooltip({ permanent: true, direction: "center", className: "prov-label", interactive: false })
               .setLatLng([f.properties.lat, f.properties.lng]).setContent(f.properties.n).addTo(cubaMap);
           }
@@ -692,7 +715,7 @@
     document.querySelectorAll("[data-i18n-alt]").forEach(function (el) { el.setAttribute("alt", T(el.getAttribute("data-i18n-alt"))); });
     document.querySelectorAll(".lang").forEach(function (b) { b.setAttribute("aria-pressed", b.getAttribute("data-lang") === lang ? "true" : "false"); });
     paintThemeBtn();
-    drawRentas(); drawCars(); drawTours(); drawPacks(); drawVip(); drawMap();
+    drawRentas(); drawCars(); drawTours(); drawPacks(); drawVip(); drawMap(); drawProvs();
     $("#status").textContent = "";
     refresh();
   }

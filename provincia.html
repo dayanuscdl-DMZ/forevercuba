@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="es" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Provincias de Cuba · ForeverCuba</title>
+<meta name="description" content="ForeverCuba: historia, lugares para visitar y fotos de cada provincia de Cuba.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" href="estilo.css">
+<style>
+.back { display: inline-flex; align-items: center; gap: 6px; margin-top: 22px; font-weight: 700; color: var(--fg); text-decoration: none; }
+.back:hover { text-decoration: underline; }
+.pv-hero { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 32px; align-items: center; margin-top: 14px; }
+.pv-hero h1 { font-size: clamp(2.2rem, 5.5vw, 3.6rem); letter-spacing: -.03em; line-height: 1.05; margin-block: 8px 10px; }
+.pv-cap { color: var(--muted); font-weight: 600; margin-bottom: 14px; }
+.pv-lead { font-size: 1.15rem; max-width: 46ch; }
+.pv-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+#pvMap { height: 280px; border-radius: 20px; border: 1px solid var(--line); background: linear-gradient(180deg, #CFE9F4, #B7DCEC); z-index: 0; }
+.pv-photos { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); gap: 10px; margin-top: 8px; }
+.pv-photos button { padding: 0; border: 0; border-radius: 14px; overflow: hidden; cursor: zoom-in; background: var(--teal-soft); }
+.pv-photos img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; display: block; transition: transform .3s; }
+.pv-photos button:hover img { transform: scale(1.03); }
+.pv-photos button:first-child { grid-column: span 2; }
+.pv-photos button:first-child img { aspect-ratio: 16 / 9; height: 100%; }
+.pv-text { max-width: 70ch; font-size: 1.05rem; line-height: 1.7; }
+.places { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 14px; }
+.place { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 18px; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 4px 14px; }
+.place svg { grid-row: span 2; width: 26px; height: 26px; fill: none; stroke: var(--coral); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; margin-top: 2px; }
+.place h3 { font-size: 1.05rem; }
+.place p { color: var(--muted); font-size: .95rem; }
+.testi { border: 2px dashed var(--line); border-radius: 20px; padding: clamp(20px, 4vw, 36px); display: grid; gap: 12px; justify-items: start; background: var(--surface); }
+.testi .cam { width: 48px; height: 48px; border-radius: 14px; background: var(--teal-soft); display: grid; place-items: center; }
+.testi .cam svg { width: 26px; height: 26px; fill: none; stroke: var(--coral); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.testi h3 { font-size: 1.2rem; }
+.testi p { color: var(--muted); max-width: 60ch; }
+.chips-pv { display: flex; flex-wrap: wrap; gap: 8px; }
+.chips-pv a { text-decoration: none; font-weight: 600; font-size: .9rem; padding: 7px 14px; border-radius: 999px; border: 1.5px solid var(--line); color: var(--fg); background: var(--surface); }
+.chips-pv a:hover { border-color: var(--fg); }
+.chips-pv a[aria-current="page"] { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+.pv-nav { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-top: 18px; }
+.no-photos { color: var(--muted); padding: 18px; border-radius: 14px; background: var(--teal-soft); }
+.leaflet-tooltip.prov-label { background: transparent; border: 0; box-shadow: none; color: #6B3E4D; font: 800 10px/1.1 "Figtree", system-ui, sans-serif; letter-spacing: .08em; text-transform: uppercase; text-shadow: 0 0 3px #fff, 0 0 3px #fff; }
+.leaflet-tooltip.prov-label::before { display: none; }
+.lb { position: fixed; inset: 0; z-index: 50; background: rgba(0, 0, 0, .92); display: grid; grid-template-rows: auto 1fr; padding: max(12px, env(safe-area-inset-top, 0px)) max(12px, env(safe-area-inset-right, 0px)) max(12px, env(safe-area-inset-bottom, 0px)) max(12px, env(safe-area-inset-left, 0px)); }
+.lb-top { display: flex; justify-content: space-between; align-items: center; color: #fff; font-weight: 700; }
+.lb-mid { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; min-height: 0; gap: 8px; }
+.lb-mid > div { height: 100%; min-height: 0; display: flex; }
+.lb img { max-width: 100%; max-height: 100%; object-fit: contain; margin: auto; display: block; min-height: 0; }
+.lb button { font: inherit; font-weight: 700; color: #fff; background: rgba(255, 255, 255, .14); border: 0; border-radius: 999px; width: 46px; height: 46px; cursor: pointer; font-size: 1.3rem; }
+.lb .close { width: auto; padding: 0 16px; font-size: 1rem; }
+@media (max-width: 800px) {
+  .pv-hero { grid-template-columns: minmax(0, 1fr); }
+  #pvMap { height: 220px; }
+  .pv-photos button:first-child { grid-column: auto; }
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="topbar"><div class="wrap topbar-in">
+    <div class="langs" role="group" aria-label="Idioma / Language / Langue">
+      <button type="button" class="lang" data-lang="es" aria-label="Español"><svg viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="20" fill="#AA151B"/><rect y="5" width="30" height="10" fill="#F1BF00"/></svg></button>
+      <button type="button" class="lang" data-lang="en" aria-label="English"><svg viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="20" fill="#FFFFFF"/><g fill="#B22234"><rect y="0" width="30" height="1.54"/><rect y="3.08" width="30" height="1.54"/><rect y="6.15" width="30" height="1.54"/><rect y="9.23" width="30" height="1.54"/><rect y="12.31" width="30" height="1.54"/><rect y="15.38" width="30" height="1.54"/><rect y="18.46" width="30" height="1.54"/></g><rect width="12" height="10.77" fill="#3C3B6E"/><g fill="#FFFFFF"><circle cx="2.4" cy="2.2" r=".7"/><circle cx="6" cy="2.2" r=".7"/><circle cx="9.6" cy="2.2" r=".7"/><circle cx="4.2" cy="5.4" r=".7"/><circle cx="7.8" cy="5.4" r=".7"/><circle cx="2.4" cy="8.6" r=".7"/><circle cx="6" cy="8.6" r=".7"/><circle cx="9.6" cy="8.6" r=".7"/></g></svg></button>
+      <button type="button" class="lang" data-lang="fr" aria-label="Français"><svg viewBox="0 0 30 20" aria-hidden="true"><rect width="10" height="20" fill="#002395"/><rect x="10" width="10" height="20" fill="#FFFFFF"/><rect x="20" width="10" height="20" fill="#ED2939"/></svg></button>
+    </div>
+  </div></div>
+  <div class="wrap">
+    <a class="brand" href="index.html"><svg class="cuba-map" viewBox="-1 0 109 36" aria-hidden="true"><path d="M0.5 14.4 L6.0 13.0 L11.0 11.0 L16.0 7.5 L22.0 5.5 L26.5 1.5 L34.0 2.0 L38.0 1.5 L44.0 3.0 L50.0 4.0 L57.0 7.0 L64.0 9.0 L72.0 14.0 L78.0 16.5 L85.0 20.5 L93.0 22.0 L100.0 26.0 L107.0 30.5 L105.0 32.5 L98.0 34.0 L92.0 33.5 L85.0 34.0 L78.0 34.2 L73.0 34.5 L76.0 30.0 L79.0 27.0 L72.0 26.0 L67.0 21.0 L62.0 17.5 L54.0 16.0 L46.0 15.0 L41.0 12.5 L35.0 11.5 L31.0 10.0 L27.0 7.5 L20.0 10.5 L14.0 13.0 L7.0 15.0Z"/><ellipse cx="22" cy="17" rx="3.6" ry="2.4"/></svg><span class="word">Forever<span>Cuba</span></span></a>
+    <nav aria-label="Menu">
+      <a href="index.html#rentas" data-i18n="nav_rent">Casas y apartamentos</a>
+      <a href="index.html#autos" data-i18n="nav_cars">Renta de autos</a>
+      <a href="index.html#tours" data-i18n="nav_tours">Tours</a>
+      <a href="index.html#paquetes" data-i18n="nav_pack">Paquetes</a>
+      <a href="index.html#vuelos" data-i18n="nav_fly">Vuelos</a>
+      <a href="index.html#provincias" data-i18n="nav_prov">Provincias</a>
+      <a href="index.html#vip" class="nav-vip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3 6.1 20.6l1.3-6.6L2.5 9.4l6.6-.8z"/></svg><span data-i18n="nav_vip">Servicio VIP</span></a>
+      <button type="button" class="theme-btn" id="themeBtn"></button>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap" id="page"><p class="meta" style="padding-block:60px">…</p></main>
+
+<div class="lb" id="lb" hidden>
+  <div class="lb-top"><span id="lbCount"></span><button type="button" class="close" id="lbClose" data-i18n="close">Cerrar</button></div>
+  <div class="lb-mid"><button type="button" id="lbPrev" aria-label="←">‹</button><div><img id="lbImg" alt=""></div><button type="button" id="lbNext" aria-label="→">›</button></div>
+</div>
+
+<footer class="wrap">
+  <a class="brand" href="index.html"><svg class="cuba-map" viewBox="-1 0 109 36" aria-hidden="true"><path d="M0.5 14.4 L6.0 13.0 L11.0 11.0 L16.0 7.5 L22.0 5.5 L26.5 1.5 L34.0 2.0 L38.0 1.5 L44.0 3.0 L50.0 4.0 L57.0 7.0 L64.0 9.0 L72.0 14.0 L78.0 16.5 L85.0 20.5 L93.0 22.0 L100.0 26.0 L107.0 30.5 L105.0 32.5 L98.0 34.0 L92.0 33.5 L85.0 34.0 L78.0 34.2 L73.0 34.5 L76.0 30.0 L79.0 27.0 L72.0 26.0 L67.0 21.0 L62.0 17.5 L54.0 16.0 L46.0 15.0 L41.0 12.5 L35.0 11.5 L31.0 10.0 L27.0 7.5 L20.0 10.5 L14.0 13.0 L7.0 15.0Z"/><ellipse cx="22" cy="17" rx="3.6" ry="2.4"/></svg><span class="word">Forever<span>Cuba</span></span></a>
+  <p data-i18n="foot">Rentas, tours, paquetes y vuelos a Cuba.</p>
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="comun.js"></script>
+<script src="provincias-info.js"></script>
+<script>
+(function () {
+  var TX = {
+    es: { nav_rent: "Casas y apartamentos", nav_cars: "Renta de autos", nav_tours: "Tours", nav_pack: "Paquetes", nav_fly: "Vuelos", nav_prov: "Provincias", nav_vip: "Servicio VIP",
+      night: "Noche", day: "Día", to_night: "Cambiar a modo noche", to_day: "Cambiar a modo día", foot: "Rentas, tours, paquetes y vuelos a Cuba.", close: "Cerrar",
+      back: "Todas las provincias", prov: "Provincia", special: "Municipio especial", capital: "Capital", see_houses: "Ver casas y apartamentos", plan: "Planear mi viaje aquí",
+      photos_h: "Fotos", no_photos: "Muy pronto agregaremos fotos de {p}.", hist_h: "Un poco de historia", places_h: "Lugares para visitar",
+      testi_h: "Fotos de nuestros viajeros", testi_t: "Pronto verás aquí a clientes de ForeverCuba disfrutando {p}.", testi_p: "¿Viajaste con nosotros? Mándanos tus fotos por WhatsApp y las compartimos aquí.", testi_btn: "Enviar mis fotos",
+      others_h: "Otras provincias", prev: "Anterior", next: "Siguiente", nf: "No encontramos esa provincia.",
+      m_plan: "Hola ForeverCuba, quiero planear un viaje a {p}.", m_photos: "Hola ForeverCuba, quiero compartir mis fotos de mi viaje a {p}." },
+    en: { nav_rent: "Houses & apartments", nav_cars: "Car rental", nav_tours: "Tours", nav_pack: "Packages", nav_fly: "Flights", nav_prov: "Provinces", nav_vip: "VIP service",
+      night: "Night", day: "Day", to_night: "Switch to night mode", to_day: "Switch to day mode", foot: "Stays, tours, packages and flights to Cuba.", close: "Close",
+      back: "All provinces", prov: "Province", special: "Special municipality", capital: "Capital", see_houses: "See houses & apartments", plan: "Plan my trip here",
+      photos_h: "Photos", no_photos: "We'll add photos of {p} very soon.", hist_h: "A bit of history", places_h: "Places to visit",
+      testi_h: "Photos from our travelers", testi_t: "Soon you'll see ForeverCuba guests enjoying {p} here.", testi_p: "Did you travel with us? Send us your photos on WhatsApp and we'll share them here.", testi_btn: "Send my photos",
+      others_h: "Other provinces", prev: "Previous", next: "Next", nf: "We couldn't find that province.",
+      m_plan: "Hi ForeverCuba, I'd like to plan a trip to {p}.", m_photos: "Hi ForeverCuba, I'd like to share photos from my trip to {p}." },
+    fr: { nav_rent: "Maisons et appartements", nav_cars: "Location de voitures", nav_tours: "Excursions", nav_pack: "Forfaits", nav_fly: "Vols", nav_prov: "Provinces", nav_vip: "Service VIP",
+      night: "Nuit", day: "Jour", to_night: "Passer en mode nuit", to_day: "Passer en mode jour", foot: "Logements, excursions, forfaits et vols vers Cuba.", close: "Fermer",
+      back: "Toutes les provinces", prov: "Province", special: "Municipalité spéciale", capital: "Chef-lieu", see_houses: "Voir les logements", plan: "Organiser mon voyage ici",
+      photos_h: "Photos", no_photos: "Nous ajouterons très bientôt des photos de {p}.", hist_h: "Un peu d'histoire", places_h: "Lieux à visiter",
+      testi_h: "Photos de nos voyageurs", testi_t: "Bientôt, vous verrez ici des clients de ForeverCuba profiter de {p}.", testi_p: "Vous avez voyagé avec nous ? Envoyez-nous vos photos sur WhatsApp et nous les partagerons ici.", testi_btn: "Envoyer mes photos",
+      others_h: "Autres provinces", prev: "Précédente", next: "Suivante", nf: "Province introuvable.",
+      m_plan: "Bonjour ForeverCuba, je souhaite organiser un voyage à {p}.", m_photos: "Bonjour ForeverCuba, je souhaite partager les photos de mon voyage à {p}." }
+  };
+  var lang = FC.idioma(), esc = FC.esc, P = window.FC_PROV, prov = null, lbIndex = 0, pvMap = null;
+  function $(s) { return document.querySelector(s); }
+  function T(k, v) { var s = (TX[lang] && TX[lang][k]) || TX.es[k] || k; if (v) Object.keys(v).forEach(function (x) { s = s.replace("{" + x + "}", v[x]); }); return s; }
+  function wa(text) { return (FC.CONFIG.whatsapp ? "https://wa.me/" + FC.CONFIG.whatsapp : "https://wa.me/") + "?text=" + encodeURIComponent(text); }
+  var PIN = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.5s6.5-6 6.5-11.5a6.5 6.5 0 0 0-13 0c0 5.5 6.5 11.5 6.5 11.5z"/><circle cx="12" cy="10" r="2.4"/></svg>';
+  var CAM = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8h3.5L8 5.5h8L17.5 8H21v11H3z"/><circle cx="12" cy="13" r="3.5"/></svg>';
+
+  function render() {
+    var page = $("#page");
+    if (!prov) { page.innerHTML = '<div style="padding-block:80px;display:grid;gap:14px;justify-items:start"><h1>' + esc(T("nf")) + '</h1><a class="btn primary" href="index.html#provincias">' + esc(T("back")) + '</a></div>'; return; }
+    var p = prov, L_ = p[lang] || p.es, i = P.indexOf(p), prev = P[(i - 1 + P.length) % P.length], next = P[(i + 1) % P.length];
+    document.title = p.n + " · ForeverCuba";
+    var isSpecial = p.s === "isla-de-la-juventud";
+    var photos = p.fotos.length ? '<div class="pv-photos">' + p.fotos.map(function (f, k) {
+      return '<button type="button" data-ph="' + k + '"><img src="' + esc(f) + '" alt="' + esc(p.n + ", Cuba") + '" loading="' + (k < 2 ? "eager" : "lazy") + '" onerror="this.closest(\'button\').remove()"></button>';
+    }).join("") + '</div>' : '<p class="no-photos">' + esc(T("no_photos", { p: p.n })) + '</p>';
+    page.innerHTML =
+      '<a class="back" href="index.html#provincias">← ' + esc(T("back")) + '</a>' +
+      '<div class="pv-hero"><div>' +
+        '<p class="eyebrow">' + esc(isSpecial ? T("special") : T("prov")) + '</p>' +
+        '<h1>' + esc(p.n) + '</h1><p class="pv-cap">' + esc(T("capital")) + ': ' + esc(p.cap) + '</p>' +
+        '<p class="pv-lead">' + esc(L_.lead) + '</p>' +
+        '<div class="pv-actions"><a class="btn primary" href="index.html#rentas">' + esc(T("see_houses")) + '</a>' +
+        '<a class="btn" target="_blank" rel="noopener" href="' + wa(T("m_plan", { p: p.n })) + '">' + esc(T("plan")) + '</a></div>' +
+      '</div><div id="pvMap" role="img" aria-label="' + esc(p.n) + '"></div></div>' +
+      '<section><div class="sec-head"><h2>' + esc(T("photos_h")) + '</h2></div>' + photos + '</section>' +
+      '<section><div class="sec-head"><h2>' + esc(T("hist_h")) + '</h2></div><p class="pv-text">' + esc(L_.hist) + '</p></section>' +
+      '<section><div class="sec-head"><h2>' + esc(T("places_h")) + '</h2></div><div class="places">' + L_.lug.map(function (l) {
+        return '<article class="place">' + PIN + '<h3>' + esc(l[0]) + '</h3><p>' + esc(l[1]) + '</p></article>';
+      }).join("") + '</div></section>' +
+      '<section><div class="sec-head"><h2>' + esc(T("testi_h")) + '</h2></div><div class="testi"><span class="cam">' + CAM + '</span>' +
+        '<h3>' + esc(T("testi_t", { p: p.n })) + '</h3><p>' + esc(T("testi_p")) + '</p>' +
+        '<a class="btn" target="_blank" rel="noopener" href="' + wa(T("m_photos", { p: p.n })) + '">' + esc(T("testi_btn")) + '</a></div></section>' +
+      '<section><div class="sec-head"><h2>' + esc(T("others_h")) + '</h2></div><nav class="chips-pv" aria-label="' + esc(T("others_h")) + '">' + P.map(function (o) {
+        return '<a href="provincia.html?p=' + o.s + '"' + (o === p ? ' aria-current="page"' : '') + '>' + esc(o.n) + '</a>';
+      }).join("") + '</nav><div class="pv-nav"><a class="btn small" href="provincia.html?p=' + prev.s + '">← ' + esc(prev.n) + '</a><a class="btn small" href="provincia.html?p=' + next.s + '">' + esc(next.n) + ' →</a></div></section>';
+    drawMap();
+  }
+
+  function drawMap() {
+    if (!window.L) return;
+    if (pvMap) { pvMap.remove(); pvMap = null; }
+    pvMap = L.map("pvMap", { zoomControl: false, attributionControl: false, dragging: false, scrollWheelZoom: false, doubleClickZoom: false, boxZoom: false, keyboard: false, touchZoom: false, zoomSnap: 0.1 });
+    pvMap.fitBounds([[19.75, -85.0], [23.3, -74.1]]);
+    fetch("provincias.json").then(function (r) { return r.json(); }).then(function (geo) {
+      var mine = null;
+      L.geoJSON(geo, {
+        style: function (f) { var on = f.properties.n === prov.geo; return { color: "#FFFFFF", weight: 1.2, fillColor: on ? "#E31C5F" : "#E7E1DA", fillOpacity: on ? 1 : 0.95 }; },
+        onEachFeature: function (f, layer) {
+          if (f.properties.n === prov.geo) mine = f;
+          layer.on("click", function () { var o = P.filter(function (x) { return x.geo === f.properties.n; })[0]; if (o) location.href = "provincia.html?p=" + o.s; });
+        }
+      }).addTo(pvMap);
+      if (mine) L.tooltip({ permanent: true, direction: "top", className: "prov-label", offset: [0, -4] }).setLatLng([mine.properties.lat, mine.properties.lng]).setContent(prov.n).addTo(pvMap);
+    }).catch(function () {});
+  }
+
+  /* Visor de fotos */
+  function openLb(i) { lbIndex = i; $("#lb").hidden = false; document.body.style.overflow = "hidden"; showLb(); }
+  function closeLb() { $("#lb").hidden = true; document.body.style.overflow = ""; }
+  function showLb() { var f = prov.fotos; lbIndex = (lbIndex + f.length) % f.length; $("#lbImg").src = f[lbIndex]; $("#lbImg").alt = prov.n; $("#lbCount").textContent = (lbIndex + 1) + " / " + f.length; }
+  document.addEventListener("click", function (e) { var b = e.target.closest("[data-ph]"); if (b) openLb(+b.getAttribute("data-ph")); });
+  $("#lbClose").addEventListener("click", closeLb);
+  $("#lbPrev").addEventListener("click", function () { lbIndex--; showLb(); });
+  $("#lbNext").addEventListener("click", function () { lbIndex++; showLb(); });
+  document.addEventListener("keydown", function (e) { if ($("#lb").hidden) return; if (e.key === "Escape") closeLb(); else if (e.key === "ArrowLeft") { lbIndex--; showLb(); } else if (e.key === "ArrowRight") { lbIndex++; showLb(); } });
+
+  /* Día / Noche */
+  var root = document.documentElement, tb = $("#themeBtn");
+  var MOON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>';
+  var SUN = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>';
+  function paintTheme() { var d = root.getAttribute("data-theme") === "dark"; tb.innerHTML = d ? SUN + " " + esc(T("day")) : MOON + " " + esc(T("night")); tb.setAttribute("aria-label", d ? T("to_day") : T("to_night")); }
+  function setTheme(t) { root.setAttribute("data-theme", t); paintTheme(); try { localStorage.setItem("fc-theme", t); } catch (e) {} }
+  var st = "light"; try { st = localStorage.getItem("fc-theme") || "light"; } catch (e) {}
+  setTheme(st === "dark" ? "dark" : "light");
+  tb.addEventListener("click", function () { setTheme(root.getAttribute("data-theme") === "dark" ? "light" : "dark"); });
+
+  /* Idioma */
+  function applyLang(l) {
+    lang = TX[l] ? l : "es"; root.setAttribute("lang", lang); FC.guardarIdioma(lang);
+    document.querySelectorAll("[data-i18n]").forEach(function (el) { el.textContent = T(el.getAttribute("data-i18n")); });
+    document.querySelectorAll(".lang").forEach(function (b) { b.setAttribute("aria-pressed", b.getAttribute("data-lang") === lang ? "true" : "false"); });
+    paintTheme(); render();
+  }
+  document.querySelectorAll(".lang").forEach(function (b) { b.addEventListener("click", function () { applyLang(b.getAttribute("data-lang")); }); });
+
+  var slug = new URLSearchParams(location.search).get("p") || "la-habana";
+  prov = P.filter(function (x) { return x.s === slug; })[0] || null;
+  applyLang(lang);
+})();
+</script>
+</body>
+</html>
